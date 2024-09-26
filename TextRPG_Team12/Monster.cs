@@ -7,11 +7,15 @@ namespace TextRPG_Team12
 
 
         public string Name { get; }
-        public int Level { get; }
+        public int Level { get; set; }
         public int Health { get; set; }
-        public int AttackPower { get; set; }
+        public float AttackPower { get; set; }
 
-        public bool IsDead { get; set; }
+        public bool IsDead => Health <= 0;
+
+        public int Exp { get; set; }
+
+
 
         public void TakeDamage(int damage, string EnemyName)
         {
@@ -23,12 +27,16 @@ namespace TextRPG_Team12
 
         }
 
-        public Monster(string name, int level, int health) {
+        
+        public Monster(string name, int level, int health)
+        {
 
 
+            //초기 기본 스텟
             Level = level;
             Name = name;
             Health = health;
+            Exp = level; 
 
 
         }
