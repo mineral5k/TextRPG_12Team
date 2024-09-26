@@ -4,7 +4,7 @@
     {
 
         public static readonly int[] LevelUpExp = {0, 10, 35, 65, 100};
-        public static readonly int[] MaxMana = {10, 20, 30, 40, 50 };
+     
 
 
         public string Name { get; }
