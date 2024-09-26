@@ -13,12 +13,14 @@ namespace TextRPG_Team12
 
         string Name { get; }
 
-        int Level { get; }
+        int Level { get; set; }
         int Health { get; set; }
 
-        int AttackPower { get; set; }
+        float AttackPower { get; set; }
 
-        bool IsDead { get; set; }
+        bool IsDead { get; }
+
+        int Exp { get; set; }
 
 
         public void TakeDamage(int damage, string EnemyName);
