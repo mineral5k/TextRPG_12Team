@@ -76,10 +76,6 @@ namespace TextRPG_Team12
         //public static void ExitGame()
         //{
         //    Console.WriteLine("게임을 종료합니다.");
-            
-        }
     }
 
 
-       
-}
