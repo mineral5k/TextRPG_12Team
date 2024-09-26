@@ -8,14 +8,10 @@ namespace TextRPG_Team12
 {
      public class Job
     {
-        public string JobName { get; set; }
         public int JobHealth { get; set; }
         public int JobMana { get; set; }
-        public int JobAttackPower { get; set; }
-        public int JobAmorDeffense { get; set; }
-        public string JobSkillName1 { get; set; }
-        public string JobSkillName2 { get; set; }
-        public string JobSkillName3 { get; set; }
+        public int JobAttack { get; set; }
+        public int JobDeffense { get; set; }
 
         public virtual void JobSkill_1()
         {
@@ -36,15 +32,16 @@ namespace TextRPG_Team12
 
      public class Worrior : Job
     {
-       
+        public string JobSkillName1 { get; set; }
+        public string JobSkillName2 { get; set; }
+        public string JobSkillName3 { get; set; }
 
-       public Worrior()
+       Worrior()
         {
-            JobName = "전사";
             JobHealth = 0;
             JobMana = 0;
-            JobAttackPower = 0;
-            JobAmorDeffense = 0;
+            JobAttack = 0;
+            JobDeffense = 0;
             JobSkillName1 = "";
             JobSkillName2 = "";
             JobSkillName3 = "";
@@ -71,15 +68,16 @@ namespace TextRPG_Team12
 
     public class Archer : Job
     {
-      
+        public string JobSkillName1 { get; set; }
+        public string JobSkillName2 { get; set; }
+        public string JobSkillName3 { get; set; }
 
-        public Archer()
+         Archer()
         {
-            JobName = "궁수";
             JobHealth = 0;
             JobMana = 0;
-            JobAttackPower = 0;
-            JobAmorDeffense = 0;
+            JobAttack = 0;
+            JobDeffense = 0;
             JobSkillName1 = "";
             JobSkillName2 = "";
             JobSkillName3 = "";
@@ -106,15 +104,16 @@ namespace TextRPG_Team12
 
     public class Thief : Job
     {
-     
+        public string JobSkillName1 { get; set; }
+        public string JobSkillName2 { get; set; }
+        public string JobSkillName3 { get; set; }
 
-        public Thief()
+        Thief()
         {
-            JobName = "도적";
             JobHealth = 0;
             JobMana = 0;
-            JobAttackPower = 0;
-            JobAmorDeffense = 0;
+            JobAttack = 0;
+            JobDeffense = 0;
             JobSkillName1 = "";
             JobSkillName2 = "";
             JobSkillName3 = "";
@@ -139,15 +138,16 @@ namespace TextRPG_Team12
 
         public class Mage : Job
         {
-      
+            public string JobSkillName1 { get; set; }
+            public string JobSkillName2 { get; set; }
+            public string JobSkillName3 { get; set; }
 
-            public Mage()
+            Mage()
             {
-                JobName = "마법사";
                 JobHealth = 0;
                 JobMana = 0;
-                JobAttackPower = 0;
-                JobAmorDeffense = 0;
+                JobAttack = 0;
+                JobDeffense = 0;
                 JobSkillName1 = "";
                 JobSkillName2 = "";
                 JobSkillName3 = "";
@@ -172,5 +172,9 @@ namespace TextRPG_Team12
 
         }
 
-    }
+
+
+
+
+
 }
