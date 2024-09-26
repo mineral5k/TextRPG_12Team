@@ -8,6 +8,7 @@ namespace TextRPG_Team12
 {
      public class Job
     {
+        public string JobName { get; set; }
         public int JobHealth { get; set; }
         public int JobMana { get; set; }
         public int JobAttackPower { get; set; }
@@ -39,6 +40,7 @@ namespace TextRPG_Team12
 
        public Worrior()
         {
+            JobName = "전사";
             JobHealth = 0;
             JobMana = 0;
             JobAttackPower = 0;
@@ -73,6 +75,7 @@ namespace TextRPG_Team12
 
         public Archer()
         {
+            JobName = "궁수";
             JobHealth = 0;
             JobMana = 0;
             JobAttackPower = 0;
@@ -107,6 +110,7 @@ namespace TextRPG_Team12
 
         public Thief()
         {
+            JobName = "도적";
             JobHealth = 0;
             JobMana = 0;
             JobAttackPower = 0;
@@ -139,6 +143,7 @@ namespace TextRPG_Team12
 
             public Mage()
             {
+                JobName = "마법사";
                 JobHealth = 0;
                 JobMana = 0;
                 JobAttackPower = 0;
