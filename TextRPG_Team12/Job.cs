@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TextRPG_Team12
 {
-     public class Job
+    public class Job
     {
         public int JobHealth { get; set; }
         public int JobMana { get; set; }
@@ -30,13 +30,13 @@ namespace TextRPG_Team12
 
     }
 
-     public class Worrior : Job
+    public class Worrior : Job
     {
         public string JobSkillName1 { get; set; }
         public string JobSkillName2 { get; set; }
         public string JobSkillName3 { get; set; }
 
-       Worrior()
+        Worrior()
         {
             JobHealth = 0;
             JobMana = 0;
@@ -72,7 +72,7 @@ namespace TextRPG_Team12
         public string JobSkillName2 { get; set; }
         public string JobSkillName3 { get; set; }
 
-         Archer()
+        Archer()
         {
             JobHealth = 0;
             JobMana = 0;
@@ -177,4 +177,5 @@ namespace TextRPG_Team12
 
 
 
+    }
 }
