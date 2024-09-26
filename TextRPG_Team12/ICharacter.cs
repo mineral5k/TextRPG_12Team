@@ -10,54 +10,20 @@ namespace TextRPG_Team12
     public interface ICharacter
     {
 
-        
-        
+
         string Name { get; }
 
-        int level { get; }
+        int Level { get; }
         int Health { get; set; }
+
         int AttackPower { get; set; }
 
-
-        public void TakeDamage() {
-
-            int a;
-        
-        }
-
-    }
+        bool IsDead { get; set; }
 
 
-    public class Player : ICharacter
-    {
+        public void TakeDamage(int damage, string EnemyName);
 
-        public string Name { get; }
-        public int level { get; }
-        public int Health { get; set; }
-        public int AttackPower { get; set; }
-
-        public void TakeDamage()
-        { 
-        
-        
-        
-        }
-
-
-    }
-
-
-    public class Monster : ICharacter
-    {
      
-
-       
-        public string Name { get; }
-        public int level { get; }
-        public int Health { get; set; }
-        public int AttackPower { get; set; }
-
-  
 
 
 
