@@ -2,7 +2,7 @@
 
 namespace TextRPG_Team12
 {
-    public class Player : ICharacter
+    public class Player : Character
     {
 
         public static readonly int[] LevelUpExp = { 0, 10, 35, 65, 100 };
@@ -13,22 +13,16 @@ namespace TextRPG_Team12
 
         Job job = new Job();
 
-        public int Level { get; set; }
-        public int Health { get; set; }
-
+  
         public int Gold { get; set; }
-
-        public int AttackPower { get; set; }
 
         public int AmorDefense { get; set; }
 
         public int WeaponStat { get; set; }
+
         public int AmorStat {get; set; }
 
     
-
-        public bool IsDead => Health <= 0;
-
         public int Exp { get; set;}
 
         public int Mana { get; set;}
@@ -36,18 +30,6 @@ namespace TextRPG_Team12
         public int MaxMana { get; set; }
 
        
-
-
-        public void TakeDamage(int damage, string EnemyName)
-        {
-
-            Health -= damage;
-            if (IsDead) Console.WriteLine($"{Name}이(가) {EnemyName}(으)로 부터 데미지를 받아 죽었습니다.");
-            else Console.WriteLine($"{Name}이(가) {EnemyName}(으)로 부터 {damage}의 데미지를 받았습니다. 남은 체력: {Health}");
-
-
-        }
-
 
         public void PlayerInfo()
         {
