@@ -36,7 +36,11 @@ namespace TextRPG_Team12
         public string JobSkillName2 { get; set; }
         public string JobSkillName3 { get; set; }
 
+<<<<<<< HEAD
         Worrior()
+=======
+       Worrior()
+>>>>>>> parent of 282e1f0 (Merge branch 'dev' into ChoiEojin)
         {
             JobHealth = 0;
             JobMana = 0;
@@ -72,7 +76,11 @@ namespace TextRPG_Team12
         public string JobSkillName2 { get; set; }
         public string JobSkillName3 { get; set; }
 
+<<<<<<< HEAD
         Archer()
+=======
+         Archer()
+>>>>>>> parent of 282e1f0 (Merge branch 'dev' into ChoiEojin)
         {
             JobHealth = 0;
             JobMana = 0;
@@ -177,5 +185,9 @@ namespace TextRPG_Team12
 
 
 
+<<<<<<< HEAD
     }
 }
+=======
+}
+>>>>>>> parent of 282e1f0 (Merge branch 'dev' into ChoiEojin)
