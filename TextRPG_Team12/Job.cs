@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TextRPG_Team12
 {
-     public class Job
+    public class Job
     {
         public string JobName { get; set; }
         public int JobHealth { get; set; }
@@ -39,11 +39,11 @@ namespace TextRPG_Team12
 
     }
 
-     public class Worrior : Job
+    public class Worrior : Job
     {
-       
 
-       public Worrior()
+
+        public Worrior()
         {
             JobName = "전사";
             JobHealth = 0;
@@ -80,7 +80,7 @@ namespace TextRPG_Team12
 
     public class Archer : Job
     {
-      
+
 
         public Archer()
         {
@@ -115,7 +115,7 @@ namespace TextRPG_Team12
 
     public class Thief : Job
     {
-     
+
 
         public Thief()
         {
@@ -145,41 +145,41 @@ namespace TextRPG_Team12
         {
 
         }
+    }
+    public class Mage : Job
+    {
 
-        public class Mage : Job
+
+        public Mage()
         {
-      
-
-            public Mage()
-            {
-                JobName = "마법사";
-                JobHealth = 0;
-                JobMana = 0;
-                JobAttackPower = 0;
-                JobAmorDeffense = 0;
-                JobSkillName1 = "";
-                JobSkillName2 = "";
-                JobSkillName3 = "";
-            }
+            JobName = "마법사";
+            JobHealth = 0;
+            JobMana = 0;
+            JobAttackPower = 0;
+            JobAmorDeffense = 0;
+            JobSkillName1 = "";
+            JobSkillName2 = "";
+            JobSkillName3 = "";
+        }
 
 
 
-            public override void JobSkill_1()
-            {
+        public override void JobSkill_1()
+        {
 
-            }
+        }
 
-            public override void JobSkill_2()
-            {
+        public override void JobSkill_2()
+        {
 
-            }
+        }
 
-            public override void JobSkill_3()
-            {
-
-            }
+        public override void JobSkill_3()
+        {
 
         }
 
     }
+
+
 }
