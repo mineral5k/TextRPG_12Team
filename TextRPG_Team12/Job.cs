@@ -52,17 +52,17 @@ namespace TextRPG_Team12
 
 
 
-        public void JobSkill_1()
+        public override void JobSkill_1()
         {
 
         }
 
-        public void JobSkill_2()
+        public override void JobSkill_2()
         {
 
         }
 
-        public void JobSkill_3()
+        public override void JobSkill_3()
         {
 
         }
@@ -80,24 +80,24 @@ namespace TextRPG_Team12
             JobMana = 0;
             JobAttackPower = 0;
             JobAmorDeffense = 0;
-            JobSkillName1 = "";
-            JobSkillName2 = "";
-            JobSkillName3 = "";
+            JobSkillName1 = " ";
+            JobSkillName2 = " ";
+            JobSkillName3 = " ";
         }
 
 
 
-        public void JobSkill_1()
+        public override void JobSkill_1()
         {
 
         }
 
-        public void JobSkill_2()
+        public override void JobSkill_2()
         {
 
         }
 
-        public void JobSkill_3()
+        public override void JobSkill_3()
         {
 
         }
@@ -122,17 +122,17 @@ namespace TextRPG_Team12
 
 
 
-        public void JobSkill_1()
+        public override void JobSkill_1()
         {
 
         }
 
-        public void JobSkill_2()
+        public override void JobSkill_2()
         {
 
         }
 
-        public void JobSkill_3()
+        public override void JobSkill_3()
         {
 
         }
@@ -155,17 +155,17 @@ namespace TextRPG_Team12
 
 
 
-            public void JobSkill_1()
+            public override void JobSkill_1()
             {
 
             }
 
-            public void JobSkill_2()
+            public override void JobSkill_2()
             {
 
             }
 
-            public void JobSkill_3()
+            public override void JobSkill_3()
             {
 
             }
