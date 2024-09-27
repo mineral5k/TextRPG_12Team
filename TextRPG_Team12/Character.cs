@@ -29,14 +29,22 @@ namespace TextRPG_Team12
 
 
 
-        public void TakeDamage(int damage, string EnemyName)
+        public void TakeDamage(int damage)
         {
 
             Health -= damage;
             if (IsDead) Console.WriteLine($"{Name}이(가) 죽었습니다.");
-            else Console.WriteLine($"{Name}이(가) {EnemyName}(으)로 부터 {damage}의 데미지를 받았습니다. 남은 체력: {Health}");
+            else Console.WriteLine($"{Name}이(가) {damage}의 데미지를 받았습니다. 남은 체력: {Health}");
 
+        }
 
+        public void Attack(Character character)
+        {
+            int r = (AttackPower % 10 == 0) ? (AttackPower / 10) : (AttackPower / 10 + 1);
+            int damage = new Random().Next(AttackPower - r, AttackPower + r + 1);
+
+            Console.WriteLine($"{Name}의 공격!");
+            character.TakeDamage(damage);
         }
 
 
