@@ -54,20 +54,23 @@ namespace TextRPG_Team12
             // 상태보기
             public static void ShowStatus()
             {
-               // 플레이어 상태를 출력하는 코드
-               Console.WriteLine("플레이어 상태를 출력합니다...");
-               // 이후 startScene()으로 돌아가기
-               startScene();
+                Console.Clear();
+                // 플레이어 상태를 출력하는 코드
+                Console.WriteLine("플레이어 상태를 출력합니다...");
+
+
             }
 
         
             // 인벤토리
             public static void Inventory()
             {
+
+               Console.Clear();
                // 인벤토리 내용을 출력하고 관리하는 코드
                Console.WriteLine("인벤토리를 출력합니다...");
-               // 이후 startScene()으로 돌아가기
-               startScene();
+
+       
             }
 
        

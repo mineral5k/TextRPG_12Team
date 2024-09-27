@@ -2,7 +2,7 @@
 {
     internal class Program
     {
-        private static Equipment[] EquipmentDb;
+        public static Equipment[] EquipmentDb;
 
         static void Main(string[] args)
         {
@@ -60,10 +60,126 @@
             new Equipment("장군의 창", "전설 속 장군이 사용했다는 창입니다.", 0, 7, 2500, EquipmentType.Weapon)
             };
         }
+
+
+
+        public static void MainScene(Player player)
+        {
+
+
+            while (true)
+            {
+
+                village(player);
+
+                //플레이어 입력을 받음
+                int choice = Num.Sel(4);
+
+                // 입력 값을 정수로 변환
+
+                switch (choice)
+                {
+                    case 1:
+                        ShowStatus(player); // 상태 보기 기능 호출
+                        break;
+                    case 2:
+                        Inventory(player); // 인벤토리 기능 호출
+                        break;
+                    case 3:
+                        Shop(player); // 상점 기능 호출
+                        break;
+                    case 4:
+
+                        break;
+                    case 0:
+                        ExitGame(player); // 게임 종료 기능 호출
+                        break;
+
+                }
+
+            }
+       
+        }
+
+
+        public static void village(Player player)
+        {
+
+            Console.Clear();
+            Console.WriteLine("스파르타 마을에 오신 것을 환영합니다.");
+            Console.WriteLine("\n1. 상태보기");
+            Console.WriteLine("2. 인벤토리");
+            Console.WriteLine("3. 상점");
+            Console.WriteLine("4. 던전 입장");
+            Console.WriteLine("0. 나가기");
+
+
+        }
+
+
+        // 상태보기
+        public static void ShowStatus(Player player)
+        {
+            Console.Clear();
+            // 플레이어 상태를 출력하는 코드
+            Console.WriteLine("플레이어 상태를 출력합니다...");
+
+            player.ShowStatus();
+            Num.Sel(0);
+
+
+        }
+
+
+        // 인벤토리
+        public static void Inventory(Player player)
+        {
+
+            Console.Clear();
+            // 인벤토리 내용을 출력하고 관리하는 코드
+            Console.WriteLine("인벤토리를 출력합니다...");
+
+            player.ShowInventory(false) ;
+
+
+            Num.Sel(0);
+
+        }
+
+
+        // 상점
+        public static void Shop(Player player)
+        {
+            // 상점에서 아이템을 구매하는 코드
+            Console.WriteLine("상점을 출력합니다...");
+            
+
+
+            Num.Sel(EquipmentDb.Length);
+        }
+
+
+        // 게임 종료
+        public static void ExitGame(Player player)
+        {
+            Console.WriteLine("게임을 종료합니다.");
+            Thread.Sleep(5000);
+            Environment.Exit(0);
+        }
     }
 
-    static public class Num
-    {
+
+
+
+}
+
+    
+
+  
+          
+
+static public class Num
+{
         static public int Sel(int x)                    // 0~x 까지의 선택지를 선택하는 메서드
         {
             int a = 0;
@@ -98,8 +214,8 @@
             return a;                                //입력받은 값 반환
 
         }
-    }
-
-
-
 }
+
+
+
+
