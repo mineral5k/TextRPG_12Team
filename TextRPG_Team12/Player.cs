@@ -11,7 +11,7 @@ namespace TextRPG_Team12
 
         public string Name { get; }
 
-        Job job = new Job();
+        public string Job { get; set; }
 
         public int Level { get; set; }
         public int Health { get; set; }
@@ -46,16 +46,17 @@ namespace TextRPG_Team12
 
 
 
-        public Player(string name, Job inputJob)
-        {
+        public Player(string name, string job, int JobHealth, int JobAmorDefense, int JobAttackPower, int JobMana) {
+
+            // 초기 기본 스텟 설정 
             Name = name;
-            job = inputJob;  
+            Job = job;  
+            Health = JobHealth;
             Level = 1;
+            Mana = JobMana;
+            AmorDefense = JobAmorDefense;
+            AttackPower = JobAttackPower;
             Gold = 1500;
-            Health = 100 +job.JobHealth;
-            Mana = 50 + job.JobMana;
-            AttackPower = 10 +job.JobAttackPower;
-            AmorDefense = 5 + job.JobAmorDeffense;
 
         }
 
