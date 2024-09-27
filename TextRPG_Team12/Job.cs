@@ -150,6 +150,7 @@ namespace TextRPG_Team12
         public string JobSkillName3 { get; set; }
 
         Thief()
+        public Thief()
         {
             JobHealth = 0;
             JobMana = 0;
@@ -199,6 +200,7 @@ namespace TextRPG_Team12
             public string JobSkillName3 { get; set; }
 
             Mage()
+            public Mage()
             {
                 JobHealth = 0;
                 JobMana = 0;
