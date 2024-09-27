@@ -2,7 +2,7 @@
 
 namespace TextRPG_Team12
 {
-    public class Monster : ICharacter
+    public class Monster : Character
     {
 
         public enum MonsterType { goblin , Trol, dragon }
@@ -13,7 +13,7 @@ namespace TextRPG_Team12
         public string Name { get; }
         public int Level { get; set; }
         public int Health { get; set; }
-        public float AttackPower { get; set; }
+        public int AttackPower { get; set; }
 
         public bool IsDead => Health <= 0;
 
@@ -21,15 +21,6 @@ namespace TextRPG_Team12
 
 
 
-        public void TakeDamage(int damage, string EnemyName)
-        {
-
-            Health -= damage;
-            if (IsDead) Console.WriteLine($"{Name}이(가) 죽었습니다.");
-            else Console.WriteLine($"{Name}이(가) {EnemyName}(으)로 부터 {damage}의 데미지를 받았습니다. 남은 체력: {Health}");
-
-
-        }
 
         
         public Monster(int level, int health)
@@ -49,5 +40,26 @@ namespace TextRPG_Team12
 
 
 
+    }
+
+
+    public class Golbin { 
+    
+    
+    
+    
+    }
+
+    public class Dragon { 
+    
+    
+
+    }
+
+
+    public class Trol { 
+    
+    
+    
     }
 }
