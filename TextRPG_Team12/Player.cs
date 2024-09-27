@@ -59,8 +59,25 @@ namespace TextRPG_Team12
 
         }
 
+        public void ShowStatus()
+        {
+            Console.Clear();
+            Console.WriteLine();
+            Console.WriteLine($"이름: {Name}");
+            Console.WriteLine($"LV : {Level}");
+            Console.WriteLine($"직업 : {job.JobName}");
+            Console.WriteLine($"공격력 : {AttackPower}");
+            Console.WriteLine($"방어력 : {AmorDefense}");
+            Console.WriteLine($"체력: {Health}");
+            Console.WriteLine($"GOLD: {Gold}");
+            Console.WriteLine();
+            Console.WriteLine($"0. 나가기");
 
-        
+
+        }
+
+
+
         public void GetExp(int EnemyExp)
         {
 
