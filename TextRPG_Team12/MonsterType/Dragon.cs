@@ -10,6 +10,7 @@ namespace TextRPG_Team12
 
             Name = "드래곤";
             Health = 100; // 임의 지정
+            AttackPower = 3 * Level; 
             
         }
 

@@ -10,7 +10,7 @@ namespace TextRPG_Team12
         {
             Name = "트롤";
             Health = 100; // 
-
+            AttackPower = 1 * Level;
 
         }
 

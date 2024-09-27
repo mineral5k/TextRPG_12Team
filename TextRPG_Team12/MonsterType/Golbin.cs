@@ -10,9 +10,8 @@
         {
 
             Name = "고블린";
-
             Health = 100; // 
-
+            AttackPower = 2 * Level;
 
         }
 

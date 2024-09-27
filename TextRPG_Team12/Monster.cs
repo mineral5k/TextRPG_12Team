@@ -7,9 +7,9 @@ namespace TextRPG_Team12
     {
 
 
-        public void MonsterLevel(int level)
+        public void MonsterLevel(int Stagelevel)
         {
-            Level = level;
+            Level = Stagelevel;
 
         }
 
