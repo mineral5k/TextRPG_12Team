@@ -115,7 +115,7 @@ namespace TextRPG_Team12
             // 속사 : 한 명의 적에게 공격력의 0.5배로 3회 공격
             // 공격 대상 선택 구현 ?
             // 타수마다 치명타가 존재하면 ?
-            // 데미지를 최종 데미지 표기 방식
+            // 최종 데미지 표기 방식 확인 부탁드립니다 
             int damage = (int)(JobAttackPower * 0.5);
 
             for (int i = 0; i < 3; i++)
