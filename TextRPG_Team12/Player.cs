@@ -8,7 +8,7 @@ namespace TextRPG_Team12
         public static readonly int[] LevelUpExp = { 0, 10, 35, 65, 100 };
 
 
-        Job job = new Job();
+        public Job job ;
 
   
         public int Gold { get; set; }
