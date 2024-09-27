@@ -5,6 +5,10 @@ namespace TextRPG_Team12
     public class Monster : ICharacter
     {
 
+        public enum MonsterType { goblin , Trol, dragon }
+        public MonsterType[] monsterName;
+
+
 
         public string Name { get; }
         public int Level { get; set; }
@@ -28,13 +32,15 @@ namespace TextRPG_Team12
         }
 
         
-        public Monster(string name, int level, int health)
+        public Monster(int level, int health)
         {
 
 
-            //초기 기본 스텟
+            Random ran = new Random();
+            int MonsterName = ran.Next(monsterName.Length);
+ 
             Level = level;
-            Name = name;
+            Name = monsterName[MonsterName].ToString();
             Health = health;
             Exp = level; 
 
