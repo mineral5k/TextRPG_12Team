@@ -6,7 +6,7 @@
 
         static void Main(string[] args)
         {
-            Player player;
+            Player player = null;
             Console.WriteLine("사용하실 닉네임을 입력하세요.");
             string name = Console.ReadLine();
 
@@ -43,7 +43,7 @@
                 }
             }
             while (repeat);
-            StartScene.startScene();
+            MainScene(player);
         }
 
 
