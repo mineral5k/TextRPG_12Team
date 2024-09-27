@@ -57,7 +57,7 @@ namespace TextRPG_Team12
 
             }
             else
-            {
+            { 
                 character.TakeDamage(damage);
 
             }

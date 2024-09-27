@@ -7,7 +7,6 @@ namespace TextRPG_Team12
 
         public static readonly int[] LevelUpExp = { 0, 10, 35, 65, 100 };
 
-
         private static List<Equipment> Inventory = new List<Equipment>();
         private static List<Equipment> EquipList = new List<Equipment>();
 
@@ -67,7 +66,10 @@ namespace TextRPG_Team12
 
         public void ShowInventory(bool showIdx)
         {
-            for (int i = 0; i < Inventory.Count; i++)
+
+            Console.Clear();
+
+            for (int i = 0; i < Inventory.Count;  i++)
             {
                 Equipment targetInventory = Inventory[i];
 
@@ -75,9 +77,10 @@ namespace TextRPG_Team12
                 string displayEquipped = IsEquipped(targetInventory) ? "[E]" : "";
                 Console.WriteLine($"- {displayIdx}{displayEquipped} {targetInventory.EquipmentStatText()}");
 
+          
             }
 
-  
+            Console.WriteLine($"0. 나가기");
         }
 
 
@@ -105,6 +108,8 @@ namespace TextRPG_Team12
 
         public void EquipItem(Equipment EquipItem)
         {
+
+
             if (IsEquipped(EquipItem))
             {
                 EquipList.Remove(EquipItem);
