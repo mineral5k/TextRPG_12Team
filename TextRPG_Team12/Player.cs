@@ -9,7 +9,6 @@ namespace TextRPG_Team12
 
 
 
-        public string Name { get; }
 
         Job job = new Job();
 
@@ -28,21 +27,7 @@ namespace TextRPG_Team12
         public int Mana { get; set;}
 
         public int MaxMana { get; set; }
-
-       
-
-        public void PlayerInfo()
-        {
-
-            Console.WriteLine();
-            Console.WriteLine();
-            Console.WriteLine();
-            Console.WriteLine();
-            Console.WriteLine();
-            Console.WriteLine();
-
-        }
-
+   
 
 
         public Player(string name, Job inputJob)
