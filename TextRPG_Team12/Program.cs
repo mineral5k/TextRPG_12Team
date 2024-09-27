@@ -6,6 +6,7 @@
 
         static void Main(string[] args)
         {
+            Player player;
             Console.WriteLine("사용하실 닉네임을 입력하세요.");
             string name = Console.ReadLine();
 
@@ -13,26 +14,36 @@
             Console.WriteLine("1. 전사 2. 궁수 3. 도적 4. 마법사");
 
 
-            // int jobChoice = GetInput();
-
+            bool repeat = false;
             // 번호 받아서 직업으로 배정  
-            string job = Console.ReadLine();
+            do
+            {
+                repeat = false;
 
+                int choice = Num.Sel(4);
+                switch (choice)
+                {
 
-
-            EquipmentData();
-
-            //테스트용 플레이어 인스턴스 생성 및 인벤토리 확인용
-
-            if (job != null) ;
-            Worrior worrior = new Worrior();
-            Player player = new Player(name, worrior);
-            MainScene(player);
-
-            //테스트용 플레이어 인스턴스 생성 및 인벤토리 확인용
-
-            Console.WriteLine();
-
+                    case 0:
+                        Console.WriteLine("잘못된 입력입니다");
+                        repeat = true;
+                        break;
+                    case 1:
+                        player = new Player(name, new Worrior());
+                        break;
+                    case 2:
+                        player = new Player(name, new Archer());
+                        break;
+                    case 3:
+                        player = new Player(name, new Thief());
+                        break;
+                    case 4:
+                        player = new Player(name, new Mage());
+                        break;
+                }
+            }
+            while (repeat);
+            StartScene.startScene();
         }
 
 

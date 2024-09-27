@@ -32,7 +32,7 @@ namespace TextRPG_Team12
                            Shop(); // 상점 기능 호출
                            break;
                        case 4:
-                          
+                           ;
                            break;
                        case 0:
                            ExitGame(); // 게임 종료 기능 호출
