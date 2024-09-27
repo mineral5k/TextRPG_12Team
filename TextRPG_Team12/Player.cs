@@ -1,22 +1,27 @@
-﻿namespace TextRPG_Team12
+﻿using System.Reflection.Metadata;
+
+namespace TextRPG_Team12
 {
     public class Player : ICharacter
     {
 
-        public static readonly int[] LevelUpExp = {0, 10, 35, 65, 100};
-     
+        public static readonly int[] LevelUpExp = { 0, 10, 35, 65, 100 };
+
 
 
         public string Name { get; }
 
-        public string Job{ get; set;}
+        public string Job { get; set; }
 
         public int Level { get; set; }
         public int Health { get; set; }
-        
+
         public int Gold { get; set; }
-        
+
         public float AttackPower { get; set; }
+
+        public int WeaponStat { get; set; }
+        public int AmorStat {get; set; }
 
         public int AmorDefense { get; set; }
 
