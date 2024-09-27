@@ -12,7 +12,7 @@ namespace TextRPG_Team12
             Console.WriteLine("3. 상점");
             Console.WriteLine("4. 던전 입장");
             Console.WriteLine("0. 나가기");
-
+             
             // 플레이어의 입력을 받음
             string input = Console.ReadLine();
 
