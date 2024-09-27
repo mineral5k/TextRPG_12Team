@@ -1,22 +1,27 @@
-﻿namespace TextRPG_Team12
+﻿using System.Reflection.Metadata;
+
+namespace TextRPG_Team12
 {
     public class Player : ICharacter
     {
 
-        public static readonly int[] LevelUpExp = {0, 10, 35, 65, 100};
-     
+        public static readonly int[] LevelUpExp = { 0, 10, 35, 65, 100 };
+
 
 
         public string Name { get; }
 
-        public string Job{ get; set;}
+        Job job = new Job();
 
         public int Level { get; set; }
         public int Health { get; set; }
-        
+
         public int Gold { get; set; }
-        
+
         public float AttackPower { get; set; }
+
+        public int WeaponStat { get; set; }
+        public int AmorStat {get; set; }
 
         public int AmorDefense { get; set; }
 
@@ -41,17 +46,16 @@
 
 
 
-        public Player(string name, string job, int JobHealth, int JobAmorDefense, int JobAttackPower, int JobMana) {
-
-            // 초기 기본 스텟 설정 
+        public Player(string name, Job inputJob)
+        {
             Name = name;
-            Job = job;  
-            Health = JobHealth;
+            job = inputJob;  
             Level = 1;
-            Mana = JobMana;
-            AmorDefense = JobAmorDefense;
-            AttackPower = JobAttackPower;
             Gold = 1500;
+            Health = 100 +job.JobHealth;
+            Mana = 50 + job.JobMana;
+            AttackPower = 10 +job.JobAttackPower;
+            AmorDefense = 5 + job.JobAmorDeffense;
 
         }
 
