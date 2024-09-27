@@ -13,7 +13,7 @@ namespace TextRPG_Team12
         public string Name { get; }
         public int Level { get; set; }
         public int Health { get; set; }
-        public float AttackPower { get; set; }
+        public int AttackPower { get; set; }
 
         public bool IsDead => Health <= 0;
 
@@ -49,5 +49,26 @@ namespace TextRPG_Team12
 
 
 
+    }
+
+
+    public class Golbin { 
+    
+    
+    
+    
+    }
+
+    public class Dragon { 
+    
+    
+
+    }
+
+
+    public class Trol { 
+    
+    
+    
     }
 }

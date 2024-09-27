@@ -16,7 +16,7 @@ namespace TextRPG_Team12
         int Level { get; set; }
         int Health { get; set; }
 
-        float AttackPower { get; set; }
+        int AttackPower { get; set; }
 
         bool IsDead { get; }
 
