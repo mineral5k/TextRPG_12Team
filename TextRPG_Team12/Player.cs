@@ -1,4 +1,4 @@
-﻿using System.Reflection.Metadata;
+﻿
 
 namespace TextRPG_Team12
 {
@@ -6,6 +6,10 @@ namespace TextRPG_Team12
     {
 
         public static readonly int[] LevelUpExp = { 0, 10, 35, 65, 100 };
+
+
+        private static List<Equipment> Inventory = new List<Equipment>();
+        private static List<Equipment> EquipList = new List<Equipment>();
 
 
         Job job = new Job();
@@ -26,6 +30,8 @@ namespace TextRPG_Team12
 
         public int MaxMana { get; set; }
    
+
+
 
 
         public Player(string name, Job inputJob)
@@ -59,6 +65,20 @@ namespace TextRPG_Team12
 
         }
 
+        public void ShowInventory(bool showIdx)
+        {
+            for (int i = 0; i < Inventory.Count; i++)
+            {
+                Equipment targetInventory = Inventory[i];
+
+                string displayIdx = showIdx ? $"{i + 1} " : "";
+                string displayEquipped = IsEquipped(targetInventory) ? "[E]" : "";
+                Console.WriteLine($"- {displayIdx}{displayEquipped} {targetInventory.EquipmentStatText()}");
+
+            }
+
+  
+        }
 
 
         public void GetExp(int EnemyExp)
@@ -80,6 +100,40 @@ namespace TextRPG_Team12
 
 
         }
+
+
+
+        public void EquipItem(Equipment EquipItem)
+        {
+            if (IsEquipped(EquipItem))
+            {
+                EquipList.Remove(EquipItem);
+                if (EquipItem.Type == EquipmentType.Weapon)
+                {
+                    WeaponStat -= EquipItem.Attack;
+                }
+                else
+                    AmorDefense -= EquipItem.Defense;
+
+            }
+            else
+            {
+                EquipList.Add(EquipItem);
+                if (EquipItem.Type == EquipmentType.Weapon)
+                {
+                    WeaponStat += EquipItem.Attack;
+                }
+                else
+                    AmorDefense += EquipItem.Defense;
+            }
+        }
+
+
+        public bool IsEquipped(Equipment item)
+        {
+            return EquipList.Contains(item);
+        }
+
 
 
 

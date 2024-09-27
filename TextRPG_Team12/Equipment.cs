@@ -5,11 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-enum EquipmentType
+public enum EquipmentType
 { Armor, Weapon }
 
 
-internal class Equipment
+public class Equipment
 {
     public string Name { get; }
     public string Info { get; }
@@ -25,7 +25,7 @@ internal class Equipment
     {
         get
         {
-            return Type == EquipmentType.Weapon ? "공격력" : "방어력";
+            return Type == EquipmentType.Weapon ? $"공격력 + {Attack}" : $"방어력 + {Defense}";
         }
     }
 
@@ -44,7 +44,7 @@ internal class Equipment
 
     public string EquipmentStatText()
     {
-        return $"{Name}   | {EquipmentTypeText} + {Info} | ";
+        return $"{Name}   | {EquipmentTypeText} | {Info} | ";
     }
 
 }
