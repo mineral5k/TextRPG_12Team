@@ -139,8 +139,5 @@ namespace TextRPG_Team12
             return EquipList.Contains(item);
         }
 
-
-
-
     }
 }
