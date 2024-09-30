@@ -34,7 +34,6 @@ namespace TextRPG_Team12
 
 
 
-
         public Player(string name, Job inputJob)
         {
             Name = name;
@@ -56,8 +55,8 @@ namespace TextRPG_Team12
             Console.WriteLine($"이름: {Name}");
             Console.WriteLine($"LV : {Level}");
             Console.WriteLine($"직업 : {job.JobName}");
-            Console.WriteLine($"공격력 : {AttackPower}");
-            Console.WriteLine($"방어력 : {AmorDefense}");
+            Console.WriteLine($"공격력 : {AttackPower + WeaponStat} ( + {WeaponStat})");
+            Console.WriteLine($"방어력 : {AmorDefense + AmorStat} (+ {AmorStat})");
             Console.WriteLine($"체력: {Health}");
             Console.WriteLine($"GOLD: {Gold}");
             Console.WriteLine();
@@ -133,6 +132,7 @@ namespace TextRPG_Team12
                 if (EquipItem.Type == EquipmentType.Weapon)
                 {
                     WeaponStat -= EquipItem.Attack;
+              
                 }
                 else
                     AmorDefense -= EquipItem.Defense;
@@ -180,7 +180,7 @@ namespace TextRPG_Team12
             }
 
             Console.WriteLine();
-            Console.WriteLine(!showIdx ? "1. 아이템구매" : "");
+            Console.WriteLine(!showIdx ? "1. 아이템구매\n2. 아이템판매" : "");
             Console.WriteLine($"0. 나가기");
 
             return ShopList.Count;
@@ -220,7 +220,7 @@ namespace TextRPG_Team12
 
 
                 Console.WriteLine("Gold가 부족합니다.");
-           
+                
 
 
             }
@@ -233,7 +233,10 @@ namespace TextRPG_Team12
             }
 
         
-            Thread.Sleep(5000);
+            Thread.Sleep(1000);
+           
+
+
         }
 
 
@@ -273,10 +276,10 @@ namespace TextRPG_Team12
 
             else 
                 Console.WriteLine("판매할 수 없는 아이템입니다.");
-                
-                Thread.Sleep(5000);
 
+            Thread.Sleep(1000);
 
+   
 
         }
 

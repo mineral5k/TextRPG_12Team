@@ -152,7 +152,7 @@
             if (Num.Sel(1) == 1)
             {
 
-                // 이 부분 OutOfRange 에러 - 이따 확인
+         
                int item = Num.Sel(player.ShowInventory(true)) - 1;
                 player.EquipItem(item);
 
