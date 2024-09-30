@@ -410,7 +410,7 @@ namespace TextRPG_Team12
             JobSkillDesc2 = "적에게 기절 마법을 시전한다. 공격력의 130%의 피해를 입히고 33%로 기절시킨다.";
             JobSkillName3 = "죽음";
             //50%는 사기인거 같고 33%는 조금 약한거 같고 , 수치 확인 후 조정 부탁드립니다 .
-            JobSkillDesc3 = "체력이 50% 이하인 적을 즉사시킨다.";
+            JobSkillDesc3 = "체력이 33% 이하인 적을 즉사시킨다.";
         }
 
 
