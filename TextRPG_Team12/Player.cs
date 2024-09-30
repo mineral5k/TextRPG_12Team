@@ -1,5 +1,7 @@
 ﻿
 
+using System.ComponentModel;
+
 namespace TextRPG_Team12
 {
     public class Player : Character
@@ -7,9 +9,9 @@ namespace TextRPG_Team12
 
         public static readonly int[] LevelUpExp = { 0, 10, 35, 65, 100 };
 
-        private static List<Equipment> Inventory = new List<Equipment>();
+        public List<Equipment> Inventory = new List<Equipment>();
         private static List<Equipment> EquipList = new List<Equipment>();
-
+        public List<Equipment> ShopList = new List<Equipment>();
 
         public Job job ;
 
@@ -64,11 +66,15 @@ namespace TextRPG_Team12
 
         }
 
-        public void ShowInventory(bool showIdx)
+        public int ShowInventory(bool showIdx)
         {
 
             Console.Clear();
+            Console.WriteLine();
+            Console.WriteLine("[아이템 목록]");
 
+            Console.WriteLine();
+            
             for (int i = 0; i < Inventory.Count;  i++)
             {
                 Equipment targetInventory = Inventory[i];
@@ -80,8 +86,14 @@ namespace TextRPG_Team12
           
             }
 
+            Console.WriteLine();
+            Console.WriteLine(!showIdx ? "1. 장착관리" : "");
             Console.WriteLine($"0. 나가기");
+
+            return Inventory.Count;
         }
+
+
 
 
         public void GetExp(int EnemyExp)
@@ -106,9 +118,14 @@ namespace TextRPG_Team12
 
 
 
-        public void EquipItem(Equipment EquipItem)
+        public void EquipItem(int TargetNum)
         {
 
+           if (TargetNum < 0)
+                return;
+           
+
+            Equipment EquipItem = Inventory[TargetNum];
 
             if (IsEquipped(EquipItem))
             {
@@ -131,6 +148,7 @@ namespace TextRPG_Team12
                 else
                     AmorDefense += EquipItem.Defense;
             }
+
         }
 
 
@@ -139,6 +157,128 @@ namespace TextRPG_Team12
             return EquipList.Contains(item);
         }
 
+        public int ShowShop(bool showIdx)
+        {
+
+            Console.Clear();
+            Console.WriteLine();
+            Console.WriteLine("[보유 골드]");
+            Console.WriteLine($"{Gold}");
+            Console.WriteLine();
+            Console.WriteLine("[아이템 목록]");
+
+
+            for (int i = 0; i < ShopList.Count; i++)
+            {
+                Equipment targetInventory = ShopList[i];
+
+                string displayIdx = showIdx ? $"{i + 1} " : "";
+                string displayEquipped = IsEquipped(targetInventory) ? "[E]" : "";
+                Console.WriteLine($"- {displayIdx}{displayEquipped} {targetInventory.EquipmentStatText()} { (targetInventory.IsPurchased ? "구매완료" : $"{targetInventory.Price} G" )}");
+
+
+            }
+
+            Console.WriteLine();
+            Console.WriteLine(!showIdx ? "1. 아이템구매" : "");
+            Console.WriteLine($"0. 나가기");
+
+            return ShopList.Count;
+
+
+        }
+
+        public void BuyShop(int TargetNum)
+        {
+
+            if (TargetNum < 0)
+                return;
+
+
+
+            Equipment targetItem = ShopList[TargetNum];
+
+
+            if (targetItem.IsPurchased != true && Gold > targetItem.Price)
+            {
+
+                ShopList[TargetNum].IsPurchased = true;
+                targetItem.IsPurchased = true;
+                
+                Inventory.Add(targetItem);
+
+                Gold -= targetItem.Price;
+
+
+
+                Console.WriteLine("구매를 완료했습니다.");
+              
+
+            }
+            else if (targetItem.IsPurchased != true && Gold < targetItem.Price)
+            {
+
+
+                Console.WriteLine("Gold가 부족합니다.");
+           
+
+
+            }
+            else if (targetItem.IsPurchased)
+            {
+
+                Console.WriteLine("이미 구매한 아이템입니다.");
+           
+
+            }
+
+        
+            Thread.Sleep(5000);
+        }
+
+
+        public void SellShop(int TargetNum)
+        {
+
+
+            if (TargetNum < 0)
+                return;
+
+            Equipment targetItem = ShopList[TargetNum];
+
+            if (targetItem.IsPurchased == true)
+            {
+            
+                if (IsEquipped(targetItem))
+                {
+                    EquipList.Remove(targetItem);
+                    if (targetItem.Type == EquipmentType.Weapon)
+                    {
+                        WeaponStat -= targetItem.Attack;
+                    }
+                    else
+                        AmorDefense -= targetItem.Defense;
+
+                }
+
+                Gold += targetItem.Price;
+                
+                Inventory.Remove(targetItem);
+                ShopList[TargetNum].IsPurchased = false;
+                
+
+                Console.WriteLine("아이템을 판매했습니다.");
+              
+            }
+
+            else 
+                Console.WriteLine("판매할 수 없는 아이템입니다.");
+                
+                Thread.Sleep(5000);
+
+
+
+        }
 
 
 
