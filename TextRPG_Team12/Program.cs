@@ -66,6 +66,7 @@
         public static void MainScene(Player player)
         {
 
+            RepeatableQuest killMonstersQuest = new RepeatableQuest(5);
 
             while (true)
             {
