@@ -23,18 +23,70 @@ namespace TextRPG_Team12
 
 
 
-        public virtual void JobSkill_1()
+        public virtual void JobSkill_1(Player player, Monster[] enemy)
         {
 
         }
 
-        public virtual void JobSkill_2()
+        public virtual void JobSkill_2(Player player, Monster[] enemy)
         {
 
         }
 
-        public virtual void JobSkill_3()
+        public virtual void JobSkill_3(Player player, Monster[] enemy)
         {
+
+        }
+
+        protected void ShowSituation(Player player, Monster[] enemy)                                              //적과 나의 상태를 표시해주는 메서드 
+        {
+            Console.Clear();
+            Console.WriteLine("전투 !! ");
+            Console.WriteLine();
+            for (int i = 0; i < enemy.Length; i++)
+            {
+                if (enemy[i].IsDead)
+                {
+                    Console.ForegroundColor = ConsoleColor.Gray;
+                    Console.WriteLine($"LV.{enemy[i].Level} {enemy[i].Name} Dead");
+                    Console.ResetColor();
+                }
+                else
+                {
+                    Console.WriteLine($"LV.{enemy[i].Level} {enemy[i].Name}  HP {enemy[i].Health}");
+                }
+            }
+
+            Console.WriteLine();
+            Console.WriteLine("[내 상태]");
+            Console.WriteLine($"LV.{player.Level}   {player.Name}  직업 : {player.job.JobName}");
+            Console.WriteLine();
+        }
+
+
+        protected void ShowSituationNumber(Player player, Monster[] enemy)                                            //적과 나의 상태를 표시해주는 메서드 
+        {                                                                                                   //추가로 적을 지정할 수 있는 숫자 표시도 해줌
+            Console.Clear();
+            Console.WriteLine("전투 !! ");
+            Console.WriteLine();
+            for (int i = 0; i < enemy.Length; i++)
+            {
+                if (enemy[i].IsDead)
+                {
+                    Console.ForegroundColor = ConsoleColor.Gray;
+                    Console.WriteLine($"{i + 1}. LV.{enemy[i].Level} {enemy[i].Name} Dead");
+                    Console.ResetColor();
+                }
+                else
+                {
+                    Console.WriteLine($"{i + 1}. LV.{enemy[i].Level} {enemy[i].Name}  HP {enemy[i].Health}");
+                }
+            }
+
+            Console.WriteLine();
+            Console.WriteLine("[내 상태]");
+            Console.WriteLine($"LV.{player.Level}   {player.Name}  직업 : {player.job.JobName}");
+            Console.WriteLine();
 
         }
 
@@ -62,27 +114,67 @@ namespace TextRPG_Team12
 
 
 
-        public override void JobSkill_1()
+        public override void JobSkill_1(Player player, Monster[] enemy)
         {
             // 파워 어택: 한 명의 적에게 공격력의 1.5배 공격
             // 공격 대상 선택 구현 ?
-            int damage = (int)(JobAttackPower * 1.5);
-            Console.WriteLine($"{JobSkillName1}! 적에게 {damage}의 데미지를 입혔습니다! ");
+            //int damage = (int)(JobAttackPower * 1.5);
+            //Console.WriteLine($"{JobSkillName1}! 적에게 {damage}의 데미지를 입혔습니다! ");
+            int temp = player.AttackPower;
+            player.AttackPower = (int)Math.Round(player.AttackPower * 1.5);
+            ShowSituationNumber(player, enemy);
+
+            int sel = Num.Sel(enemy.Length);
+            bool repeat = false;
+            do
+            {
+                repeat = false;
+                if (sel == 0)
+                {
+                     Console.WriteLine("잘못된 입력입니다.");
+                    repeat = true;
+                }
+                else if (enemy[sel - 1].IsDead)
+                {
+                    Console.WriteLine("이미 사망한 적입니다.");
+                    repeat = true;
+                }
+                else
+                {
+                    Console.Clear();
+                    player.Attack(enemy[sel - 1]);
+                }
+            } while (repeat);
+            player.AttackPower = temp;
+
         }
 
-        public override void JobSkill_2()
+        public override void JobSkill_2(Player player, Monster[] enemy)
         {
             // 파워 슬래시: 전체 적들에게 공격력의 0.8배 공격
             // 전체 공격
-            int damage = (int)(JobAttackPower * 0.8);
-            Console.WriteLine($"{JobSkillName2}! 적들에게 {damage}의 데미지를 입혔습니다!");
+            //int damage = (int)(JobAttackPower * 0.8);
+            //Console.WriteLine($"{JobSkillName2}! 적들에게 {damage}의 데미지를 입혔습니다!");
+            Console.Clear();
+            int temp = player.AttackPower;
+            player.AttackPower = (int)Math.Round(player.AttackPower * 0.8);
+
+            for(int i = 0; i < enemy.Length; i++)
+            {
+                if (!enemy[i].IsDead)
+                {
+                    player.Attack(enemy[i]);
+                }
+            }
+            player.AttackPower = temp;
+
         }
 
-        public override void JobSkill_3()
+        public override void JobSkill_3(Player player, Monster[] enemy)
         {
             // 반사: 적의 공격을 1회 되돌린다.
             // 데미지 무시 및 전달 혹은 데미지 피격과 전달
-            Console.WriteLine($"{JobSkillName3}! 적의 다음 공격을 되돌려줍니다.");
+            Console.WriteLine($"{JobSkillName3}! 적의 다음 공격을 되돌려줍니다.");              //플레이어 클래스 편집 필요 
         }
 
     }
@@ -110,22 +202,49 @@ namespace TextRPG_Team12
 
 
 
-        public override void JobSkill_1()
+        public override void JobSkill_1(Player player, Monster[] enemy)
         {
             // 속사 : 한 명의 적에게 공격력의 0.5배로 3회 공격
             // 공격 대상 선택 구현 ?
             // 타수마다 치명타가 존재하면 ?
             // 최종 데미지 표기 방식 확인 부탁드립니다 
-            int damage = (int)(JobAttackPower * 0.5);
+            // int damage = (int)(JobAttackPower * 0.5);
 
-            for (int i = 0; i < 3; i++)
+            int temp = player.AttackPower;
+            player.AttackPower = (int)Math.Round(player.AttackPower * 0.5);
+
+            ShowSituationNumber(player, enemy);
+            int sel = Num.Sel(enemy.Length);
+            bool repeat = false;
+            do
             {
-                Console.WriteLine($"{i + 1}: {damage}!");
-            }
-            Console.WriteLine($"{JobSkillName1}! 적에게 {damage}의 데미지를 입혔습니다! ");
+                repeat = false;
+                if (sel == 0)
+                {
+                    Console.WriteLine("잘못된 입력입니다.");
+                    repeat = true;
+                }
+                else if (enemy[sel - 1].IsDead)
+                {
+                    Console.WriteLine("이미 사망한 적입니다.");
+                    repeat = true;
+                }
+                else
+                {
+                    Console.Clear();
+                    for (int i = 0; i < 4; i++)            // 3회 연속 공격
+                    {
+                        player.Attack(enemy[sel-1]);    
+                        if (enemy[sel - 1].IsDead) break;  //중간에 적이 사망하면 중지   
+                    }
+                }
+            } while (repeat);
+
+            player.AttackPower = temp;
+
         }
 
-        public override void JobSkill_2()
+        public override void JobSkill_2(Player player, Monster[] enemy)
         {
             // 독화살: 한 명의 적에게 3턴 동안 지속되는 상처를 남깁니다.
             // 공격 대상 선택 구현 ?
@@ -133,16 +252,35 @@ namespace TextRPG_Team12
 
             //턴 개념이 필요합니다 .
             poisonTurns = 3; // 3턴 동안 지속
-            Console.WriteLine($"{JobSkillName2}! 적이 3턴 동안 {damage}의 데미지를 받습니다!");
+            Console.WriteLine($"{JobSkillName2}! 적이 3턴 동안 {damage}의 데미지를 받습니다!");          //캐릭터 클래스 수정 필요
         }
 
-        public override void JobSkill_3()
+        public override void JobSkill_3(Player player, Monster[] enemy)
         {
             // 화살비: 모든 적에게 화살을 퍼붓습니다.
             // 전체 공격 
             int numberOfEnemies = 0; // 적의 수 정보를 받아와야합니다.
-            int damage = (int)(JobAttackPower * 2.5 / numberOfEnemies);
-            Console.WriteLine($"{JobSkillName3}! {numberOfEnemies}명의 적에게 {damage}의 데미지를 입혔습니다!");
+            //int damage = (int)(JobAttackPower * 2.5 / numberOfEnemies);
+            //Console.WriteLine($"{JobSkillName3}! {numberOfEnemies}명의 적에게 {damage}의 데미지를 입혔습니다!");
+            Console.Clear();
+            for (int i = 0; i < enemy.Length; i++)
+            {
+                if (!enemy[i].IsDead)
+                {
+                    numberOfEnemies++;                                       //죽지 않은 적의 수
+                }
+            }
+
+            int temp = player.AttackPower;
+            player.AttackPower = (int)Math.Round(player.AttackPower *2.5 / numberOfEnemies);
+            for (int i = 0; i < enemy.Length; i++)                          //모든 적을 공격
+            {
+                if (!enemy[i].IsDead)
+                {
+                    player.Attack(enemy[i]);
+                }
+            }
+            player.AttackPower = temp;
         }
 
     }
@@ -168,7 +306,7 @@ namespace TextRPG_Team12
 
 
 
-        public override void JobSkill_1()
+        public override void JobSkill_1(Player player, Monster[] enemy)
         {
 
             // 타수 마다 치명타 적용 ?
@@ -178,7 +316,7 @@ namespace TextRPG_Team12
 
         }
 
-        public override void JobSkill_2()
+        public override void JobSkill_2(Player player, Monster[] enemy)
         {
             // 은신: 적의 다음 공격을 100% 회피
             // 회피율 변수가 적용되면 구현 부탁드립니다 .
@@ -186,7 +324,7 @@ namespace TextRPG_Team12
            
         }
 
-        public override void JobSkill_3()
+        public override void JobSkill_3(Player player, Monster[] enemy)
         {
             // 흡혈: 적에게 공격력의 110% 피해를 주고 체력 회복
             int damage = (int)(JobAttackPower * 1.1);
@@ -217,13 +355,13 @@ namespace TextRPG_Team12
 
 
 
-        public override void JobSkill_1()
+        public override void JobSkill_1(Player player, Monster[] enemy)
         {
             // 연속 공격: 최대 3명의 적에게 데미지 계수 * 1.0, 0.8, 0.6
            
         }
 
-        public override void JobSkill_2()
+        public override void JobSkill_2(Player player, Monster[] enemy)
         {
             // 기절 마법: 1명의 적에게 데미지 계수 1.3, 기절 확률 33%
             int damage = (int)(JobAttackPower * 1.3);
@@ -237,7 +375,7 @@ namespace TextRPG_Team12
             
         }
 
-        public override void JobSkill_3()
+        public override void JobSkill_3(Player player, Monster[] enemy)
         {
             // 즉사 마법: 체력이 50% 이하인 적을 즉사시킨다.
         }
