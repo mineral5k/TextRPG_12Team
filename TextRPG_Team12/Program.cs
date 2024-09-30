@@ -77,7 +77,7 @@
             {
 
                 village(player);
-
+                Stage stage = new Stage();
                 //플레이어 입력을 받음
                 int choice = Num.Sel(4);
 
@@ -95,7 +95,7 @@
                         Shop(player); // 상점 기능 호출
                         break;
                     case 4:
-
+                        stage.Dungeon(player);
                         break;
                     case 0:
                         ExitGame(player); // 게임 종료 기능 호출
