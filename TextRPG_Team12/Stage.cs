@@ -112,6 +112,7 @@ namespace TextRPG_Team12
                 exp += enemy[i].Level;
             }
             player.GetExp(exp);
+            // StageCleared 퀘스트 완료 불러오기
             Console.WriteLine("마을로 돌아갑니다.");
             Console.WriteLine("0. 확인.");
             Num.Sel(0);
