@@ -3,7 +3,7 @@ namespace TextRPG_Team12
 {
     public abstract class Quest
     {
-        public string Name { get; set; } 
+        public string Name { get; set; }
         public bool IsCompleted { get; protected set; }
 
         public Quest(string name)
@@ -21,15 +21,15 @@ namespace TextRPG_Team12
     public class RepeatableQuest : Quest
     {
         public int RepaeatquesttargetCount;
-        private int RepeatquestcurrentCount;
+        int RepeatquestcurrentCount;
 
         public RepeatableQuest(int RepaeatquesttargetCount) : base("(반복)몬스터 처치하기")
         {
-            this.RepaeatquesttargetCount = RepaeatquesttargetCount;  
-            RepeatquestcurrentCount = 0;                
+            this.RepaeatquesttargetCount = RepaeatquesttargetCount;
+            RepeatquestcurrentCount = 0;
         }
 
-        // 몬스터 잡았을 때 뜰 메세지 
+        // 몬스터 잡았을 때
         public void MonsterKilled()
         {
             if (IsCompleted)
@@ -54,7 +54,12 @@ namespace TextRPG_Team12
             }
         }
 
+        public void ResetQuest()
+        {
+            RepeatquestcurrentCount = 0;
+            IsCompleted = false;
+            Console.WriteLine($"퀘스트 '{Name}'를 다시 진행할 수 있습니다.");
 
-
+        }
     }
 }
