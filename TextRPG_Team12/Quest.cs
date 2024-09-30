@@ -1,4 +1,5 @@
 ﻿using System;
+
 namespace TextRPG_Team12
 {
     public abstract class Quest
@@ -12,21 +13,19 @@ namespace TextRPG_Team12
             IsCompleted = false;
         }
 
-
         public abstract void CheckProgress();
     }
 
-
-    //퀘스트 1 (반복) 몬스터 처치하기 
-    public class RepeatableQuest : Quest
+    // 퀘스트 1 (반복) 몬스터 처치하기 
+    public class MonsterKillQuest : Quest
     {
-        public int RepaeatquesttargetCount;
-        int RepeatquestcurrentCount;
+        public int MonsterKillTargetCount { get; private set; }
+        private int monsterKillCurrentCount;
 
-        public RepeatableQuest(int RepaeatquesttargetCount) : base("(반복)몬스터 처치하기")
+        public MonsterKillQuest(int monsterKillTargetCount) : base("(반복)몬스터 처치하기")
         {
-            this.RepaeatquesttargetCount = RepaeatquesttargetCount;
-            RepeatquestcurrentCount = 0;
+            MonsterKillTargetCount = monsterKillTargetCount;
+            monsterKillCurrentCount = 0;
         }
 
         // 몬스터 잡았을 때
@@ -34,12 +33,12 @@ namespace TextRPG_Team12
         {
             if (IsCompleted)
             {
-                Console.WriteLine($"퀘스트 '{Name}'이(가) 완료되었습니다.");
+                Console.WriteLine($"퀘스트 '{Name}'은(는) 완료되었습니다.");
                 return;
             }
 
-            RepeatquestcurrentCount++;
-            Console.WriteLine($"몬스터 처치 수 : {RepeatquestcurrentCount}/{RepaeatquesttargetCount}");
+            monsterKillCurrentCount++;
+            Console.WriteLine($"몬스터 처치 수 : {monsterKillCurrentCount}/{MonsterKillTargetCount}");
 
             CheckProgress();
         }
@@ -47,7 +46,7 @@ namespace TextRPG_Team12
         // 퀘스트 완료 여부 확인
         public override void CheckProgress()
         {
-            if (RepeatquestcurrentCount >= RepaeatquesttargetCount)
+            if (monsterKillCurrentCount >= MonsterKillTargetCount)
             {
                 IsCompleted = true;
                 Console.WriteLine($"퀘스트 '{Name}' 완료 !");
@@ -56,10 +55,49 @@ namespace TextRPG_Team12
 
         public void ResetQuest()
         {
-            RepeatquestcurrentCount = 0;
+            monsterKillCurrentCount = 0;
             IsCompleted = false;
             Console.WriteLine($"퀘스트 '{Name}'를 다시 진행할 수 있습니다.");
-
         }
     }
+
+    // 퀘스트2 (반복)스테이지 클리어 퀘스트
+    public class StageClearQuest : Quest
+    {
+        public StageClearQuest() : base("스테이지 클리어 퀘스트")
+        {
+
+        }
+
+        // 스테이지 클리어 
+        public void StageCleared()
+        {
+            if (IsCompleted)
+            {
+                Console.WriteLine($"퀘스트 '{Name}'은(는) 이미 완료되었습니다.");
+                return;
+            }
+
+            // 퀘스트 완료 처리
+            IsCompleted = true;
+            Console.WriteLine($"퀘스트 '{Name}'이(가) 완료되었습니다!");
+        }
+
+        // 퀘스트 완료 여부 확인 (필요시 사용)
+        public override void CheckProgress()
+        {
+          //
+        }
+
+        // 퀘스트 초기화 메서드
+        public void ResetQuest()
+        {
+            IsCompleted = false;
+            Console.WriteLine($"퀘스트 '{Name}'를 다시 진행할 수 있습니다.");
+        }
+    }
+
+    
+
 }
+
