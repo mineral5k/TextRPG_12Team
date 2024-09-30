@@ -166,7 +166,7 @@ namespace TextRPG_Team12
             
         }
 
-        void AttackSellect(Player player, Monster[] enemy)
+        void AttackSellect(Player player, Monster[] enemy)                                             //공격할 적을 선택하는 메서드
         {
             ShowSituationNumber(player, enemy); 
             Console.WriteLine("0. 취소");
@@ -192,12 +192,32 @@ namespace TextRPG_Team12
             } while (repeat);
 
         }
-        void UseItem(Player player, Monster[] enemy)
-        {
+        void UseItem(Player player, Monster[] enemy)                                               //아이템 사용 메서드
+        {                                                                                          //자세한 내용 추후 구현 필요
             ShowSituation(player, enemy);
+            Console.WriteLine("1. 체력 포션 ");
+            Console.WriteLine("2. 마나 포션 ");
+            Console.WriteLine("0. 취소 ");
+
+            int sel = Num.Sel(2);
+
+            switch (sel)
+            {
+                case 0:
+                    BattlePlayerTurn(player, enemy);
+                    break;
+                case 1:
+
+                    break;
+                case 2:
+
+                    break;                 
+            }
+
+
         }
-        void UseSkill(Player player, Monster[] enemy)
-        {
+        void UseSkill(Player player, Monster[] enemy)                                              //스킬 사용 메서드 
+        {                                                                                          //상세한 내용은 각 직업 스킬에서 구현
             ShowSituation(player, enemy);
             Console.WriteLine($"1. {player.job.JobSkillName1}  {player.job.JobSkillDesc1}");
             Console.WriteLine($"2. {player.job.JobSkillName2}  {player.job.JobSkillDesc2}");
@@ -225,12 +245,12 @@ namespace TextRPG_Team12
         }
 
 
-        void ShowSituation(Player player, Monster[] enemy)
+        void ShowSituation(Player player, Monster[] enemy)                                              //적과 나의 상태를 표시해주는 메서드 
         {
             Console.Clear();
             Console.WriteLine("전투 !! ");
             Console.WriteLine();
-            for (int i = 0; i < enemy.Length; i++)                                                         //적 정보와 HP 표시
+            for (int i = 0; i < enemy.Length; i++)                                                         
             {
                 if (enemy[i].IsDead)
                 {
@@ -251,12 +271,12 @@ namespace TextRPG_Team12
         }
 
 
-        void ShowSituationNumber(Player player, Monster[] enemy)
-        {
+        void ShowSituationNumber(Player player, Monster[] enemy)                                            //적과 나의 상태를 표시해주는 메서드 
+        {                                                                                                   //추가로 적을 지정할 수 있는 숫자 표시도 해줌
             Console.Clear();
             Console.WriteLine("전투 !! ");
             Console.WriteLine();
-            for (int i = 0; i < enemy.Length; i++)                                                         //적 정보와 HP 표시
+            for (int i = 0; i < enemy.Length; i++)                                                         
             {
                 if (enemy[i].IsDead)
                 {
