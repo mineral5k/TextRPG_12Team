@@ -166,7 +166,7 @@ namespace TextRPG_Team12
                     UseItem();
                     break;
                 case 3:
-                    UseSkill();
+                    UseSkill(player, enemy);
                     break;
             }
            
@@ -233,9 +233,31 @@ namespace TextRPG_Team12
         {
 
         }
-        void UseSkill()
+        void UseSkill(Player player, Monster[] enemy)
         {
+            Console.Clear();
 
+            Console.WriteLine("전투 !! ");
+            Console.WriteLine();
+            for (int i = 0; i < enemy.Length; i++)                                                         //적 정보와 HP 표시
+            {
+                if (enemy[i].IsDead)
+                {
+                    Console.ForegroundColor = ConsoleColor.Gray;
+                    Console.WriteLine($"LV.{enemy[i].Level} {enemy[i].Name} Dead");
+                    Console.ResetColor();
+                }
+                else
+                {
+                    Console.WriteLine($"LV.{enemy[i].Level} {enemy[i].Name}  HP {enemy[i].Health}");
+                }
+            }
+
+            Console.WriteLine();
+            Console.WriteLine("[내 상태]");
+            Console.WriteLine($"LV.{player.Level}   {player.Name}  직업 : {player.job.JobName}");
+            Console.WriteLine();
+            Num.Sel(4);
         }
 
 
