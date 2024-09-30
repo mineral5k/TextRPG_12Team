@@ -74,6 +74,7 @@ namespace TextRPG_Team12
                     BattlePlayerTurn(player, enemy);
                     Console.WriteLine("0.다음으로");
                     Num.Sel(0);                                             //전투 로그를 확인 할 수 있게 해주는 작업 
+                    Console.Clear();
                 }                                                           
 
                 enemyAllDead = true;
@@ -91,6 +92,8 @@ namespace TextRPG_Team12
                     BattleEnemyTurn(player, enemy);
                     Console.WriteLine("0.다음으로");
                     Num.Sel(0);
+                    Console.Clear();
+
                 }
 
             }
@@ -162,6 +165,7 @@ namespace TextRPG_Team12
 
         void Run()
         {
+            Console.Clear();
             Console.WriteLine("전투에서 도망쳤다!");
             Console.WriteLine("마을로 돌아갑니다");
             
@@ -172,10 +176,11 @@ namespace TextRPG_Team12
             ShowSituationNumber(player, enemy); 
             Console.WriteLine("0. 취소");
 
-            int sel = Num.Sel(enemy.Length);
+           
             bool repeat = false;
             do
             {
+                int sel = Num.Sel(enemy.Length);
                 repeat = false;
                 if (sel == 0)
                 {
@@ -256,7 +261,7 @@ namespace TextRPG_Team12
             {
                 if (enemy[i].IsDead)
                 {
-                    Console.ForegroundColor = ConsoleColor.Gray;
+                    Console.ForegroundColor = ConsoleColor.DarkGray;
                     Console.WriteLine($"LV.{enemy[i].Level} {enemy[i].Name} Dead");
                     Console.ResetColor();
                 }
@@ -282,7 +287,7 @@ namespace TextRPG_Team12
             {
                 if (enemy[i].IsDead)
                 {
-                    Console.ForegroundColor = ConsoleColor.Gray;
+                    Console.ForegroundColor = ConsoleColor.DarkGray;
                     Console.WriteLine($"{i + 1}. LV.{enemy[i].Level} {enemy[i].Name} Dead");
                     Console.ResetColor();
                 }
