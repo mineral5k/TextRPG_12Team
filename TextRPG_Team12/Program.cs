@@ -66,10 +66,14 @@
         public static void MainScene(Player player)
         {
 
-            RepeatableQuest killMonstersQuest = new RepeatableQuest(5);
-
+         
             while (true)
             {
+                MonsterKillQuest monsterKillQuest = new MonsterKillQuest(5);  // 목표 몬스터 처치 수 5
+                player.AddQuest(monsterKillQuest);
+
+                StageClearQuest stageClearQuest = new StageClearQuest();  // 던전 클리어 목표
+                player.AddQuest(stageClearQuest);
 
                 village(player);
                 Stage stage = new Stage();
@@ -167,12 +171,10 @@
         public static void ShowQuest(Player player)
         {
             Console.Clear();
-            // 퀘스트 확인
+            Console.WriteLine();
             Console.WriteLine("퀘스트 목록");
-
-
-
-            Num.Sel(0);
+          
+            Player.QuestMenu(player);
         }
 
 
