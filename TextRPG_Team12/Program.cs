@@ -73,7 +73,7 @@
                 village(player);
                 Stage stage = new Stage();
                 //플레이어 입력을 받음
-                int choice = Num.Sel(4);
+                int choice = Num.Sel(5);
 
                 // 입력 값을 정수로 변환
 
@@ -90,6 +90,9 @@
                         break;
                     case 4:
                         stage.Dungeon(player);
+                        break;
+                    case 5:
+                        ShowQuest(player);
                         break;
                     case 0:
                         ExitGame(player); // 게임 종료 기능 호출
@@ -111,6 +114,7 @@
             Console.WriteLine("2. 인벤토리");
             Console.WriteLine("3. 상점");
             Console.WriteLine("4. 던전 입장");
+            Console.WriteLine("5. 퀘스트");
             Console.WriteLine("0. 나가기");
 
 
@@ -156,6 +160,18 @@
 
 
             Num.Sel(EquipmentDb.Length);
+        }
+
+        // 퀘스트
+        public static void ShowQuest(Player player)
+        {
+            Console.Clear();
+            // 퀘스트 확인
+            Console.WriteLine("퀘스트 목록");
+
+
+
+            Num.Sel(0);
         }
 
 
