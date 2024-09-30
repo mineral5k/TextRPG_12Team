@@ -41,13 +41,13 @@ namespace TextRPG_Team12
                 switch (TypeOfEnemy)
                 {
                     case 1:
-                        enemy[i] = new Goblin();
+                        enemy[i] = new Goblin(floor);
                         break;
                     case 2:
-                        enemy[i] = new Trol();
+                        enemy[i] = new Trol(floor);
                         break;
                     case 3:
-                        enemy[i] = new Dragon();
+                        enemy[i] = new Dragon(floor);
                         break;
                 }
                 
@@ -74,6 +74,7 @@ namespace TextRPG_Team12
                     BattlePlayerTurn(player, enemy);
                     Console.WriteLine("0.다음으로");
                     Num.Sel(0);                                             //전투 로그를 확인 할 수 있게 해주는 작업 
+                    Console.Clear();
                 }                                                           
 
                 enemyAllDead = true;
@@ -91,6 +92,8 @@ namespace TextRPG_Team12
                     BattleEnemyTurn(player, enemy);
                     Console.WriteLine("0.다음으로");
                     Num.Sel(0);
+                    Console.Clear();
+
                 }
 
             }
@@ -106,13 +109,27 @@ namespace TextRPG_Team12
             Console.WriteLine("전투에서 승리했습니다.");
             Console.WriteLine();
             int exp = 0;                                                //승리 시 적에게 할당된 경험치 획득
-                                                                        //(현재 적에게 경험치 설정 안되어 있어 임의로 레벨로 설정 추후 수정 필요)
+            int gold = 0;
+            
             for (int i = 0;i < enemy.Length;i++)
             {
-                exp += enemy[i].Level;
+                exp += enemy[i].HuntExp;
+                gold += enemy[i].LootMoney;
+
             }
+
+           
+            Console.WriteLine($"{gold}만큼의 골드를 확득했습니다.");
+
             player.GetExp(exp);
+<<<<<<< HEAD
             // StageCleared 퀘스트 완료 불러오기
+=======
+            player.Gold += gold;
+
+
+
+>>>>>>> dev
             Console.WriteLine("마을로 돌아갑니다.");
             Console.WriteLine("0. 확인.");
             Num.Sel(0);
@@ -163,6 +180,7 @@ namespace TextRPG_Team12
 
         void Run()
         {
+            Console.Clear();
             Console.WriteLine("전투에서 도망쳤다!");
             Console.WriteLine("마을로 돌아갑니다");
             
@@ -173,10 +191,11 @@ namespace TextRPG_Team12
             ShowSituationNumber(player, enemy); 
             Console.WriteLine("0. 취소");
 
-            int sel = Num.Sel(enemy.Length);
+           
             bool repeat = false;
             do
             {
+                int sel = Num.Sel(enemy.Length);
                 repeat = false;
                 if (sel == 0)
                 {
@@ -257,7 +276,7 @@ namespace TextRPG_Team12
             {
                 if (enemy[i].IsDead)
                 {
-                    Console.ForegroundColor = ConsoleColor.Gray;
+                    Console.ForegroundColor = ConsoleColor.DarkGray;
                     Console.WriteLine($"LV.{enemy[i].Level} {enemy[i].Name} Dead");
                     Console.ResetColor();
                 }
@@ -283,7 +302,7 @@ namespace TextRPG_Team12
             {
                 if (enemy[i].IsDead)
                 {
-                    Console.ForegroundColor = ConsoleColor.Gray;
+                    Console.ForegroundColor = ConsoleColor.DarkGray;
                     Console.WriteLine($"{i + 1}. LV.{enemy[i].Level} {enemy[i].Name} Dead");
                     Console.ResetColor();
                 }

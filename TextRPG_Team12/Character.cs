@@ -50,7 +50,7 @@ namespace TextRPG_Team12
             {
                 Console.WriteLine("공격이 빗나갔습니다.");
             }
-            else if (new Random().Next(1, 101) >= Critical)
+            else if (new Random().Next(1, 101) <= Critical)
             {
                 Console.Write("크리티컬! ");
                 character.TakeDamage((int)Math.Round(damage * 1.5));

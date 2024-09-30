@@ -2,11 +2,12 @@
 {
     internal class Program
     {
-        public static Equipment[] EquipmentDb;
+        public static List<Equipment> EquipmentDb;
 
         static void Main(string[] args)
         {
             Player player = null;
+
             Console.WriteLine("사용하실 닉네임을 입력하세요.");
             string name = Console.ReadLine();
 
@@ -43,6 +44,9 @@
                 }
             }
             while (repeat);
+
+            EquipmentData();
+            player.ShopList = EquipmentDb;
             MainScene(player);
         }
 
@@ -50,7 +54,7 @@
         //장비 정보
         static void EquipmentData()
         {
-            EquipmentDb = new Equipment[]
+            EquipmentDb = new List<Equipment>
             {
             new Equipment("훈련용 갑옷", "천으로 만들어져 가벼운 훈련복입니다.", 5, 0, 1000, EquipmentType.Armor),
             new Equipment("강철 갑옷", "강철로 제작된 튼튼한 갑옷입니다.", 9, 0, 2000, EquipmentType.Armor),
@@ -59,6 +63,8 @@
             new Equipment("청동 손도끼", "고대 전사들이 사용하던 도끼입니다.", 0, 5, 1500, EquipmentType.Weapon),
             new Equipment("장군의 창", "전설 속 장군이 사용했다는 창입니다.", 0, 7, 2500, EquipmentType.Weapon)
             };
+
+            
         }
 
 
@@ -144,14 +150,25 @@
         public static void Inventory(Player player)
         {
 
+        
             Console.Clear();
             // 인벤토리 내용을 출력하고 관리하는 코드
             Console.WriteLine("인벤토리를 출력합니다...");
+            player.ShowInventory(false);
 
-            player.ShowInventory(false) ;
 
 
-            Num.Sel(0);
+            if (Num.Sel(1) == 1)
+            {
+
+         
+               int item = Num.Sel(player.ShowInventory(true)) - 1;
+                player.EquipItem(item);
+
+
+            }
+            
+
 
         }
 
@@ -161,10 +178,30 @@
         {
             // 상점에서 아이템을 구매하는 코드
             Console.WriteLine("상점을 출력합니다...");
+
+            player.ShowShop(false);
+
+
+            int buySell = Num.Sel(2);
+
+
+            if (buySell == 1)
+            {
+                int shopList = Num.Sel(player.ShowShop(true)) - 1;
+                player.BuyShop(shopList);
+
+
+            }
+            else if (buySell == 2)
+            {
+                int shopList = Num.Sel(player.ShowShop(true)) - 1;
+                player.SellShop(shopList);
+
+            }
+
+
             
 
-
-            Num.Sel(EquipmentDb.Length);
         }
 
         // 퀘스트

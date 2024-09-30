@@ -47,7 +47,7 @@ namespace TextRPG_Team12
             {
                 if (enemy[i].IsDead)
                 {
-                    Console.ForegroundColor = ConsoleColor.Gray;
+                    Console.ForegroundColor = ConsoleColor.DarkGray;
                     Console.WriteLine($"LV.{enemy[i].Level} {enemy[i].Name} Dead");
                     Console.ResetColor();
                 }
@@ -73,7 +73,7 @@ namespace TextRPG_Team12
             {
                 if (enemy[i].IsDead)
                 {
-                    Console.ForegroundColor = ConsoleColor.Gray;
+                    Console.ForegroundColor = ConsoleColor.DarkGray;
                     Console.WriteLine($"{i + 1}. LV.{enemy[i].Level} {enemy[i].Name} Dead");
                     Console.ResetColor();
                 }
@@ -124,10 +124,11 @@ namespace TextRPG_Team12
             player.AttackPower = (int)Math.Round(player.AttackPower * 1.5);
             ShowSituationNumber(player, enemy);
 
-            int sel = Num.Sel(enemy.Length);
+            
             bool repeat = false;
             do
             {
+                int sel = Num.Sel(enemy.Length);
                 repeat = false;
                 if (sel == 0)
                 {
@@ -214,10 +215,11 @@ namespace TextRPG_Team12
             player.AttackPower = (int)Math.Round(player.AttackPower * 0.5);
 
             ShowSituationNumber(player, enemy);
-            int sel = Num.Sel(enemy.Length);
+            
             bool repeat = false;
             do
             {
+                int sel = Num.Sel(enemy.Length);
                 repeat = false;
                 if (sel == 0)
                 {
@@ -315,10 +317,11 @@ namespace TextRPG_Team12
             player.AttackPower = (int)Math.Round(player.AttackPower * 0.8);
 
             ShowSituationNumber(player, enemy);
-            int sel = Num.Sel(enemy.Length);
+            
             bool repeat = false;
             do
             {
+                int sel = Num.Sel(enemy.Length);
                 repeat = false;
                 if (sel == 0)
                 {
@@ -361,10 +364,11 @@ namespace TextRPG_Team12
             player.AttackPower = (int)Math.Round(player.AttackPower * 1.1);
             ShowSituationNumber(player, enemy);
 
-            int sel = Num.Sel(enemy.Length);
+            
             bool repeat = false;
             do
             {
+                int sel = Num.Sel(enemy.Length);
                 repeat = false;
                 if (sel == 0)
                 {
@@ -406,7 +410,7 @@ namespace TextRPG_Team12
             JobSkillDesc2 = "적에게 기절 마법을 시전한다. 공격력의 130%의 피해를 입히고 33%로 기절시킨다.";
             JobSkillName3 = "죽음";
             //50%는 사기인거 같고 33%는 조금 약한거 같고 , 수치 확인 후 조정 부탁드립니다 .
-            JobSkillDesc3 = "체력이 50% 이하인 적을 즉사시킨다.";
+            JobSkillDesc3 = "체력이 33% 이하인 적을 즉사시킨다.";
         }
 
 
@@ -425,10 +429,11 @@ namespace TextRPG_Team12
             }
 
             ShowSituationNumber(player, enemy);
-            int sel = Num.Sel(enemy.Length);
+            
             bool repeat = false;
             do
             {
+                int sel = Num.Sel(enemy.Length);
                 repeat = false;
                 if (sel == 0)
                 {
@@ -483,10 +488,11 @@ namespace TextRPG_Team12
             // 즉사 마법: 체력이 33% 이하인 적을 즉사시킨다.
 
             ShowSituationNumber(player, enemy);
-            int sel = Num.Sel(enemy.Length);
+            
             bool repeat = false;
             do
             {
+                int sel = Num.Sel(enemy.Length);
                 repeat = false;
                 if (sel == 0)
                 {
