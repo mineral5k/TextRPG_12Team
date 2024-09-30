@@ -233,13 +233,13 @@ namespace TextRPG_Team12
                     BattlePlayerTurn(player, enemy); 
                     break;
                 case 1:
-                    player.job.JobSkill_1();
+                    player.job.JobSkill_1(player, enemy);
                     break;
                 case 2:
-                    player.job.JobSkill_2();
+                    player.job.JobSkill_2(player, enemy);
                     break;
                 case 3:
-                    player.job.JobSkill_3();
+                    player.job.JobSkill_3(player, enemy);
                     break;
             }
 
@@ -298,23 +298,5 @@ namespace TextRPG_Team12
             Console.WriteLine();
 
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
 }
