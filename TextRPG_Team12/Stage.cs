@@ -150,10 +150,11 @@ namespace TextRPG_Team12
                     AttackSellect(player , enemy);
                     break;
                 case 2:
-                    UseItem(player , enemy);
+                    UseSkill(player, enemy);
+                    
                     break;
                 case 3:
-                    UseSkill(player, enemy);
+                    UseItem(player, enemy);
                     break;
             }
            
@@ -187,6 +188,7 @@ namespace TextRPG_Team12
                 }
                 else
                 {
+                    Console.Clear();
                     player.Attack(enemy[sel-1]);
                 }
             } while (repeat);
