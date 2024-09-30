@@ -5,17 +5,22 @@ namespace TextRPG_Team12
 {
     public class Monster : Character
     {
+        public Random rand = new Random();
 
+        public int LootMoney;
+        public int HuntExp;
 
-        public void SetUpEnemy(int Stagelevel)
+        public void StageEnemySet(int Stagelevel)
         {
-            Level = Stagelevel;
-            Health *= (int)Math.Pow(1.15, Stagelevel - 1);
-            AttackPower *= (int)Math.Pow(1.15, Stagelevel - 1);
 
-            // Dungeon에 있는 SetUpEnemy() 
-            //    enemyHealth = (int) (baseEnemyHealth* Math.Pow(1.15, stage - 1));  // 15% 증가
-            //    enemyAttackDamage = (int)(baseEnemyAttackDamage * Math.Pow(1.15, stage - 1));  // 15% 증가
+            Level = rand.Next(Stagelevel, Stagelevel+4);
+
+            // 스테이지 + 레벨 별 일정량 증가
+            Health += (5 * Level); 
+            AttackPower += (1 * Level);
+            LootMoney += (10 * Level);
+            HuntExp += (15 * Level);
+
 
         }
 

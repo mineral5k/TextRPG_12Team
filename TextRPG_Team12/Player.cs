@@ -7,7 +7,7 @@ namespace TextRPG_Team12
     public class Player : Character
     {
 
-        public static readonly int[] LevelUpExp = { 0, 10, 35, 65, 100 };
+        public static readonly int[] LevelUpExp = { 0, 100, 350, 650, 1000};
 
         public List<Equipment> Inventory = new List<Equipment>();
         private static List<Equipment> EquipList = new List<Equipment>();
@@ -100,17 +100,30 @@ namespace TextRPG_Team12
 
             Console.WriteLine($"{EnemyExp}의 경험치를 획득했습니다.");
             Exp += EnemyExp;
-            if (LevelUpExp[Level] < Exp)
+
+            int MaxLevel = 5;
+            if (Level < MaxLevel)
             {
-                Console.WriteLine($"축하합니다. 레벨업 하였습니다.");
 
-                Level += 1;
-                Exp -= LevelUpExp[Level];
 
-                AttackPower += 1;
-                AmorDefense += 1;
-                
+                while (LevelUpExp[Level] < Exp)
+                {
+
+                    
+                        Console.WriteLine($"축하합니다. 레벨업 하였습니다.");
+
+                        Level += 1;
+                        Exp -= LevelUpExp[Level];
+
+                        AttackPower += 1;
+                        AmorDefense += 1;
+
+                  
+
+                }
+
             }
+
 
 
         }

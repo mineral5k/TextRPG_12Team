@@ -41,13 +41,13 @@ namespace TextRPG_Team12
                 switch (TypeOfEnemy)
                 {
                     case 1:
-                        enemy[i] = new Goblin();
+                        enemy[i] = new Goblin(floor);
                         break;
                     case 2:
-                        enemy[i] = new Trol();
+                        enemy[i] = new Trol(floor);
                         break;
                     case 3:
-                        enemy[i] = new Dragon();
+                        enemy[i] = new Dragon(floor);
                         break;
                 }
                 
@@ -109,12 +109,23 @@ namespace TextRPG_Team12
             Console.WriteLine("전투에서 승리했습니다.");
             Console.WriteLine();
             int exp = 0;                                                //승리 시 적에게 할당된 경험치 획득
-                                                                        //(현재 적에게 경험치 설정 안되어 있어 임의로 레벨로 설정 추후 수정 필요)
+            int gold = 0;
+            
             for (int i = 0;i < enemy.Length;i++)
             {
-                exp += enemy[i].Level;
+                exp += enemy[i].HuntExp;
+                gold += enemy[i].LootMoney;
+
             }
+
+           
+            Console.WriteLine($"{gold}만큼의 골드를 확득했습니다.");
+
             player.GetExp(exp);
+            player.Gold += gold;
+
+
+
             Console.WriteLine("마을로 돌아갑니다.");
             Console.WriteLine("0. 확인.");
             Num.Sel(0);
