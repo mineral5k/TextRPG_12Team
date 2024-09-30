@@ -13,7 +13,7 @@ namespace TextRPG_Team12
 
         public void Dungeon(Player player)
         {
-            Console.Clear();
+            Console.Clear();                                                            //클리어 한 스테이지의 다음 스테이지 까지 도전 가능
             Console.WriteLine("");
             Console.WriteLine("도전할 스테이지를 선택하세요");
             Console.WriteLine($"현재 도전 가능 스테이지 :1 ~ {clearedFloor+1}" );
@@ -23,19 +23,18 @@ namespace TextRPG_Team12
             int sel = Num.Sel(clearedFloor + 1);
             if (sel != 0)
             {
-                EnterTheDungeon(sel, player);
+                EnterTheDungeon(sel, player);                                           //선택한 스테이지에 따라 난이도가 달라짐
             }
-            
-
+           
         }
 
 
         public void EnterTheDungeon(int floor, Player player)
         {
-            int numberOfEnemy = new Random().Next(floor,5);
+            int numberOfEnemy = new Random().Next(floor,5);                             //적의 수는 선택한 스테이지 숫자~4 마리 중 랜덤
             Monster[] enemy = new Monster[numberOfEnemy];
 
-            for (int i = 0; i< numberOfEnemy; i++)
+            for (int i = 0; i< numberOfEnemy; i++)                                      // 적의 종류는 랜덤 (추후 스테이지에 따라 난이도 조절 필요)
             {
                int TypeOfEnemy =new Random().Next(1,4);
 
@@ -68,12 +67,14 @@ namespace TextRPG_Team12
 
                 if (enemyAllDead)
                 {
-                    Victory(player);
+                    break;                                                  //적이 모두 죽었다면 루프에서 빠져나와 Victory 메서드를 실행
                 }
                 else
                 {
                     BattlePlayerTurn(player, enemy);
-                }
+                    Console.WriteLine("0.다음으로");
+                    Num.Sel(0);                                             //전투 로그를 확인 할 수 있게 해주는 작업 
+                }                                                           
 
                 enemyAllDead = true;
                 for (int i = 0; i < enemy.Length; i++)
@@ -88,40 +89,46 @@ namespace TextRPG_Team12
                 else
                 {
                     BattleEnemyTurn(player, enemy);
+                    Console.WriteLine("0.다음으로");
+                    Num.Sel(0);
                 }
 
+            }
+
+            Victory(player,enemy);                                         // 플레이어가 죽은 경우
+                                                                           // 플레이어 클래스에서 게임 오버로 프로그램이 종료하기 때문에 이 클래스에서 따로 메서드를 만들어 두진 않는다.
+        }
 
 
+        void Victory(Player player, Monster[] enemy)
+        {
+            Console.Clear();
+            Console.WriteLine("전투에서 승리했습니다.");
+            Console.WriteLine();
+            int exp = 0;                                                //승리 시 적에게 할당된 경험치 획득
+                                                                        //(현재 적에게 경험치 설정 안되어 있어 임의로 레벨로 설정 추후 수정 필요)
+            for (int i = 0;i < enemy.Length;i++)
+            {
+                exp += enemy[i].Level;
+            }
+            player.GetExp(exp);
+            Console.WriteLine("마을로 돌아갑니다.");
+            Console.WriteLine("0. 확인.");
+            Num.Sel(0);
+
+        }
 
 
-
-
+        void BattleEnemyTurn(Player player, Monster[] enemy)            //적의 턴
+        {
+            for (int i = 0;i < enemy.Length;i++)                        
+            {
+                if (!enemy[i].IsDead)                                   //죽지 않은 적들이 플레이어 공격
+                {
+                    enemy[i].Attack(player);
+                }
             }
         }
-
-
-        void Victory(Player player)
-        {
-
-        }
-
-
-        void BattleEnemyTurn(Player player, Monster[] enemy)
-        {
-
-        }
-
-
-
-
-
-
-
-
-
-
-
-
 
 
         void BattlePlayerTurn (Player player, Monster[] enemy)
@@ -143,16 +150,13 @@ namespace TextRPG_Team12
                     AttackSellect(player , enemy);
                     break;
                 case 2:
-                    UseItem();
+                    UseItem(player , enemy);
                     break;
                 case 3:
                     UseSkill(player, enemy);
                     break;
             }
            
-
-            
-
         }
 
         void Run()
@@ -188,9 +192,9 @@ namespace TextRPG_Team12
             } while (repeat);
 
         }
-        void UseItem()
+        void UseItem(Player player, Monster[] enemy)
         {
-
+            ShowSituation(player, enemy);
         }
         void UseSkill(Player player, Monster[] enemy)
         {
