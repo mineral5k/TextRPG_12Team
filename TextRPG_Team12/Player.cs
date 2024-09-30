@@ -135,7 +135,7 @@ namespace TextRPG_Team12
               
                 }
                 else
-                    AmorDefense -= EquipItem.Defense;
+                    AmorStat -= EquipItem.Defense;
 
             }
             else
@@ -146,7 +146,7 @@ namespace TextRPG_Team12
                     WeaponStat += EquipItem.Attack;
                 }
                 else
-                    AmorDefense += EquipItem.Defense;
+                    AmorStat += EquipItem.Defense;
             }
 
         }
