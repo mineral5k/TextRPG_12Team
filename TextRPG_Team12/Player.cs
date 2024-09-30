@@ -9,7 +9,7 @@ namespace TextRPG_Team12
 
         private static List<Equipment> Inventory = new List<Equipment>();
         private static List<Equipment> EquipList = new List<Equipment>();
-
+        public List<Quest> Quests { get; private set; }
 
         public Job job ;
 
@@ -44,6 +44,7 @@ namespace TextRPG_Team12
             Mana = 50 + job.JobMana;
             AttackPower = 10 +job.JobAttackPower;
             AmorDefense = 5 + job.JobAmorDeffense;
+            Quests = new List<Quest>();
 
         }
 
@@ -139,5 +140,59 @@ namespace TextRPG_Team12
             return EquipList.Contains(item);
         }
 
+        public void AddQuest(Quest quest)
+        {
+            
+            Quests.Add(quest);
+            Console.WriteLine($"퀘스트 '{quest.Name}'가 추가되었습니다.");
+        }
+
+        
+        public static void QuestMenu(Player player)
+        {
+
+            if (player.Quests.Count == 0)
+            {
+                Console.WriteLine("현재 진행 중인 퀘스트가 없습니다.");
+            }
+            else
+            {
+                Console.WriteLine("진행 중인 퀘스트 목록:");
+                for (int i = 0; i < player.Quests.Count; i++)
+                {
+                    var quest = player.Quests[i];
+                    Console.WriteLine($"{i + 1}. {quest.Name} (진행 상태: {(quest.IsCompleted ? "완료" : "진행 중")})");
+                }
+
+                Console.WriteLine("\n퀘스트를 완료하려면 번호를 입력하세요 (0으로 돌아가기):");
+                int choice = int.Parse(Console.ReadLine() ?? "0");
+
+                if (choice > 0 && choice <= player.Quests.Count)
+                {
+                    var selectedQuest = player.Quests[choice - 1];
+                    if (selectedQuest.IsCompleted)
+                    {
+                        Console.WriteLine($"퀘스트 '{selectedQuest.Name}'는 이미 완료되었습니다.");
+                    }
+                    else
+                    {
+                        selectedQuest.CheckProgress(); // 퀘스트 진행 상황 확인
+                        Console.WriteLine($"퀘스트 '{selectedQuest.Name}'를 완료하였습니다!");
+                    }
+                }
+                else if (choice == 0)
+                {
+                    Console.WriteLine("메인 메뉴로 돌아갑니다.");
+                }
+                else
+                {
+                    Console.WriteLine("유효하지 않은 선택입니다.");
+                }
+            }
+
+            Console.WriteLine("0. 돌아가기");
+            Num.Sel(0); // 사용자에게 돌아갈 수 있는 선택지 제공
+        }
     }
+
 }
