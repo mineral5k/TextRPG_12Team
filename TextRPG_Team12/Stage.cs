@@ -53,6 +53,7 @@ namespace TextRPG_Team12
                 }
                 
             }
+            Battle(player, enemy);
         }
 
         public void Battle(Player player, Monster[] enemy)
@@ -125,28 +126,7 @@ namespace TextRPG_Team12
 
         void BattlePlayerTurn (Player player, Monster[] enemy)
         {
-            Console.Clear();
-
-            Console.WriteLine("전투 !! ");
-            Console.WriteLine();
-            for (int i = 0;i<enemy.Length;i++)                                                         //적 정보와 HP 표시
-            {
-                if (enemy[i].IsDead)
-                {
-                    Console.ForegroundColor =ConsoleColor.Gray;
-                    Console.WriteLine($"LV.{enemy[i].Level} {enemy[i].Name} Dead");
-                    Console.ResetColor();
-                }
-                else
-                {   
-                    Console.WriteLine($"LV.{enemy[i].Level} {enemy[i].Name}  HP {enemy[i].Health}");
-                }
-            }
-
-            Console.WriteLine();
-            Console.WriteLine("[내 상태]");
-            Console.WriteLine($"LV.{player.Level}   {player.Name}  직업 : {player.job.JobName}");
-            Console.WriteLine();
+            ShowSituation(player, enemy);
             Console.WriteLine("1. 공격한다");
             Console.WriteLine("2. 스킬 사용");
             Console.WriteLine("3. 아이템 사용");
@@ -184,28 +164,7 @@ namespace TextRPG_Team12
 
         void AttackSellect(Player player, Monster[] enemy)
         {
-            Console.Clear();
-
-            Console.WriteLine("전투 !! ");
-            Console.WriteLine();
-            for (int i = 0; i < enemy.Length; i++)                                                         //적 정보와 HP 표시
-            {
-                if (enemy[i].IsDead)
-                {
-                    Console.ForegroundColor = ConsoleColor.Gray;
-                    Console.WriteLine($"{i+1}. LV.{enemy[i].Level} {enemy[i].Name} Dead");
-                    Console.ResetColor();
-                }
-                else
-                {
-                    Console.WriteLine($"{i+1}. LV.{enemy[i].Level} {enemy[i].Name}  HP {enemy[i].Health}");
-                }
-            }
-
-            Console.WriteLine();
-            Console.WriteLine("[내 상태]");
-            Console.WriteLine($"LV.{player.Level}   {player.Name}  직업 : {player.job.JobName}");
-            Console.WriteLine();
+            ShowSituationNumber(player, enemy); 
             Console.WriteLine("0. 취소");
 
             int sel = Num.Sel(enemy.Length);
@@ -217,14 +176,14 @@ namespace TextRPG_Team12
                 {
                     BattlePlayerTurn(player, enemy);
                 }
-                else if (enemy[sel].IsDead)
+                else if (enemy[sel-1].IsDead)
                 {
                     Console.WriteLine("이미 사망한 적입니다.");
                     repeat = true;
                 }
                 else
                 {
-                    player.Attack(enemy[sel]);
+                    player.Attack(enemy[sel-1]);
                 }
             } while (repeat);
 
@@ -235,8 +194,36 @@ namespace TextRPG_Team12
         }
         void UseSkill(Player player, Monster[] enemy)
         {
-            Console.Clear();
+            ShowSituation(player, enemy);
+            Console.WriteLine($"1. {player.job.JobSkillName1}  {player.job.JobSkillDesc1}");
+            Console.WriteLine($"2. {player.job.JobSkillName2}  {player.job.JobSkillDesc2}");
+            Console.WriteLine($"3. {player.job.JobSkillName3}  {player.job.JobSkillDesc3}");
+            Console.WriteLine("0. 취소");
+            int sel = Num.Sel(3);
 
+            switch (sel)
+            {
+                case 0:
+                    BattlePlayerTurn(player, enemy); 
+                    break;
+                case 1:
+                    player.job.JobSkill_1();
+                    break;
+                case 2:
+                    player.job.JobSkill_2();
+                    break;
+                case 3:
+                    player.job.JobSkill_3();
+                    break;
+            }
+
+            
+        }
+
+
+        void ShowSituation(Player player, Monster[] enemy)
+        {
+            Console.Clear();
             Console.WriteLine("전투 !! ");
             Console.WriteLine();
             for (int i = 0; i < enemy.Length; i++)                                                         //적 정보와 HP 표시
@@ -257,11 +244,34 @@ namespace TextRPG_Team12
             Console.WriteLine("[내 상태]");
             Console.WriteLine($"LV.{player.Level}   {player.Name}  직업 : {player.job.JobName}");
             Console.WriteLine();
-            Num.Sel(4);
         }
 
 
+        void ShowSituationNumber(Player player, Monster[] enemy)
+        {
+            Console.Clear();
+            Console.WriteLine("전투 !! ");
+            Console.WriteLine();
+            for (int i = 0; i < enemy.Length; i++)                                                         //적 정보와 HP 표시
+            {
+                if (enemy[i].IsDead)
+                {
+                    Console.ForegroundColor = ConsoleColor.Gray;
+                    Console.WriteLine($"{i + 1}. LV.{enemy[i].Level} {enemy[i].Name} Dead");
+                    Console.ResetColor();
+                }
+                else
+                {
+                    Console.WriteLine($"{i + 1}. LV.{enemy[i].Level} {enemy[i].Name}  HP {enemy[i].Health}");
+                }
+            }
 
+            Console.WriteLine();
+            Console.WriteLine("[내 상태]");
+            Console.WriteLine($"LV.{player.Level}   {player.Name}  직업 : {player.job.JobName}");
+            Console.WriteLine();
+
+        }
 
 
 
