@@ -248,8 +248,8 @@ namespace TextRPG_Team12
         void UseItem(Player player, Monster[] enemy)                                               //아이템 사용 메서드
         {                                                                                          //자세한 내용 추후 구현 필요
             ShowSituation(player, enemy);
-            Console.WriteLine("1. 체력 포션 ");
-            Console.WriteLine("2. 마나 포션 ");
+            Console.WriteLine($"1. 체력 포션 : 체력을 50 회복합니다. 소지 개수:");
+            Console.WriteLine($"2. 마나 포션 : 마나를 30 회복합니다. 소지 개수:");
             Console.WriteLine("0. 취소 ");
 
             int sel = Num.Sel(2);
@@ -260,16 +260,54 @@ namespace TextRPG_Team12
                     BattlePlayerTurn(player, enemy);
                     break;
                 case 1:
+                    if(false)
+                    {
+                        Console.WriteLine("소지 개수가 부족합니다.");
+                        Console.WriteLine("0. 확인");
+                        Num.Sel(0);
+                        BattlePlayerTurn(player, enemy);
+                    }
+                    else
+                    {
+                        Console.Clear();
+                        Console.WriteLine("체력 포션을 사용하여 체력을 회복했습니다.");
+                        player.Health += 50;
+                        if (player.Health >= player.MaxHealth)
+                        {
+                            player.Health = player.MaxHealth;
+                        }
+                        Console.WriteLine($"현재 체력 : {player.Health}");
+                        Console.WriteLine("0. 다음으로");
+                    }
 
                     break;
                 case 2:
+                    if (false)
+                    {
+                        Console.WriteLine("소지 개수가 부족합니다.");
+                        Console.WriteLine("0. 확인");
+                        Num.Sel(0);
+                        BattlePlayerTurn(player, enemy);
+                    }
+                    else
+                    {
+                        Console.Clear();
+                        Console.WriteLine("마나 포션을 사용하여 마나를 회복했습니다.");
+                        player.Mana += 30;
+                        if (player.Mana >= player.MaxMana)
+                        {
+                            player.Mana = player.MaxMana;
+                        }
+                        Console.WriteLine($"현재 MP : {player.Mana}");
+                        Console.WriteLine("0. 다음으로");
+                    }
 
                     break;
             }
 
 
         }
-        void UseSkill(Player player, Monster[] enemy)                                              //스킬 사용 메서드 
+        public void UseSkill(Player player, Monster[] enemy)                                              //스킬 사용 메서드 
         {                                                                                          //상세한 내용은 각 직업 스킬에서 구현
             ShowSituation(player, enemy);
             Console.WriteLine($"1. {player.job.JobSkillName1}  {player.job.JobSkillDesc1}");
@@ -320,6 +358,7 @@ namespace TextRPG_Team12
             Console.WriteLine();
             Console.WriteLine("[내 상태]");
             Console.WriteLine($"LV.{player.Level}   {player.Name}  직업 : {player.job.JobName}");
+            Console.WriteLine($"HP : {player.Health}      MP : {player.Mana}");
             Console.WriteLine();
         }
 
@@ -346,6 +385,7 @@ namespace TextRPG_Team12
             Console.WriteLine();
             Console.WriteLine("[내 상태]");
             Console.WriteLine($"LV.{player.Level}   {player.Name}  직업 : {player.job.JobName}");
+            Console.WriteLine($"HP : {player.Health}      MP : {player.Mana}");
             Console.WriteLine();
 
         }
