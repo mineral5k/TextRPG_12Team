@@ -390,7 +390,7 @@ namespace TextRPG_Team12
 
                     if (selectedQuest.IsCompleted)
                     {
-                    
+
                         Console.WriteLine("보상을 받으시겠습니까? (1. 예 / 2. 아니오)");
                         int rewardChoice = Num.Sel(2);
 
