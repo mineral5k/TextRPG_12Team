@@ -99,14 +99,20 @@ namespace TextRPG_Team12
         public int ShowInventory(bool showIdx)
         {
 
+
             Console.Clear();
             Console.WriteLine();
             Console.WriteLine("[아이템 목록]");
 
             Console.WriteLine();
-            
 
-            for (int i = 0; i < Inventory.Count(item => item is Equipment);  i++)
+
+            ItemArray(ref Inventory);
+
+            int EquipCount = Inventory.Count(item => item is Equipment);
+            int MiscellCount = EquipCount;
+
+            for (int i = 0; i < EquipCount;  i++)
             {
                 Equipment targetInventory = Inventory[i] as Equipment;
 
@@ -117,10 +123,16 @@ namespace TextRPG_Team12
 
             }
 
-            for (int j = Inventory.Count(item => item is Equipment), Inventory.Count; j++)
+
+            if (!showIdx)
             {
-                string displayIdx = showIdx ? $"{i + 1} " : "";
-                Console.WriteLine($"- {displayIdx}{displayEquipped} {targetInventory.EquipmentStatText()}");
+
+                for (int i = MiscellCount; i < Inventory.Count; i++)
+                {
+                    string displayIdx = showIdx ? $"{i + 1} " : "";
+                    Console.WriteLine($"- {displayIdx} {Inventory[i].ItemInfoText()}");
+
+                }
 
             }
 
@@ -130,7 +142,7 @@ namespace TextRPG_Team12
             Console.WriteLine(!showIdx ? "1. 장착관리" : "");
             Console.WriteLine($"0. 나가기");
 
-            return Inventory.Count;
+            return !showIdx ? Inventory.Count : EquipCount;
         }
 
 
@@ -178,7 +190,7 @@ namespace TextRPG_Team12
                 return;
            
 
-            Equipment EquipItem = Inventory[TargetNum];
+            Equipment EquipItem = Inventory[TargetNum] as Equipment;
 
             if (IsEquipped(EquipItem))
             {

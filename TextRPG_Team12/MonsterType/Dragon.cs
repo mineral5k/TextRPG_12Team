@@ -17,8 +17,6 @@ namespace TextRPG_Team12
          
                 new Miscellaneous("용의 이빨", "날카로운 용의 이빨. 일부지역에서는 화폐로도 통용된다", 75)
 
-
-
             };
 
 
@@ -60,6 +58,7 @@ namespace TextRPG_Team12
 
             }
 
+            ItemArray(ref RewardItemDB);
             WinningPrize();
 
         }

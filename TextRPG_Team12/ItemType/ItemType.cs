@@ -22,6 +22,15 @@ namespace TextRPG_Team12
         }
 
 
+        public string ItemInfoText()
+        {
+
+            return $"{Name} | {Info} | X {ItemCount}";
+
+
+        }
+
+
 
     }
 

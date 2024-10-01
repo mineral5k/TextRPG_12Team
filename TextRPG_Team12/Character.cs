@@ -65,18 +65,13 @@ namespace TextRPG_Team12
         }
 
 
-        public void ItemArray(List<ItemType> itemList)
+        public void ItemArray(ref List<ItemType> itemList)
         { 
         
             var sortedItemList = itemList.OrderBy(ItemOrder).ToList();
-                
-        
-        
-        
+                itemList = sortedItemList;
+       
         }
-
-
-
 
         public int ItemOrder(ItemType itemorder)
         {
