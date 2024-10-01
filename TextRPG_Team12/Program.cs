@@ -1,4 +1,5 @@
-﻿using static TextRPG_Team12.Quest;
+﻿using SixLabors.Fonts.Unicode;
+using static TextRPG_Team12.Quest;
 
 namespace TextRPG_Team12
 {
@@ -70,7 +71,7 @@ namespace TextRPG_Team12
             {
                 Console.Clear();
                 currentScene.OnShow();
-               int sel = Num.Sel(5);
+               int sel = Num.Sel(7);
                 switch (sel)
                 {
                     case 1:
@@ -87,6 +88,12 @@ namespace TextRPG_Team12
                         break;
                     case 5:
                         ShowQuest(player);
+                        break;
+                    case 6:
+                        Inn(player);
+                        break;
+                    case 7:
+                        Change(player);
                         break;
                     case 0:
                         ExitGame(player); // 게임 종료 기능 호출
@@ -268,9 +275,90 @@ namespace TextRPG_Team12
         public static void ExitGame(Player player)
         {
             Console.WriteLine("게임을 종료합니다.");
-            Thread.Sleep(5000);
+            Thread.Sleep(2000);
             Environment.Exit(0);
         }
+
+        public static void Inn (Player player)
+        {
+            Console.Clear();
+            Console.WriteLine("700G 를 지불하여 체력과 마나를 모두 회복합니다.");
+            Console.WriteLine($"현재 소지 골드 : [{player.Gold}]");
+            Console.WriteLine($"1. 휴식한다.");
+            Console.WriteLine($"0. 돌아간다.");
+
+            int sel = Num.Sel(1);
+
+            if (sel ==0)
+            {
+
+            }
+
+            else if (sel ==1)
+            {
+                if (player.Gold<700)
+                {
+                    Console.WriteLine("보유 Gold가 부족합니다. 마을로 돌아갑니다.");
+                    Console.WriteLine("0. 돌아간다");
+                    Num.Sel(1);
+                }
+                else
+                {
+                    Console.WriteLine("체력과 마나가 모두 회복되었습니다.");
+                    player.Health = player.MaxHealth;
+                    player.Mana = player.MaxMana;
+                    player.Gold -= 700;
+                    Console.WriteLine("0. 확인");
+                    Num.Sel(0);
+                }
+            }
+
+
+        }
+
+        public static void Change(Player player)
+        {
+            Console.Clear();
+            Console.WriteLine("선택한 직업으로 직업을 변경합니다.");
+
+            Console.WriteLine("1. 전사 2. 궁수 3.도적 4.마법사");
+            Console.WriteLine("0. 돌아간다.");
+
+            int sel = Num.Sel(4);
+            {
+                switch(sel)
+                {
+                    case 0:
+                        break;
+                    case 1:
+                        player.job = new Worrior();
+                        break;
+                    case 2:
+                        player.job = new Archer();
+                        break;
+                    case 3:
+                        player.job = new Thief();
+                        break;
+                    case 4:
+                        player.job = new Mage();
+                        break;
+                }
+                
+                player.MaxHealth = 100 + player.job.JobHealth;
+                player.MaxMana = 50 + player.job.JobMana;
+                if(player.Health >player.MaxHealth)
+                {
+                    player.Health = player.MaxHealth;
+                }
+                if (player.Mana > player.MaxMana)
+                {
+                    player.Mana = player.MaxMana;
+                }
+                player.AttackPower = 10 + player.job.JobAttackPower;
+                player.AmorDefense = 5 + player.job.JobAmorDeffense;
+            }
+        }
+
     }
 
 
@@ -289,7 +377,7 @@ static public class Num
         {
             int a = 0;
 
-            Console.Write("원하시는 행동을 입력해 주세요 : ");
+            Console.Write(">> ");
 
             while (true)
             {
