@@ -111,20 +111,30 @@ namespace TextRPG_Team12
             Console.Clear();
             Console.WriteLine("전투에서 승리했습니다.");
             Console.WriteLine();
+
+
+
+            Console.WriteLine("[획득 아이템]");
+
             int exp = 0;                                                //승리 시 적에게 할당된 경험치 획득
             int gold = 0;
+
 
             for (int i = 0; i < enemy.Length; i++)
             {
                 exp += enemy[i].HuntExp;
                 gold += enemy[i].LootMoney;
+                enemy[i].WinningPrize(player);
 
             }
 
 
             Console.WriteLine($"{gold}만큼의 골드를 확득했습니다.");
+            player.Gold += gold;
 
             player.GetExp(exp);
+
+
 
             foreach (var quest in player.Quests)
             {
@@ -135,7 +145,7 @@ namespace TextRPG_Team12
                 }
             }
 
-            player.Gold += gold;
+
 
 
 

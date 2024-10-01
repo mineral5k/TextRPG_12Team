@@ -55,19 +55,41 @@ namespace TextRPG_Team12
 
 
 
-        public void WinningPrize()
+        public void WinningPrize(Player player)
         {
            
             int Selectnum = rand.Next(0, 2);
             int IteDBmNum = rand.Next(0, RewardItemDB.Count);
 
+            ItemType TargetItem = RewardItemDB[IteDBmNum];
+
             for (int i = 0; i < Selectnum; i++)
             {
                 int Itemnum = rand.Next(0, 3);
 
-                Console.WriteLine($"{RewardItemDB[IteDBmNum].Name} X {Itemnum}");
+                Console.WriteLine($"{TargetItem.Name} X {Itemnum}");
 
-            
+                if (player.isItemHave(TargetItem))
+                {
+
+                    int inventoryItemnum = player.Inventory.IndexOf(TargetItem);
+
+                    if (player.Inventory[inventoryItemnum].HasNum <= 99)
+                        player.Inventory[inventoryItemnum].HasNum += Itemnum;
+                    else
+                        player.Inventory[inventoryItemnum].HasNum = 99;
+
+                }
+                else
+                {
+                    TargetItem.HasNum = Itemnum;
+                    player.Inventory.Add(TargetItem);
+
+
+                }
+
+                
+
             }
         
         

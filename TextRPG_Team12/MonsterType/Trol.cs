@@ -55,8 +55,7 @@ namespace TextRPG_Team12
             }
 
             ItemArray(ref RewardItemDB);
-            WinningPrize();
-
+     
 
         }
 
