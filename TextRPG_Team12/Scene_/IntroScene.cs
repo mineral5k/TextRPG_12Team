@@ -15,7 +15,8 @@ internal class IntroScene : IScene
 
         Console.WriteLine("\n원하시는 직업을 선택하세요.");
         Console.WriteLine("1. 전사 2. 궁수 3. 도적 4. 마법사");
-        }
+        string inputJob = Console.ReadLine();
+    }
 
         public IScene GetNextScene()
         {
