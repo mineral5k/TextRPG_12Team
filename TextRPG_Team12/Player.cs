@@ -368,17 +368,25 @@ namespace TextRPG_Team12
 
                     if (selectedQuest.IsCompleted)
                     {
-                        Console.WriteLine($"퀘스트 '{selectedQuest.Name}'는 이미 완료되었습니다.");
+                    
+                        Console.WriteLine("보상을 받으시겠습니까? (1. 예 / 2. 아니오)");
+                        int rewardChoice = Num.Sel(2);
+
+                        if (rewardChoice == 1)
+                        {
+                            // 퀘스트 완료 시 보상 지급 및 초기화
+                            selectedQuest.CompleteQuest(player);
+                            Console.WriteLine($"퀘스트 '{selectedQuest.Name}'가 초기화되었습니다.");
+                        }
                     }
                     else
                     {
                         selectedQuest.CheckProgress(); // 진행 상황 확인
 
-                        // 퀘스트가 완료되었는지 확인
                         if (selectedQuest.IsCompleted)
                         {
                             // 퀘스트 완료 시 보상 지급
-                            selectedQuest.CompleteQuest(player); // 플레이어에게 보상 지급
+                            selectedQuest.CompleteQuest(player);
                             Console.WriteLine($"퀘스트 '{selectedQuest.Name}'를 완료하였습니다!");
                         }
                         else
@@ -398,6 +406,8 @@ namespace TextRPG_Team12
 
             Num.Sel(0);
         }
+
+
 
 
 
