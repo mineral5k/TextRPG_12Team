@@ -1,8 +1,8 @@
 ﻿
 
 using System.ComponentModel;
-using static TextRPG_Team12.StageClearQuest;
 using System.Numerics;
+using static TextRPG_Team12.Quest;
 
 namespace TextRPG_Team12
 {
@@ -40,10 +40,7 @@ namespace TextRPG_Team12
         public int MaxMana { get; set; }
 
         public bool Counter {  get; set; }
-
-        public bool EvadeBuff { get; set; }
    
-        
 
 
 
@@ -54,28 +51,12 @@ namespace TextRPG_Team12
             Level = 1;
             Gold = 1500;
             Health = 100 +job.JobHealth;
-            MaxHealth =Health;
             MaxMana = 50 + job.JobMana;
             Mana = 50 + job.JobMana;
             AttackPower = 10 +job.JobAttackPower;
             AmorDefense = 5 + job.JobAmorDeffense;
             Quests = new List<Quest>();
             Counter = false;
-            EvadeBuff = false;
-            Evasion = 10;
-            Critical = 10;
-
-        }
-
-        public override void TakeDamage(int damage)
-        {
-            int deDamage = damage - AmorDefense / 3; 
-            if (deDamage < 0) deDamage = 0;
-            Console.WriteLine($"{Name}이(가) {deDamage}의 데미지를 받았습니다.");
-
-            Health -= deDamage;
-            if (IsDead) Console.WriteLine($"{Name}이(가) 죽었습니다.");
-            else Console.WriteLine($"남은 체력: {Health}");
 
         }
 
@@ -347,10 +328,10 @@ namespace TextRPG_Team12
             if (player.Quests.Count == 0)
             {
                 Console.WriteLine("\n현재 진행 중인 퀘스트가 없습니다.");
-                return; 
+                return;
             }
 
-            while (true) 
+            while (true)
             {
                 Console.WriteLine("진행 중인 퀘스트 목록:");
                 for (int i = 0; i < player.Quests.Count; i++)
@@ -372,10 +353,13 @@ namespace TextRPG_Team12
                     }
                     else
                     {
-                        selectedQuest.CheckProgress();
+                        selectedQuest.CheckProgress(); // 진행 상황 확인
 
+                        // 퀘스트가 완료되었는지 확인
                         if (selectedQuest.IsCompleted)
                         {
+                            // 퀘스트 완료 시 보상 지급
+                            selectedQuest.CompleteQuest(player); // 플레이어에게 보상 지급
                             Console.WriteLine($"퀘스트 '{selectedQuest.Name}'를 완료하였습니다!");
                         }
                         else
@@ -383,18 +367,21 @@ namespace TextRPG_Team12
                             Console.WriteLine($"퀘스트 '{selectedQuest.Name}'는 아직 완료되지 않았습니다.");
                         }
                     }
-                    break; 
+                    break;
                 }
                 else if (choice == 0)
                 {
                     Console.WriteLine("메인 메뉴로 돌아갑니다.");
                     Program.village(player); // 마을로 돌아가기
-                    break; 
+                    break;
                 }
             }
 
-            Num.Sel(0); 
+            Num.Sel(0);
         }
+
+
+
 
 
     }

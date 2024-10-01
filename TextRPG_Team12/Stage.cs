@@ -4,6 +4,7 @@ using System.Linq;
 using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
+using static TextRPG_Team12.Quest;
 
 namespace TextRPG_Team12
 {
@@ -123,7 +124,14 @@ namespace TextRPG_Team12
 
             player.GetExp(exp);
 
-            // StageCleared 퀘스트 완료 불러오기
+            foreach (var quest in player.Quests)
+            {
+                if (quest is StageClearQuest stageClearQuest && !stageClearQuest.IsCompleted)
+                {
+                    stageClearQuest.StageCleared(); // 스테이지 클리어 퀘스트 완료 처리
+                    Console.WriteLine($"퀘스트 '{stageClearQuest.Name}'이(가) 완료되었습니다!");
+                }
+            }
 
             player.Gold += gold;
 
@@ -139,11 +147,7 @@ namespace TextRPG_Team12
 
         void BattleEnemyTurn(Player player, Monster[] enemy)            //적의 턴
         {
-            if (player.EvadeBuff)
-            {
-                player.Evasion += 100;
-            }
-            for (int i = 0;i < enemy.Length;i++)                        
+            for (int i = 0; i < enemy.Length; i++)
             {
                 if (!enemy[i].IsDead)                                   //죽지 않은 적들이 플레이어 공격
                 {
@@ -172,15 +176,10 @@ namespace TextRPG_Team12
                 }
             }
             player.Counter = false;
-            if (player.EvadeBuff)
-            {
-                player.EvadeBuff = false;
-                player.Evasion -= 100;
-            }
         }
 
 
-        public void BattlePlayerTurn (Player player, Monster[] enemy)
+        void BattlePlayerTurn(Player player, Monster[] enemy)
         {
             ShowSituation(player, enemy);
             Console.WriteLine("1. 공격한다");
