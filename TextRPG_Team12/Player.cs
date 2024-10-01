@@ -83,15 +83,17 @@ namespace TextRPG_Team12
         {
             Console.Clear();
             Console.WriteLine();
-            Console.WriteLine($"이름: {Name}");
-            Console.WriteLine($"LV : {Level}");
-            Console.WriteLine($"직업 : {job.JobName}");
-            Console.WriteLine($"공격력 : {AttackPower + WeaponStat} ( + {WeaponStat})");
-            Console.WriteLine($"방어력 : {AmorDefense + AmorStat} (+ {AmorStat})");
-            Console.WriteLine($"체력: {Health}");
-            Console.WriteLine($"GOLD: {Gold}");
+            Console.WriteLine($"        \u001b[48;2;30;30;30m\u001b[38;2;255;255;255m상태 보기\u001b[0m");
             Console.WriteLine();
-            Console.WriteLine($"0. 나가기");
+            Console.WriteLine($"\t• 이름: {Name}");
+            Console.WriteLine($"\t• LV : {Level}");
+            Console.WriteLine($"\t• 직업 : {job.JobName}");
+            Console.WriteLine($"\t• 공격력 : {AttackPower + WeaponStat} ( + {WeaponStat})");
+            Console.WriteLine($"\t• 방어력 : {AmorDefense + AmorStat} (+ {AmorStat})");
+            Console.WriteLine($"\t• 체력: {Health}");
+            Console.WriteLine($"\t• GOLD: {Gold}");
+            Console.WriteLine();
+            Console.WriteLine($"\t\u001b[38;2;255;150;150m0. 나가기\u001b[0m");
 
 
         }
