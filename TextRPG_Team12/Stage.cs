@@ -11,6 +11,7 @@ namespace TextRPG_Team12
     public class Stage
     {
         int clearedFloor = 0;
+        public int killedMonster = 0;
 
         public void Dungeon(Player player)
         {
@@ -101,6 +102,7 @@ namespace TextRPG_Team12
 
             Victory(player, enemy);                                         // 플레이어가 죽은 경우
                                                                             // 플레이어 클래스에서 게임 오버로 프로그램이 종료하기 때문에 이 클래스에서 따로 메서드를 만들어 두진 않는다.
+            killedMonster +=enemy.Length ;
         }
 
 
