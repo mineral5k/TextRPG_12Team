@@ -65,7 +65,7 @@ namespace TextRPG_Team12
 
             for (int i = 0; i < Selectnum; i++)
             {
-                int Itemnum = rand.Next(0, 3);
+                int Itemnum = rand.Next(1, 3);
 
                 Console.WriteLine($"{TargetItem.Name} X {Itemnum}");
 

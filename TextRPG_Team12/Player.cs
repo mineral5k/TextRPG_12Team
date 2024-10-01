@@ -356,7 +356,9 @@ namespace TextRPG_Team12
                     }
 
                     // 수정 필요
-                    ShopList[TargetNum].IsPurchased = false;
+
+                    int ShopListNum = ShopList.IndexOf(targetItem);                    
+                    ShopList[ShopListNum].IsPurchased = false;
 
 
                     Gold += targetItem.Price;
@@ -369,7 +371,6 @@ namespace TextRPG_Team12
                 else
                     Console.WriteLine("판매할 수 없는 아이템입니다.");
             }
-
             else
             {
                 ItemType targetItem = Inventory[TargetNum];

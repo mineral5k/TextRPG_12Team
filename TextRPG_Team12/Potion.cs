@@ -7,22 +7,23 @@ using System.Threading.Tasks;
 
 namespace TextRPG_Team12
 {
-    internal class Potion
+    internal class Potion : ItemType
     {
         public string Name { get; set; }
         public string Info { get; set; }
         public int Type {  get; set; }          // 1= 체력 포션 2 = 마나 포션 3~= 기타 포션
         public int Recovery { get; set; }       //회복량
-        public int HasNumber { get; set; }      //소지량
+        public int HasNum { get; set; }      //소지량
 
+        public int Price { get; }
 
-        Potion (string name, string info, int type, int recovery)
+        Potion (string name, string info, int type, int recovery) :base(name,info, 500, 1)
         {
             Name = name;
             Info = info;
             Type = type;
             Recovery = recovery;
-            HasNumber = 0;
+
         }
 
 
@@ -43,7 +44,7 @@ namespace TextRPG_Team12
                 Console.WriteLine($"마나를 {Recovery} 회복  현재 마나 : {player.Mana}");
             }
 
-            HasNumber -= 1;                                                                // 사용 후 소지 개수 감소
+            HasNum -= 1;                                                                // 사용 후 소지 개수 감소
         }
 
     }
