@@ -640,7 +640,7 @@ namespace TextRPG_Team12
                 repeat = false;
                 if (sel == 0)
                 {
-                    player.stage.BattlePlayerTurn(player, enemy);
+                    player.stage.UseSkill(player, enemy);
                 }
                 else if (enemy[sel - 1].IsDead)
                 {
@@ -649,7 +649,7 @@ namespace TextRPG_Team12
                 }
                 else
                 {
-                    if (enemy[sel - 1].Health > enemy[sel-1].Health *0.33)
+                    if (enemy[sel - 1].Health > enemy[sel-1].MaxHealth *0.33)
                     {
                         Console.WriteLine("올바른 대상이 아닙니다.");
                         repeat = true;
