@@ -199,7 +199,7 @@ namespace TextRPG_Team12
             if (buySell == 1)
             {
                 int shopList = Num.Sel(player.ShowShop(true)) - 1;
-                player.BuyShop(shopList);
+                player.BuyShop(shopList,player);
 
 
             }

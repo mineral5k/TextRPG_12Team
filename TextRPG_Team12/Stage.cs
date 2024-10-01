@@ -143,7 +143,7 @@ namespace TextRPG_Team12
             {
                 if (!enemy[i].IsDead)                                   //죽지 않은 적들이 플레이어 공격
                 {
-                    if (enemy[i].Stun > 0)
+                    if (enemy[i].stun > 0)
                     {
                         Console.WriteLine($"{enemy[i].Name}은 기절하여 움직일 수 없다!");
                         enemy[i].stun--;
