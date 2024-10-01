@@ -12,6 +12,7 @@
 
 
         public Miscellaneous(string name, string info, int price)
+            :base(name, info, price)
         {
 
      

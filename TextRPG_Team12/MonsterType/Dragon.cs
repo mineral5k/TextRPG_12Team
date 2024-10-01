@@ -60,6 +60,7 @@ namespace TextRPG_Team12
 
             }
 
+            WinningPrize();
 
         }
 

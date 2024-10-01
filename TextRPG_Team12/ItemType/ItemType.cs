@@ -1,15 +1,28 @@
-﻿namespace TextRPG_Team12
+﻿using System.Diagnostics;
+using System.Xml.Linq;
+
+namespace TextRPG_Team12
 {
-    public class ItemType
+    public abstract class ItemType
     {
 
 
-        public int ItemCode; // 1이면 Equipment, 2이면 portion, 3이면 기타?
-        
+        public int ItemCount;
 
-    
-    
-    
+        public string Name { get; set; }
+        public string Info { get; set; }
+        public int Price { get; set; }
+
+
+        public ItemType(string name, string info, int price)
+        {
+            Name = name;
+            Info = info;
+            Price = price;
+        }
+
+
+
     }
 
 

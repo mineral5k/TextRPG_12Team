@@ -55,7 +55,7 @@ namespace TextRPG_Team12
             }
 
 
-            // 아이템 정렬 하기 
+            WinningPrize();
 
 
         }

@@ -38,10 +38,6 @@ namespace TextRPG_Team12
         }
 
 
-
-
-
-
         public void StageEnemySet(int Stagelevel)
         {
 
@@ -58,6 +54,24 @@ namespace TextRPG_Team12
         }
 
 
+
+        public void WinningPrize()
+        {
+           
+            int Selectnum = rand.Next(0, 2);
+            int IteDBmNum = rand.Next(0, RewardItemDB.Count);
+
+            for (int i = 0; i < Selectnum; i++)
+            {
+                int Itemnum = rand.Next(0, 3);
+
+                Console.WriteLine($"{RewardItemDB[IteDBmNum].Name} X {Itemnum}");
+
+            
+            }
+        
+        
+        }
 
 
     }
