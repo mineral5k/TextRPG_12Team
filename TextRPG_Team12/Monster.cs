@@ -14,6 +14,9 @@ namespace TextRPG_Team12
 
         public int LootMoney;
         public int HuntExp;
+        public int PoisonTurn = 0;
+        public int PoisonDamage = 0;
+        public int stun = 0;
 
 
         public void CommontemData()
