@@ -1,4 +1,4 @@
-﻿using static TextRPG_Team12.StageClearQuest;
+﻿using static TextRPG_Team12.Quest;
 
 namespace TextRPG_Team12
 {

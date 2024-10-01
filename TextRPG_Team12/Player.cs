@@ -1,8 +1,8 @@
 ﻿
 
 using System.ComponentModel;
-using static TextRPG_Team12.StageClearQuest;
 using System.Numerics;
+using static TextRPG_Team12.Quest;
 
 namespace TextRPG_Team12
 {
@@ -328,10 +328,10 @@ namespace TextRPG_Team12
             if (player.Quests.Count == 0)
             {
                 Console.WriteLine("\n현재 진행 중인 퀘스트가 없습니다.");
-                return; 
+                return;
             }
 
-            while (true) 
+            while (true)
             {
                 Console.WriteLine("진행 중인 퀘스트 목록:");
                 for (int i = 0; i < player.Quests.Count; i++)
@@ -353,10 +353,13 @@ namespace TextRPG_Team12
                     }
                     else
                     {
-                        selectedQuest.CheckProgress();
+                        selectedQuest.CheckProgress(); // 진행 상황 확인
 
+                        // 퀘스트가 완료되었는지 확인
                         if (selectedQuest.IsCompleted)
                         {
+                            // 퀘스트 완료 시 보상 지급
+                            selectedQuest.CompleteQuest(player); // 플레이어에게 보상 지급
                             Console.WriteLine($"퀘스트 '{selectedQuest.Name}'를 완료하였습니다!");
                         }
                         else
@@ -364,18 +367,21 @@ namespace TextRPG_Team12
                             Console.WriteLine($"퀘스트 '{selectedQuest.Name}'는 아직 완료되지 않았습니다.");
                         }
                     }
-                    break; 
+                    break;
                 }
                 else if (choice == 0)
                 {
                     Console.WriteLine("메인 메뉴로 돌아갑니다.");
                     Program.village(player); // 마을로 돌아가기
-                    break; 
+                    break;
                 }
             }
 
-            Num.Sel(0); 
+            Num.Sel(0);
         }
+
+
+
 
 
     }

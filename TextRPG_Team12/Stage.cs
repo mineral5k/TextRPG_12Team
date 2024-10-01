@@ -4,6 +4,7 @@ using System.Linq;
 using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
+using static TextRPG_Team12.Quest;
 
 namespace TextRPG_Team12
 {
@@ -123,7 +124,14 @@ namespace TextRPG_Team12
 
             player.GetExp(exp);
 
-            // StageCleared 퀘스트 완료 불러오기
+            foreach (var quest in player.Quests)
+            {
+                if (quest is StageClearQuest stageClearQuest && !stageClearQuest.IsCompleted)
+                {
+                    stageClearQuest.StageCleared(); // 스테이지 클리어 퀘스트 완료 처리
+                    Console.WriteLine($"퀘스트 '{stageClearQuest.Name}'이(가) 완료되었습니다!");
+                }
+            }
 
             player.Gold += gold;
 
