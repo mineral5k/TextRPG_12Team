@@ -107,8 +107,8 @@ namespace TextRPG_Team12
             JobSkillDesc1 = "한 명의 적에게 공격력의 150%의 공격을 가합니다.";
             JobSkillName2 = "파워 슬래시";
             JobSkillDesc2 = "전체 적들에게 공격력의 80%의 공격을 가합니다.";
-            JobSkillName3 = "반격";
-            JobSkillDesc3 = "한 턴동안 적에게 공격 받으면 반격합니다.";
+            JobSkillName3 = "반사";
+            JobSkillDesc3 = "적의 공격을 1회 되돌려줍니다.";
 
         }
 
@@ -196,7 +196,7 @@ namespace TextRPG_Team12
             JobSkillName1 = "속사";
             JobSkillDesc1 = "한 명의 적에게 50%의 공격력으로 3번의 공격을 가합니다.";
             JobSkillName2 = "독화살";
-            JobSkillDesc2 = "한 명의 적에게 3턴 동안 지속되는 상처를 남깁니다. 상처는 공격력의 66%에 해당하는 데미지를 줍니다.";
+            JobSkillDesc2 = "한 명의 적에게 3턴 동안 지속되는 상처를 남깁니다. 상처는 공격력의 33%에 해당하는 데미지를 줍니다.";
             JobSkillName3 = "화살비";
             JobSkillDesc3 = "모든 적에게 화살을 퍼붓습니다. 화살의 데미지는 생존 중인 적의 수에 따라 달라집니다.";
         }
@@ -301,7 +301,7 @@ namespace TextRPG_Team12
             JobSkillName1 = "기습";
             JobSkillDesc1 = "80%의 공격력으로 적에게 두번의 기습적인 공격을 가합니다.";
             JobSkillName2 = "은신";
-            JobSkillDesc2 = "이번 턴 적들의 공격을 100%로 회피합니다.";
+            JobSkillDesc2 = "적의 다음 공격을 100%로 회피합니다.";
             JobSkillName3 = "흡혈";
             JobSkillDesc3 = "적에게 공격력의 110%의 피해를 주고 데미지의 50%에 해당하는 체력을 흡수합니다.";
         }

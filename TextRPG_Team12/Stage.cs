@@ -16,7 +16,7 @@ namespace TextRPG_Team12
             Console.Clear();                                                            //클리어 한 스테이지의 다음 스테이지 까지 도전 가능
             Console.WriteLine("");
             Console.WriteLine("도전할 스테이지를 선택하세요");
-            Console.WriteLine($"현재 도전 가능 스테이지 :1 ~ {clearedFloor+1}" );
+            Console.WriteLine($"현재 도전 가능 스테이지 :1 ~ {clearedFloor + 1}");
             Console.WriteLine("0. 나가기");
 
 
@@ -25,18 +25,18 @@ namespace TextRPG_Team12
             {
                 EnterTheDungeon(sel, player);                                           //선택한 스테이지에 따라 난이도가 달라짐
             }
-           
+
         }
 
 
         public void EnterTheDungeon(int floor, Player player)
         {
-            int numberOfEnemy = new Random().Next(floor,5);                             //적의 수는 선택한 스테이지 숫자~4 마리 중 랜덤
+            int numberOfEnemy = new Random().Next(floor, 5);                             //적의 수는 선택한 스테이지 숫자~4 마리 중 랜덤
             Monster[] enemy = new Monster[numberOfEnemy];
 
-            for (int i = 0; i< numberOfEnemy; i++)                                      // 적의 종류는 랜덤 (추후 스테이지에 따라 난이도 조절 필요)
+            for (int i = 0; i < numberOfEnemy; i++)                                      // 적의 종류는 랜덤 (추후 스테이지에 따라 난이도 조절 필요)
             {
-               int TypeOfEnemy =new Random().Next(1,4);
+                int TypeOfEnemy = new Random().Next(1, 4);
 
                 switch (TypeOfEnemy)
                 {
@@ -50,7 +50,7 @@ namespace TextRPG_Team12
                         enemy[i] = new Dragon(floor);
                         break;
                 }
-                
+
             }
             Battle(player, enemy);
         }
@@ -75,7 +75,7 @@ namespace TextRPG_Team12
                     Console.WriteLine("0.다음으로");
                     Num.Sel(0);                                             //전투 로그를 확인 할 수 있게 해주는 작업 
                     Console.Clear();
-                }                                                           
+                }
 
                 enemyAllDead = true;
                 for (int i = 0; i < enemy.Length; i++)
@@ -98,8 +98,8 @@ namespace TextRPG_Team12
 
             }
 
-            Victory(player,enemy);                                         // 플레이어가 죽은 경우
-                                                                           // 플레이어 클래스에서 게임 오버로 프로그램이 종료하기 때문에 이 클래스에서 따로 메서드를 만들어 두진 않는다.
+            Victory(player, enemy);                                         // 플레이어가 죽은 경우
+                                                                            // 플레이어 클래스에서 게임 오버로 프로그램이 종료하기 때문에 이 클래스에서 따로 메서드를 만들어 두진 않는다.
         }
 
 
@@ -110,15 +110,15 @@ namespace TextRPG_Team12
             Console.WriteLine();
             int exp = 0;                                                //승리 시 적에게 할당된 경험치 획득
             int gold = 0;
-            
-            for (int i = 0;i < enemy.Length;i++)
+
+            for (int i = 0; i < enemy.Length; i++)
             {
                 exp += enemy[i].HuntExp;
                 gold += enemy[i].LootMoney;
 
             }
 
-           
+
             Console.WriteLine($"{gold}만큼의 골드를 확득했습니다.");
 
             player.GetExp(exp);
@@ -139,7 +139,7 @@ namespace TextRPG_Team12
 
         void BattleEnemyTurn(Player player, Monster[] enemy)            //적의 턴
         {
-            for (int i = 0;i < enemy.Length;i++)                        
+            for (int i = 0; i < enemy.Length; i++)
             {
                 if (!enemy[i].IsDead)                                   //죽지 않은 적들이 플레이어 공격
                 {
@@ -148,7 +148,7 @@ namespace TextRPG_Team12
                         Console.WriteLine($"{enemy[i].Name}은 기절하여 움직일 수 없다!");
                         enemy[i].stun--;
                     }
-                    else 
+                    else
                     {
                         enemy[i].Attack(player);
                         if (player.Counter == true)
@@ -171,7 +171,7 @@ namespace TextRPG_Team12
         }
 
 
-        void BattlePlayerTurn (Player player, Monster[] enemy)
+        void BattlePlayerTurn(Player player, Monster[] enemy)
         {
             ShowSituation(player, enemy);
             Console.WriteLine("1. 공격한다");
@@ -187,17 +187,17 @@ namespace TextRPG_Team12
                     Run();
                     break;
                 case 1:
-                    AttackSellect(player , enemy);
+                    AttackSellect(player, enemy);
                     break;
                 case 2:
                     UseSkill(player, enemy);
-                    
+
                     break;
                 case 3:
                     UseItem(player, enemy);
                     break;
             }
-           
+
         }
 
         void Run()
@@ -205,15 +205,15 @@ namespace TextRPG_Team12
             Console.Clear();
             Console.WriteLine("전투에서 도망쳤다!");
             Console.WriteLine("마을로 돌아갑니다");
-            
+
         }
 
         void AttackSellect(Player player, Monster[] enemy)                                             //공격할 적을 선택하는 메서드
         {
-            ShowSituationNumber(player, enemy); 
+            ShowSituationNumber(player, enemy);
             Console.WriteLine("0. 취소");
 
-           
+
             bool repeat = false;
             do
             {
@@ -223,7 +223,7 @@ namespace TextRPG_Team12
                 {
                     BattlePlayerTurn(player, enemy);
                 }
-                else if (enemy[sel-1].IsDead)
+                else if (enemy[sel - 1].IsDead)
                 {
                     Console.WriteLine("이미 사망한 적입니다.");
                     repeat = true;
@@ -231,7 +231,7 @@ namespace TextRPG_Team12
                 else
                 {
                     Console.Clear();
-                    player.Attack(enemy[sel-1]);
+                    player.Attack(enemy[sel - 1]);
                 }
             } while (repeat);
 
@@ -255,7 +255,7 @@ namespace TextRPG_Team12
                     break;
                 case 2:
 
-                    break;                 
+                    break;
             }
 
 
@@ -272,7 +272,7 @@ namespace TextRPG_Team12
             switch (sel)
             {
                 case 0:
-                    BattlePlayerTurn(player, enemy); 
+                    BattlePlayerTurn(player, enemy);
                     break;
                 case 1:
                     player.job.JobSkill_1(player, enemy);
@@ -285,7 +285,7 @@ namespace TextRPG_Team12
                     break;
             }
 
-            
+
         }
 
 
@@ -294,7 +294,7 @@ namespace TextRPG_Team12
             Console.Clear();
             Console.WriteLine("전투 !! ");
             Console.WriteLine();
-            for (int i = 0; i < enemy.Length; i++)                                                         
+            for (int i = 0; i < enemy.Length; i++)
             {
                 if (enemy[i].IsDead)
                 {
@@ -320,7 +320,7 @@ namespace TextRPG_Team12
             Console.Clear();
             Console.WriteLine("전투 !! ");
             Console.WriteLine();
-            for (int i = 0; i < enemy.Length; i++)                                                         
+            for (int i = 0; i < enemy.Length; i++)
             {
                 if (enemy[i].IsDead)
                 {
