@@ -143,9 +143,31 @@ namespace TextRPG_Team12
             {
                 if (!enemy[i].IsDead)                                   //죽지 않은 적들이 플레이어 공격
                 {
-                    enemy[i].Attack(player);
+                    if (enemy[i].Stun > 0)
+                    {
+                        Console.WriteLine($"{enemy[i].Name}은 기절하여 움직일 수 없다!");
+                        enemy[i].stun--;
+                    }
+                    else 
+                    {
+                        enemy[i].Attack(player);
+                        if (player.Counter == true)
+                        {
+                            Console.WriteLine($"{player.Name}의 반격");
+                            player.Attack(enemy[i]);
+                        }
+                    }
+
+                    if (enemy[i].PoisonTurn > 0)
+                    {
+                        Console.Write("독으로 인해 ")
+                        enemy[i].TakeDamage(enemy[i].PoisonDamage);
+                        enemy[i].PoisonTurn--;
+                    }
+
                 }
             }
+            player.Counter = false;
         }
 
 
