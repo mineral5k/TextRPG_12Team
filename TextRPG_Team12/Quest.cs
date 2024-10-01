@@ -6,175 +6,132 @@ namespace TextRPG_Team12
     {
         public string Name { get; set; }
         public bool IsCompleted { get; protected set; }
-        public int CompletionCount { get; protected set; } 
-        public int Reward { get; protected set; } 
+        public int CompletionCount { get; private set; } 
 
         public Quest(string name)
         {
             Name = name;
             IsCompleted = false;
             CompletionCount = 0; 
-            Reward = 150;
         }
 
         public abstract void CheckProgress();
-        public abstract void CompleteQuest(Player player); 
-    }
-
-    // 퀘스트 1 (반복) 몬스터 처치하기 
-    public class MonsterKillQuest : Quest
-    {
-        public int MonsterKillTargetCount { get; private set; }
-        private int monsterKillCurrentCount;
-        private int clearCount; 
-
-        public MonsterKillQuest(int monsterKillTargetCount) : base("(반복)몬스터 처치하기")
-        {
-            MonsterKillTargetCount = monsterKillTargetCount;
-            monsterKillCurrentCount = 0;
-            clearCount = 0; 
-        }
-
-        // 몬스터 잡았을 때
-        public void MonsterKilled()
+        public virtual void CompleteQuest(Player player)
         {
             if (IsCompleted)
             {
-                Console.WriteLine($"퀘스트 '{Name}'은(는) 완료되었습니다.");
+                Console.WriteLine($"퀘스트 '{Name}'은 이미 완료되었습니다.");
                 return;
             }
 
-            monsterKillCurrentCount++;
-            Console.WriteLine($"몬스터 처치 수 : {monsterKillCurrentCount}/{MonsterKillTargetCount}");
-
-            CheckProgress();
-        }
-
-        // 퀘스트 완료 여부 확인
-        public override void CheckProgress()
-        {
-            if (monsterKillCurrentCount >= MonsterKillTargetCount)
-            {
-                IsCompleted = true;
-                clearCount++; 
-                Console.WriteLine($"퀘스트 '{Name}' 완료 !");
-            }
-        }
-
-        // 보상 지급
-        public override void CompleteQuest(Player player)
-        {
-            int reward = (int)(150 * Math.Pow(1.2, clearCount - 1)); 
-            player.Gold += reward; // 
-            Console.WriteLine($"보상으로 {reward} 골드를 획득했습니다!");
-        }
-
-        public void ResetQuest()
-        {
-            monsterKillCurrentCount = 0;
-            IsCompleted = false;
-            Console.WriteLine($"퀘스트 '{Name}'를 다시 진행할 수 있습니다.");
-        }
-    }
-
-    // 퀘스트 2 (반복) 스테이지 클리어 퀘스트
-    public class StageClearQuest : Quest
-    {
-        private int clearCount; 
-
-        public StageClearQuest() : base("스테이지 클리어 퀘스트")
-        {
-            clearCount = 0; 
-        }
-
-        // 스테이지 클리어
-        public void StageCleared()
-        {
-            if (IsCompleted)
-            {
-                Console.WriteLine($"퀘스트 '{Name}'은(는) 이미 완료되었습니다.");
-                return;
-            }
-
-            // 퀘스트 완료 처리
             IsCompleted = true;
-            clearCount++; 
-            Console.WriteLine($"퀘스트 '{Name}'이(가) 완료되었습니다!");
+            IncreaseCompletionCount(); 
+            int reward = CalculateReward();  
+            player.Gold += reward;  
+            Console.WriteLine($"퀘스트 '{Name}'을 완료했습니다! 보상: {reward} 골드.");
         }
 
-        // 퀘스트 완료 여부 확인 
-        public override void CheckProgress()
+        private void IncreaseCompletionCount()
         {
-            
+            CompletionCount++;
         }
 
-        // 보상 지급
-        public override void CompleteQuest(Player player)
+        protected virtual int CalculateReward()
         {
-            int reward = (int)(150 * Math.Pow(1.2, clearCount - 1)); 
-            player.Gold += reward; 
-            Console.WriteLine($"보상으로 {reward} 골드를 획득했습니다!");
+            return 150; 
         }
 
-        public void ResetQuest()
+        public class MonsterKillQuest : Quest
         {
-            IsCompleted = false;
-            Console.WriteLine($"퀘스트 '{Name}'를 다시 진행할 수 있습니다.");
-        }
-    }
+            private int monsterKillTargetCount;
+            private int monsterKillCurrentCount;
 
-    // 퀘스트 3 (반복) 아이템 구매하기 퀘스트
-    public class ItemPurchaseQuest : Quest
-    {
-        public int ItemPurchaseTargetCount { get; private set; }
-        private int itemPurchaseCurrentCount;
-        private int clearCount; 
-
-        public ItemPurchaseQuest(int itemPurchaseTargetCount) : base("(반복)아이템 구매 퀘스트")
-        {
-            ItemPurchaseTargetCount = itemPurchaseTargetCount;
-            itemPurchaseCurrentCount = 0;
-            clearCount = 0; 
-        }
-
-        // 아이템 구매 시 호출
-        public void ItemPurchased()
-        {
-            if (IsCompleted)
+            public MonsterKillQuest(int targetCount) : base("(반복)몬스터 처치하기")
             {
-                Console.WriteLine($"퀘스트 '{Name}'은(는) 이미 완료되었습니다.");
-                return;
+                monsterKillTargetCount = targetCount;
+                monsterKillCurrentCount = 0;
             }
 
-            itemPurchaseCurrentCount++;
-            Console.WriteLine($"아이템 구매 수 : {itemPurchaseCurrentCount}/{ItemPurchaseTargetCount}");
+            public void MonsterKilled()
+            {
+                if (IsCompleted) return;
 
-            CheckProgress();
+                monsterKillCurrentCount++;
+                CheckProgress();
+            }
+
+            public override void CheckProgress()
+            {
+                if (monsterKillCurrentCount >= monsterKillTargetCount)
+                {
+                    IsCompleted = true;
+                }
+            }
+
+            protected override int CalculateReward()
+            {
+                return (int)(150 * Math.Pow(1.2, CompletionCount)); 
+            }
         }
 
-        public override void CheckProgress()
+        public class StageClearQuest : Quest
         {
-            if (itemPurchaseCurrentCount >= ItemPurchaseTargetCount)
+            public StageClearQuest() : base("스테이지 클리어 퀘스트") { }
+
+            public void StageCleared()
             {
+                if (IsCompleted) return;
+
                 IsCompleted = true;
-                clearCount++; 
-                Console.WriteLine($"퀘스트 '{Name}' 완료 !");
+                CheckProgress();
+            }
+
+            public override void CheckProgress()
+            {
+                
+            }
+
+            protected override int CalculateReward()
+            {
+                return (int)(150 * Math.Pow(1.2, CompletionCount)); 
             }
         }
 
-        // 보상 지급
-        public override void CompleteQuest(Player player)
+        public class ItemPurchaseQuest : Quest
         {
-            int reward = (int)(150 * Math.Pow(1.2, clearCount - 1)); 
-            player.Gold += reward; 
-            Console.WriteLine($"보상으로 {reward} 골드를 획득했습니다!");
+            private int itemPurchaseTargetCount;
+            private int itemPurchaseCurrentCount;
+
+            public ItemPurchaseQuest(int targetCount) : base("(반복)아이템 구매 퀘스트")
+            {
+                itemPurchaseTargetCount = targetCount;
+                itemPurchaseCurrentCount = 0;
+            }
+
+            public void ItemPurchased()
+            {
+                if (IsCompleted) return;
+
+                itemPurchaseCurrentCount++;
+                CheckProgress();
+            }
+
+            public override void CheckProgress()
+            {
+                if (itemPurchaseCurrentCount >= itemPurchaseTargetCount)
+                {
+                    IsCompleted = true;
+                }
+            }
+
+            protected override int CalculateReward()
+            {
+                return (int)(150 * Math.Pow(1.2, CompletionCount)); 
+            }
         }
 
-        public void ResetQuest()
-        {
-            itemPurchaseCurrentCount = 0;
-            IsCompleted = false;
-            Console.WriteLine($"퀘스트 '{Name}'를 다시 진행할 수 있습니다.");
-        }
+
+
     }
+
 }
