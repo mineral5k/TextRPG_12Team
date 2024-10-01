@@ -17,7 +17,7 @@ namespace TextRPG_Team12
 
         public int Price { get; }
 
-        Potion (string name, string info, int type, int recovery) :base(name,info, 500, 1)
+        public Potion (string name, string info, int type, int recovery) :base(name,info, 500, 1)
         {
             Name = name;
             Info = info;
