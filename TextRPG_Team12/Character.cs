@@ -5,6 +5,7 @@ using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace TextRPG_Team12
 {
     public class Character
@@ -64,6 +65,25 @@ namespace TextRPG_Team12
         }
 
 
+        public void ItemArray(ref List<ItemType> itemList)
+        { 
+        
+            var sortedItemList = itemList.OrderBy(ItemOrder).ToList();
+                itemList = sortedItemList;
+       
+        }
+
+        public int ItemOrder(ItemType itemorder)
+        {
+
+            return itemorder switch
+            {
+                //Equipment => 0,
+                //Potion => 1,
+                Miscellaneous => 2,
+                _ => 3
+            };
+        }
 
 
     }
