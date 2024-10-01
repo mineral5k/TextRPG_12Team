@@ -122,41 +122,43 @@ namespace TextRPG_Team12
             // 공격 대상 선택 구현 ?
             //int damage = (int)(JobAttackPower * 1.5);
             //Console.WriteLine($"{JobSkillName1}! 적에게 {damage}의 데미지를 입혔습니다! ");
-            if (player.Mana <5)
+            if (player.Mana < 5)
             {
                 Console.WriteLine("마나가 부족합니다!");
                 Console.WriteLine("0. 확인");
                 player.stage.UseSkill(player, enemy);
             }
-            int temp = player.AttackPower;
-            player.AttackPower = (int)Math.Round(player.AttackPower * 1.5);
-            ShowSituationNumber(player, enemy);
-
-            
-            bool repeat = false;
-            do
+            else
             {
-                int sel = Num.Sel(enemy.Length);
-                repeat = false;
-                if (sel == 0)
-                {
-                     Console.WriteLine("잘못된 입력입니다.");
-                    repeat = true;
-                }
-                else if (enemy[sel - 1].IsDead)
-                {
-                    Console.WriteLine("이미 사망한 적입니다.");
-                    repeat = true;
-                }
-                else
-                {
-                    Console.Clear();
-                    player.Attack(enemy[sel - 1]);
-                }
-            } while (repeat);
-            player.AttackPower = temp;
-            player.Mana -= 5;
+                int temp = player.AttackPower;
+                player.AttackPower = (int)Math.Round(player.AttackPower * 1.5);
+                ShowSituationNumber(player, enemy);
 
+
+                bool repeat = false;
+                do
+                {
+                    int sel = Num.Sel(enemy.Length);
+                    repeat = false;
+                    if (sel == 0)
+                    {
+                        Console.WriteLine("잘못된 입력입니다.");
+                        repeat = true;
+                    }
+                    else if (enemy[sel - 1].IsDead)
+                    {
+                        Console.WriteLine("이미 사망한 적입니다.");
+                        repeat = true;
+                    }
+                    else
+                    {
+                        Console.Clear();
+                        player.Attack(enemy[sel - 1]);
+                    }
+                } while (repeat);
+                player.AttackPower = temp;
+                player.Mana -= 5;
+            }
         }
 
         public override void JobSkill_2(Player player, Monster[] enemy)
@@ -171,21 +173,23 @@ namespace TextRPG_Team12
                 Console.WriteLine("0. 확인");
                 player.stage.UseSkill(player, enemy);
             }
-
-            Console.Clear();
-            int temp = player.AttackPower;
-            player.AttackPower = (int)Math.Round(player.AttackPower * 0.8);
-
-            for(int i = 0; i < enemy.Length; i++)
+            else
             {
-                if (!enemy[i].IsDead)
-                {
-                    player.Attack(enemy[i]);
-                }
-            }
-            player.AttackPower = temp;
-            player.Mana -= 10;
 
+                Console.Clear();
+                int temp = player.AttackPower;
+                player.AttackPower = (int)Math.Round(player.AttackPower * 0.8);
+
+                for (int i = 0; i < enemy.Length; i++)
+                {
+                    if (!enemy[i].IsDead)
+                    {
+                        player.Attack(enemy[i]);
+                    }
+                }
+                player.AttackPower = temp;
+                player.Mana -= 10;
+            }
         }
 
         public override void JobSkill_3(Player player, Monster[] enemy)
@@ -196,9 +200,12 @@ namespace TextRPG_Team12
                 Console.WriteLine("0. 확인");
                 player.stage.UseSkill(player, enemy);
             }
-            Console.WriteLine($"반격을 위한 자세를 잡았습니다.");              
-            player.Counter = true;
-            player.Mana -= 17;
+            else
+            {
+                Console.WriteLine($"반격을 위한 자세를 잡았습니다.");
+                player.Counter = true;
+                player.Mana -= 17;
+            }
         }
 
     }
@@ -240,40 +247,42 @@ namespace TextRPG_Team12
                 Console.WriteLine("0. 확인");
                 player.stage.UseSkill(player, enemy);
             }
-            int temp = player.AttackPower;
-            player.AttackPower = (int)Math.Round(player.AttackPower * 0.5);
-
-            ShowSituationNumber(player, enemy);
-            
-            bool repeat = false;
-            do
+            else
             {
-                int sel = Num.Sel(enemy.Length);
-                repeat = false;
-                if (sel == 0)
+                int temp = player.AttackPower;
+                player.AttackPower = (int)Math.Round(player.AttackPower * 0.5);
+
+                ShowSituationNumber(player, enemy);
+
+                bool repeat = false;
+                do
                 {
-                    Console.WriteLine("잘못된 입력입니다.");
-                    repeat = true;
-                }
-                else if (enemy[sel - 1].IsDead)
-                {
-                    Console.WriteLine("이미 사망한 적입니다.");
-                    repeat = true;
-                }
-                else
-                {
-                    Console.Clear();
-                    for (int i = 0; i < 3; i++)            // 3회 연속 공격
+                    int sel = Num.Sel(enemy.Length);
+                    repeat = false;
+                    if (sel == 0)
                     {
-                        player.Attack(enemy[sel-1]);    
-                        if (enemy[sel - 1].IsDead) break;  //중간에 적이 사망하면 중지   
+                        Console.WriteLine("잘못된 입력입니다.");
+                        repeat = true;
                     }
-                }
-            } while (repeat);
+                    else if (enemy[sel - 1].IsDead)
+                    {
+                        Console.WriteLine("이미 사망한 적입니다.");
+                        repeat = true;
+                    }
+                    else
+                    {
+                        Console.Clear();
+                        for (int i = 0; i < 3; i++)            // 3회 연속 공격
+                        {
+                            player.Attack(enemy[sel - 1]);
+                            if (enemy[sel - 1].IsDead) break;  //중간에 적이 사망하면 중지   
+                        }
+                    }
+                } while (repeat);
 
-            player.AttackPower = temp;
-            player.Mana -= 7;
-
+                player.AttackPower = temp;
+                player.Mana -= 7;
+            }
         }
 
         public override void JobSkill_2(Player player, Monster[] enemy)
@@ -287,31 +296,34 @@ namespace TextRPG_Team12
                 Console.WriteLine("0. 확인");
                 player.stage.UseSkill(player, enemy);
             }
-            ShowSituationNumber(player, enemy);
-
-            bool repeat = false;
-            do
+            else
             {
-                int sel = Num.Sel(enemy.Length);
-                repeat = false;
-                if (sel == 0)
+                ShowSituationNumber(player, enemy);
+
+                bool repeat = false;
+                do
                 {
-                    Console.WriteLine("잘못된 입력입니다.");
-                    repeat = true;
-                }
-                else if (enemy[sel - 1].IsDead)
-                {
-                    Console.WriteLine("이미 사망한 적입니다.");
-                    repeat = true;
-                }
-                else
-                {
-                    Console.WriteLine($"{enemy[sel-1].Name}이 중독되었습니다.");
-                    enemy[sel - 1].PoisonTurn += 3;
-                    enemy[sel -1].PoisonDamage = (int)Math.Round(player.AttackPower * 0.66);
-                }
-            } while (repeat);
-            player.Mana -= 5;
+                    int sel = Num.Sel(enemy.Length);
+                    repeat = false;
+                    if (sel == 0)
+                    {
+                        Console.WriteLine("잘못된 입력입니다.");
+                        repeat = true;
+                    }
+                    else if (enemy[sel - 1].IsDead)
+                    {
+                        Console.WriteLine("이미 사망한 적입니다.");
+                        repeat = true;
+                    }
+                    else
+                    {
+                        Console.WriteLine($"{enemy[sel - 1].Name}이 중독되었습니다.");
+                        enemy[sel - 1].PoisonTurn += 3;
+                        enemy[sel - 1].PoisonDamage = (int)Math.Round(player.AttackPower * 0.66);
+                    }
+                } while (repeat);
+                player.Mana -= 5;
+            }
         }
 
         public override void JobSkill_3(Player player, Monster[] enemy)
@@ -325,31 +337,32 @@ namespace TextRPG_Team12
                 Console.WriteLine("0. 확인");
                 player.stage.UseSkill(player, enemy);
             }
-
-            int numberOfEnemies = 0; // 적의 수 정보를 받아와야합니다.
-           
-            Console.Clear();
-            for (int i = 0; i < enemy.Length; i++)
+            else
             {
-                if (!enemy[i].IsDead)
-                {
-                    numberOfEnemies++;                                       //죽지 않은 적의 수
-                }
-            }
+                int numberOfEnemies = 0; // 적의 수 정보를 받아와야합니다.
 
-            int temp = player.AttackPower;
-            player.AttackPower = (int)Math.Round(player.AttackPower *2.5 / numberOfEnemies);
-            for (int i = 0; i < enemy.Length; i++)                          //모든 적을 공격
-            {
-                if (!enemy[i].IsDead)
+                Console.Clear();
+                for (int i = 0; i < enemy.Length; i++)
                 {
-                    player.Attack(enemy[i]);
+                    if (!enemy[i].IsDead)
+                    {
+                        numberOfEnemies++;                                       //죽지 않은 적의 수
+                    }
                 }
+
+                int temp = player.AttackPower;
+                player.AttackPower = (int)Math.Round(player.AttackPower * 2.5 / numberOfEnemies);
+                for (int i = 0; i < enemy.Length; i++)                          //모든 적을 공격
+                {
+                    if (!enemy[i].IsDead)
+                    {
+                        player.Attack(enemy[i]);
+                    }
+                }
+                player.AttackPower = temp;
+                player.Mana -= 16;
             }
-            player.AttackPower = temp;
-            player.Mana -= 16;
         }
-
 
     }
 
@@ -385,40 +398,42 @@ namespace TextRPG_Team12
                 Console.WriteLine("0. 확인");
                 player.stage.UseSkill(player, enemy);
             }
-            int temp = player.AttackPower;
-            player.AttackPower = (int)Math.Round(player.AttackPower * 0.8);
-
-            ShowSituationNumber(player, enemy);
-            
-            bool repeat = false;
-            do
+            else
             {
-                int sel = Num.Sel(enemy.Length);
-                repeat = false;
-                if (sel == 0)
+                int temp = player.AttackPower;
+                player.AttackPower = (int)Math.Round(player.AttackPower * 0.8);
+
+                ShowSituationNumber(player, enemy);
+
+                bool repeat = false;
+                do
                 {
-                    Console.WriteLine("잘못된 입력입니다.");
-                    repeat = true;
-                }
-                else if (enemy[sel - 1].IsDead)
-                {
-                    Console.WriteLine("이미 사망한 적입니다.");
-                    repeat = true;
-                }
-                else
-                {
-                    Console.Clear();
-                    for (int i = 0; i < 2; i++)            // 2회 연속 공격
+                    int sel = Num.Sel(enemy.Length);
+                    repeat = false;
+                    if (sel == 0)
                     {
-                        player.Attack(enemy[sel - 1]);
-                        if (enemy[sel - 1].IsDead) break;  //중간에 적이 사망하면 중지   
+                        Console.WriteLine("잘못된 입력입니다.");
+                        repeat = true;
                     }
-                }
-            } while (repeat);
+                    else if (enemy[sel - 1].IsDead)
+                    {
+                        Console.WriteLine("이미 사망한 적입니다.");
+                        repeat = true;
+                    }
+                    else
+                    {
+                        Console.Clear();
+                        for (int i = 0; i < 2; i++)            // 2회 연속 공격
+                        {
+                            player.Attack(enemy[sel - 1]);
+                            if (enemy[sel - 1].IsDead) break;  //중간에 적이 사망하면 중지   
+                        }
+                    }
+                } while (repeat);
 
-            player.AttackPower = temp;
-            player.Mana -= 6;
-
+                player.AttackPower = temp;
+                player.Mana -= 6;
+            }
         }
 
         public override void JobSkill_2(Player player, Monster[] enemy)
@@ -432,9 +447,12 @@ namespace TextRPG_Team12
                 Console.WriteLine("0. 확인");
                 player.stage.UseSkill(player, enemy);
             }
-            Console.WriteLine($"회피 자세를 취하여 한 턴동안 공격을 회피합니다");            //플레이어 클래스 조정 필요 
-            player.EvadeBuff = true;
-            player.Mana -= 7;
+            else
+            {
+                Console.WriteLine($"회피 자세를 취하여 한 턴동안 공격을 회피합니다");            //플레이어 클래스 조정 필요 
+                player.EvadeBuff = true;
+                player.Mana -= 7;
+            }
 
         }
 
@@ -448,39 +466,42 @@ namespace TextRPG_Team12
                 Console.WriteLine("0. 확인");
                 player.stage.UseSkill(player, enemy);
             }
-            int temp = player.AttackPower;
-            int blood = 0;
-            player.AttackPower = (int)Math.Round(player.AttackPower * 1.1);
-            ShowSituationNumber(player, enemy);
-
-            
-            bool repeat = false;
-            do
+            else
             {
-                int sel = Num.Sel(enemy.Length);
-                repeat = false;
-                if (sel == 0)
+                int temp = player.AttackPower;
+                int blood = 0;
+                player.AttackPower = (int)Math.Round(player.AttackPower * 1.1);
+                ShowSituationNumber(player, enemy);
+
+
+                bool repeat = false;
+                do
                 {
-                    Console.WriteLine("잘못된 입력입니다.");
-                    repeat = true;
-                }
-                else if (enemy[sel - 1].IsDead)
-                {
-                    Console.WriteLine("이미 사망한 적입니다.");
-                    repeat = true;
-                }
-                else
-                {
-                    Console.Clear();
-                    blood = enemy[sel - 1].Health;        //공격 전 적의 피
-                    player.Attack(enemy[sel - 1]);
-                    blood -= enemy[sel - 1].Health;       //흡혈량 : (공격 전 적의 HP -공격 후 적의 HP) = 준 데미지 
-                }
-            } while (repeat);
-            player.AttackPower = temp;
-            player.Health += blood;
-            Console.WriteLine($"{blood}의 체력을 회복했습니다");
-            player.Mana -= 10;
+                    int sel = Num.Sel(enemy.Length);
+                    repeat = false;
+                    if (sel == 0)
+                    {
+                        Console.WriteLine("잘못된 입력입니다.");
+                        repeat = true;
+                    }
+                    else if (enemy[sel - 1].IsDead)
+                    {
+                        Console.WriteLine("이미 사망한 적입니다.");
+                        repeat = true;
+                    }
+                    else
+                    {
+                        Console.Clear();
+                        blood = enemy[sel - 1].Health;        //공격 전 적의 피
+                        player.Attack(enemy[sel - 1]);
+                        blood -= enemy[sel - 1].Health;       //흡혈량 : (공격 전 적의 HP -공격 후 적의 HP) = 준 데미지 
+                    }
+                } while (repeat);
+                player.AttackPower = temp;
+                player.Health += blood;
+                Console.WriteLine($"{blood}의 체력을 회복했습니다");
+                player.Mana -= 10;
+            }
         }
     }
     public class Mage : Job
@@ -515,55 +536,57 @@ namespace TextRPG_Team12
                 Console.WriteLine("0. 확인");
                 player.stage.UseSkill(player, enemy);
             }
-            int temp = player.AttackPower;
-            int numberOfEnemies = 0;
-            for (int i = 0; i < enemy.Length; i++)
+            else
             {
-                if (!enemy[i].IsDead)
+                int temp = player.AttackPower;
+                int numberOfEnemies = 0;
+                for (int i = 0; i < enemy.Length; i++)
                 {
-                    numberOfEnemies++;                                       //죽지 않은 적의 수
-                }
-            }
-
-            ShowSituationNumber(player, enemy);
-            
-            bool repeat = false;
-            do
-            {
-                int sel = Num.Sel(enemy.Length);
-                repeat = false;
-                if (sel == 0)
-                {
-                    Console.WriteLine("잘못된 입력입니다.");
-                    repeat = true;
-                }
-                else if (enemy[sel - 1].IsDead)
-                {
-                    Console.WriteLine("이미 사망한 적입니다.");
-                    repeat = true;
-                }
-                else
-                {
-                    Console.Clear();
-                    for (int i = 0; i < Math.Min(3,numberOfEnemies); )            // i : 현재 몇번째 공격인지 나타냄 
+                    if (!enemy[i].IsDead)
                     {
-                        player.AttackPower = (int)Math.Round(player.AttackPower * (1-0.2*i));   //공격 횟수가 많으면 위력 감소
-                        if (enemy[sel - 1].IsDead)                               //대상이 죽은 상태면 공격 횟수를 늘리지 않고 다음 대상으로 넘어감
-                        {
-                            sel++;
-                            continue;
-                        }
-                        player.Attack(enemy[sel - 1]);
-                        player.AttackPower = temp;
-                        i++;                                                    //공격 했다면 공격한 횟수를 늘려줌
-                        sel++;
+                        numberOfEnemies++;                                       //죽지 않은 적의 수
                     }
                 }
-            } while (repeat);
 
-            player.AttackPower = temp;
-            player.Mana -= 13;
+                ShowSituationNumber(player, enemy);
 
+                bool repeat = false;
+                do
+                {
+                    int sel = Num.Sel(enemy.Length);
+                    repeat = false;
+                    if (sel == 0)
+                    {
+                        Console.WriteLine("잘못된 입력입니다.");
+                        repeat = true;
+                    }
+                    else if (enemy[sel - 1].IsDead)
+                    {
+                        Console.WriteLine("이미 사망한 적입니다.");
+                        repeat = true;
+                    }
+                    else
+                    {
+                        Console.Clear();
+                        for (int i = 0; i < Math.Min(3, numberOfEnemies);)            // i : 현재 몇번째 공격인지 나타냄 
+                        {
+                            player.AttackPower = (int)Math.Round(player.AttackPower * (1 - 0.2 * i));   //공격 횟수가 많으면 위력 감소
+                            if (enemy[sel - 1].IsDead)                               //대상이 죽은 상태면 공격 횟수를 늘리지 않고 다음 대상으로 넘어감
+                            {
+                                sel++;
+                                continue;
+                            }
+                            player.Attack(enemy[sel - 1]);
+                            player.AttackPower = temp;
+                            i++;                                                    //공격 했다면 공격한 횟수를 늘려줌
+                            sel++;
+                        }
+                    }
+                } while (repeat);
+
+                player.AttackPower = temp;
+                player.Mana -= 13;
+            }
 
         }
 
@@ -572,7 +595,7 @@ namespace TextRPG_Team12
             // 기절 마법: 1명의 적에게 데미지 계수 1.3, 기절 확률 33%
             // 33%확률로 기절시키는 코드가 추가되어야합니다.
 
-          
+
 
             if (player.Mana < 7)
             {
@@ -580,42 +603,44 @@ namespace TextRPG_Team12
                 Console.WriteLine("0. 확인");
                 player.stage.UseSkill(player, enemy);
             }
-            int temp = player.AttackPower;
-            player.AttackPower = (int)Math.Round(player.AttackPower * 1.3);
-            ShowSituationNumber(player, enemy);
-
-            bool repeat = false;
-            do
+            else
             {
-                int sel = Num.Sel(enemy.Length);
-                repeat = false;
-                if (sel == 0)
+                int temp = player.AttackPower;
+                player.AttackPower = (int)Math.Round(player.AttackPower * 1.3);
+                ShowSituationNumber(player, enemy);
+
+                bool repeat = false;
+                do
                 {
-                    Console.WriteLine("잘못된 입력입니다.");
-                    repeat = true;
-                }
-                else if (enemy[sel - 1].IsDead)
-                {
-                    Console.WriteLine("이미 사망한 적입니다.");
-                    repeat = true;
-                }
-                else
-                {
-                    player.Attack(enemy[sel - 1]);
-                    if(!enemy[sel - 1].IsDead)
+                    int sel = Num.Sel(enemy.Length);
+                    repeat = false;
+                    if (sel == 0)
                     {
-                        if(new Random().Next(1,101)<=33)
+                        Console.WriteLine("잘못된 입력입니다.");
+                        repeat = true;
+                    }
+                    else if (enemy[sel - 1].IsDead)
+                    {
+                        Console.WriteLine("이미 사망한 적입니다.");
+                        repeat = true;
+                    }
+                    else
+                    {
+                        player.Attack(enemy[sel - 1]);
+                        if (!enemy[sel - 1].IsDead)
                         {
-                            Console.WriteLine($"기절 마법 성공 {enemy[sel-1].Name}이 기절했습니다.");
-                            enemy[sel - 1].stun = 1;
+                            if (new Random().Next(1, 101) <= 33)
+                            {
+                                Console.WriteLine($"기절 마법 성공 {enemy[sel - 1].Name}이 기절했습니다.");
+                                enemy[sel - 1].stun = 1;
+                            }
                         }
                     }
-                }
-            } while (repeat);
+                } while (repeat);
 
-            player.AttackPower = temp;
-            player.Mana -= 7;
-
+                player.AttackPower = temp;
+                player.Mana -= 7;
+            }
         }
 
         public override void JobSkill_3(Player player, Monster[] enemy)
@@ -628,45 +653,47 @@ namespace TextRPG_Team12
                 Console.WriteLine("0. 확인");
                 player.stage.UseSkill(player, enemy);
             }
-
-            ShowSituationNumber(player, enemy);
-
-            Console.WriteLine("0.취소");
-            
-            bool repeat = false;
-            do
+            else
             {
-                int sel = Num.Sel(enemy.Length);
-                repeat = false;
-                if (sel == 0)
+
+                ShowSituationNumber(player, enemy);
+
+                Console.WriteLine("0.취소");
+
+                bool repeat = false;
+                do
                 {
-                    player.stage.BattlePlayerTurn(player, enemy);
-                }
-                else if (enemy[sel - 1].IsDead)
-                {
-                    Console.WriteLine("이미 사망한 적입니다.");
-                    repeat = true;
-                }
-                else
-                {
-                    if (enemy[sel - 1].Health > enemy[sel-1].Health *0.33)
+                    int sel = Num.Sel(enemy.Length);
+                    repeat = false;
+                    if (sel == 0)
                     {
-                        Console.WriteLine("올바른 대상이 아닙니다.");
+                        player.stage.UseSkill(player, enemy);
+                    }
+                    else if (enemy[sel - 1].IsDead)
+                    {
+                        Console.WriteLine("이미 사망한 적입니다.");
                         repeat = true;
                     }
                     else
                     {
-                        enemy[sel - 1].Health = 0;
-                        Console.WriteLine($"죽음 마법으로 {enemy[sel - 1].Name}이 죽었습니다.");
+                        if (enemy[sel - 1].Health > enemy[sel - 1].MaxHealth * 0.33)
+                        {
+                            Console.WriteLine("올바른 대상이 아닙니다.");
+                            repeat = true;
+                        }
+                        else
+                        {
+                            enemy[sel - 1].Health = 0;
+                            Console.WriteLine($"죽음 마법으로 {enemy[sel - 1].Name}이 죽었습니다.");
+                        }
+
                     }
-                    
-                }
-            } while (repeat);
-            player.Mana -= 15;
+                } while (repeat);
+                player.Mana -= 15;
+
+            }
 
         }
 
     }
-
-
 }
