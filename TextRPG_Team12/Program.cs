@@ -210,15 +210,14 @@ namespace TextRPG_Team12
             Console.Clear();
             // 인벤토리 내용을 출력하고 관리하는 코드
             Console.WriteLine("인벤토리를 출력합니다...");
-            player.ShowInventory(false);
-
+            player.ShowInventory(false, false);
 
 
             if (Num.Sel(1) == 1)
             {
 
          
-               int item = Num.Sel(player.ShowInventory(true)) - 1;
+               int item = Num.Sel(player.ShowInventory(true, false)) - 1;
                 player.EquipItem(item);
 
 
@@ -250,7 +249,7 @@ namespace TextRPG_Team12
             }
             else if (buySell == 2)
             {
-                int InventoryList = Num.Sel(player.ShowInventory(false)) - 1;
+                int InventoryList = Num.Sel(player.ShowInventory(true, false)) - 1;
                 player.SellShop(InventoryList);
 
             }

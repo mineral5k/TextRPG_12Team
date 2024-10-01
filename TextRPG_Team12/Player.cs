@@ -96,12 +96,11 @@ namespace TextRPG_Team12
 
         }
 
-        public int ShowInventory(bool showIdx)
+        public int ShowInventory(bool showIdx, bool OnlyEquip)
         {
 
 
-            
-
+           
             Console.Clear();
             Console.WriteLine();
             Console.WriteLine("[아이템 목록]");
@@ -127,7 +126,7 @@ namespace TextRPG_Team12
             }
 
 
-            if (!showIdx)
+            if (!OnlyEquip)
             {
 
                 for (int i = MiscellCount; i < Inventory.Count; i++)
@@ -145,7 +144,7 @@ namespace TextRPG_Team12
             Console.WriteLine(showIdx ?  "" : "1. 장착관리");
             Console.WriteLine($"0. 나가기");
 
-            return showIdx ? EquipCount :Inventory.Count;
+            return OnlyEquip ? EquipCount :Inventory.Count;
         }
 
 
