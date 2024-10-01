@@ -14,16 +14,12 @@ namespace TextRPG_Team12
             Player player = null;
 
             IScene currentScene = new IntroScene();
-            while (true)
-            {
+            
                 Console.Clear();
                 currentScene.OnShow();
-                currentScene = currentScene.GetNextScene();
-                if (currentScene == null)
-                {
-                    break;
-                }
-            }
+
+
+            string name = currentScene.Name;
 
             bool repeat = false;
             // 번호 받아서 직업으로 배정  
@@ -54,10 +50,51 @@ namespace TextRPG_Team12
                 }
             }
             while (repeat);
+            currentScene = currentScene.GetNextScene();
 
             EquipmentData();
             player.ShopList = EquipmentDb;
-            MainScene(player);
+            MonsterKillQuest monsterKillQuest = new MonsterKillQuest(5);  // 목표 몬스터 처치 수 5
+            player.AddQuest(monsterKillQuest);
+
+            StageClearQuest stageClearQuest = new StageClearQuest();  // 던전 클리어 목표
+            player.AddQuest(stageClearQuest);
+
+            ItemPurchaseQuest itemPurchaseQuest = new ItemPurchaseQuest(3);
+            player.AddQuest(itemPurchaseQuest);
+            Stage stage = new Stage();
+            Console.Clear();
+
+            while (true)
+            {
+                Console.Clear();
+                currentScene.OnShow();
+               int sel = Num.Sel(5);
+                switch (sel)
+                {
+                    case 1:
+                        ShowStatus(player); // 상태 보기 기능 호출
+                        break;
+                    case 2:
+                        Inventory(player); // 인벤토리 기능 호출
+                        break;
+                    case 3:
+                        Shop(player); // 상점 기능 호출
+                        break;
+                    case 4:
+                        stage.Dungeon(player);
+                        break;
+                    case 5:
+                        ShowQuest(player);
+                        break;
+                    case 0:
+                        ExitGame(player); // 게임 종료 기능 호출
+                        break;
+
+                }
+            }
+
+
         }
 
 

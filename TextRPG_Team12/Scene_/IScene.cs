@@ -7,5 +7,6 @@ using System.Threading.Tasks;
 public interface IScene
 {
     void OnShow();
+    public string Name { get; set; }
     IScene GetNextScene();
 }
