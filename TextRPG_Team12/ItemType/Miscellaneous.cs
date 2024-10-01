@@ -11,15 +11,15 @@
         public int Price { get; }
 
 
-        public Miscellaneous(string name, string info, int price, int hasnum)
-            :base(name, info, price, hasnum)
+        public Miscellaneous(string name, string info, int price)
+            :base(name, info, price, 1)
         {
 
      
             Name = name;
             Info = info;
             Price = price;
-            HasNum = hasnum;
+            HasNum = 1;
 
         }
 

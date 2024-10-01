@@ -13,13 +13,14 @@ namespace TextRPG_Team12
         public string Info { get; set; }
         public int Price { get; set; }
 
+     
 
         public ItemType(string name, string info, int price, int hasnum)
         {
             Name = name;
             Info = info;
             Price = price;
-            HasNum = hasnum;
+            HasNum = hasnum; 
         }
 
 

@@ -32,7 +32,7 @@ public class Equipment : ItemType
 
 
     public Equipment(string name, string info, int defense, int attack, int price, EquipmentType type, bool ispurchased = false, bool isEquipped = false)
-        :base(name,info,price)
+        :base(name,info,price, 1)
     {
         Name = name;
         Info = info;

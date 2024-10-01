@@ -223,6 +223,13 @@ namespace TextRPG_Team12
             return EquipList.Contains(item);
         }
 
+        public bool isItemHave(ItemType item)
+        {
+
+            return Inventory.Contains(item);
+        
+        }
+
 
         public void AddQuest(Quest quest)
         {
@@ -268,8 +275,7 @@ namespace TextRPG_Team12
             if (TargetNum < 0)
                 return;
 
-
-
+    
             Equipment targetItem = ShopList[TargetNum];
 
 
@@ -326,31 +332,41 @@ namespace TextRPG_Team12
             if (TargetNum < 0)
                 return;
 
-            Equipment targetItem = ShopList[TargetNum];
 
-            if (targetItem.IsPurchased == true)
+            int EquipCount = Inventory.Count(item => item is Equipment);
+
+
+            if (EquipCount <= TargetNum)
             {
-            
-                if (IsEquipped(targetItem))
+
+                Equipment targetItem = Inventory[TargetNum] as Equipment;
+
+
+                if (targetItem.IsPurchased == true)
                 {
-                    EquipList.Remove(targetItem);
-                    if (targetItem.Type == EquipmentType.Weapon)
+
+                    if (IsEquipped(targetItem))
                     {
-                        WeaponStat -= targetItem.Attack;
+                        EquipList.Remove(targetItem);
+                        if (targetItem.Type == EquipmentType.Weapon)
+                        {
+                            WeaponStat -= targetItem.Attack;
+                        }
+                        else
+                            AmorDefense -= targetItem.Defense;
+
                     }
-                    else
-                        AmorDefense -= targetItem.Defense;
+
+                    // 수정 필요
+                    ShopList[TargetNum].IsPurchased = false;
+
+
+                    Gold += targetItem.Price;
+                    Inventory.Remove(targetItem);
 
                 }
 
-                Gold += targetItem.Price;
-                
-                Inventory.Remove(targetItem);
-                ShopList[TargetNum].IsPurchased = false;
-                
-
                 Console.WriteLine("아이템을 판매했습니다.");
-              
             }
 
             else 
