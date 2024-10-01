@@ -18,6 +18,8 @@ namespace TextRPG_Team12
 
         public List<Equipment> ShopList = new List<Equipment>();
 
+        public Stage stage =new Stage();
+
 
         public Job job ;
 
@@ -36,6 +38,8 @@ namespace TextRPG_Team12
         public int Mana { get; set;}
 
         public int MaxMana { get; set; }
+
+        public bool Counter {  get; set; }
    
 
 
@@ -52,6 +56,7 @@ namespace TextRPG_Team12
             AttackPower = 10 +job.JobAttackPower;
             AmorDefense = 5 + job.JobAmorDeffense;
             Quests = new List<Quest>();
+            Counter = false;
 
         }
 
