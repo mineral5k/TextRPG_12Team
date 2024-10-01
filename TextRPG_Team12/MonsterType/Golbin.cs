@@ -57,7 +57,7 @@
 
             }
 
-
+            ItemArray(ref RewardItemDB);
             WinningPrize();
 
         }
