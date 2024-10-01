@@ -6,7 +6,9 @@ namespace TextRPG_Team12
     {
         public string Name { get; set; }
         public bool IsCompleted { get; protected set; }
-        public int CompletionCount { get; private set; } 
+        public int CompletionCount { get; private set; }
+
+        
 
         public Quest(string name)
         {
@@ -50,24 +52,19 @@ namespace TextRPG_Team12
         {
             private int monsterKillTargetCount;
             private int monsterKillCurrentCount;
+            public Stage stage;
 
             public MonsterKillQuest(int targetCount) : base("(반복)몬스터 처치하기")
             {
                 monsterKillTargetCount = targetCount;
-                monsterKillCurrentCount = 0;
+                
             }
 
-            public void MonsterKilled()
-            {
-                if (IsCompleted) return;
-
-                monsterKillCurrentCount++;
-                CheckProgress();
-            }
+        
 
             public override void CheckProgress()
             {
-                if (monsterKillCurrentCount >= monsterKillTargetCount)
+                if (monsterKillCurrentCount >= stage.killedMonster)
                 {
                     IsCompleted = true;
                 }
@@ -77,7 +74,7 @@ namespace TextRPG_Team12
             public override void ResetProgress()
             {
                 IsCompleted = false;
-                monsterKillCurrentCount = 0;
+                stage.killedMonster = 0;
             }
 
             // 보상 계산
