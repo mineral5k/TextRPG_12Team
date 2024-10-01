@@ -450,8 +450,7 @@ namespace TextRPG_Team12
                 }
                 else if (choice == 0)
                 {
-                    Console.WriteLine("메인 메뉴로 돌아갑니다.");
-                    Program.village(player); // 마을로 돌아가기
+                    
                     break;
                 }
             }

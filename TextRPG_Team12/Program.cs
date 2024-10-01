@@ -63,6 +63,7 @@ namespace TextRPG_Team12
             ItemPurchaseQuest itemPurchaseQuest = new ItemPurchaseQuest(3);
             player.AddQuest(itemPurchaseQuest);
             Stage stage = new Stage();
+            monsterKillQuest.stage = stage;
             Console.Clear();
 
             while (true)
