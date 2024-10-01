@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TextRPG_Team12;
 
 
 public enum EquipmentType
 { Armor, Weapon }
 
 
-public class Equipment
+public class Equipment : ItemType
 {
     public string Name { get; }
     public string Info { get; }
@@ -31,6 +32,7 @@ public class Equipment
 
 
     public Equipment(string name, string info, int defense, int attack, int price, EquipmentType type, bool ispurchased = false, bool isEquipped = false)
+        :base(name,info,price)
     {
         Name = name;
         Info = info;
