@@ -100,11 +100,14 @@ namespace TextRPG_Team12
         {
 
 
+            
+
             Console.Clear();
             Console.WriteLine();
             Console.WriteLine("[아이템 목록]");
 
             Console.WriteLine();
+
 
 
             ItemArray(ref Inventory);
@@ -134,14 +137,15 @@ namespace TextRPG_Team12
 
                 }
 
+
             }
 
 
             Console.WriteLine();
-            Console.WriteLine(!showIdx ? "1. 장착관리" : "");
+            Console.WriteLine(showIdx ?  "" : "1. 장착관리");
             Console.WriteLine($"0. 나가기");
 
-            return !showIdx ? Inventory.Count : EquipCount;
+            return showIdx ? EquipCount :Inventory.Count;
         }
 
 
@@ -331,7 +335,7 @@ namespace TextRPG_Team12
                 return;
 
 
-            int EquipCount = Inventory.Count(item => item is Equipment);
+            int EquipCount = Inventory.Count(item => item is Equipment) - 1;
 
 
             if (EquipCount <= TargetNum)
@@ -359,7 +363,7 @@ namespace TextRPG_Team12
 
                     int ShopListNum = ShopList.IndexOf(targetItem);                    
                     ShopList[ShopListNum].IsPurchased = false;
-
+               
 
                     Gold += targetItem.Price;
                     Inventory.Remove(targetItem);
