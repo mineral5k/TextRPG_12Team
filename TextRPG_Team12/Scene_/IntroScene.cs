@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using TextRPG_Team12;
 
-internal class IntroScene : IScene
+public class IntroScene : IScene
     {
-        public string Name { get; }
+        public string Name { get; set; }
         public void OnShow()
         {
         // 콘솔의 가로 너비 가져오기
@@ -47,7 +48,7 @@ internal class IntroScene : IScene
         Console.WriteLine("                                             \x1b[48;2;68;68;68m\x1b[38;2;255;255;255m▃ 사용하실 이름을 입력하세요 ▃\u001b[0m");
         Console.WriteLine();
         Console.Write("                                                         ");
-        string name = Console.ReadLine();
+        Name = Console.ReadLine();
         Console.WriteLine();
 
         //  1,2,3,4가 아닐 시 잘못된 입력입니다 출력하기??
@@ -59,7 +60,7 @@ internal class IntroScene : IScene
         Console.WriteLine("\u001b[38;2;167;88;255m4. \u001b[0m마법사");
         Console.WriteLine();
         Console.Write("                                                           ");
-        string inputJob = Console.ReadLine();
+        
     }
 
         public IScene GetNextScene()
