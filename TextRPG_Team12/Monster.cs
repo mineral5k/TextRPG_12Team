@@ -7,8 +7,14 @@ namespace TextRPG_Team12
     {
         public Random rand = new Random();
 
+        public List<> RewardItemlist;
+
+
         public int LootMoney;
         public int HuntExp;
+
+
+
 
         public void StageEnemySet(int Stagelevel)
         {
