@@ -25,7 +25,7 @@ namespace TextRPG_Team12
             CommonItemlistDB = new List<ItemType>
             {
                 //new Equipment("", "천으로 만들어져 가벼운 훈련복입니다.", 5, 0, 1000, EquipmentType.Armor),
-                //new potion();
+                //new potion("체력 포션", "");
                 //new
 
                 new Miscellaneous("마른 나뭇가지", "평범해 보이는 나뭇가지지만 마법 지팡이의 재료로 사용된다.", 25),

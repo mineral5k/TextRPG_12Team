@@ -14,7 +14,7 @@
         public Miscellaneous(string name, string info, int price)
         {
 
-            ItemCode = 3;
+     
             Name = name;
             Info = info;
             Price = price;

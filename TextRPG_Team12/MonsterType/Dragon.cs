@@ -7,7 +7,7 @@ namespace TextRPG_Team12
     {
 
 
-        void RewardItemData()
+        public void RewardItemData()
         {
 
             RewardItemDB = new List<ItemType>
@@ -17,7 +17,7 @@ namespace TextRPG_Team12
          
                 new Miscellaneous("용의 이빨", "날카로운 용의 이빨. 일부지역에서는 화폐로도 통용된다", 75)
 
-                
+
 
             };
 
@@ -25,10 +25,10 @@ namespace TextRPG_Team12
         }
 
 
-        public  Dragon()
+        public Dragon()
         {
 
-           
+
             Name = "드래곤";
             Health = 30;
             AttackPower = 3;
@@ -42,18 +42,26 @@ namespace TextRPG_Team12
 
 
             Name = "드래곤";
-            Health = 30; 
+            Health = 30;
             AttackPower = 3;
             LootMoney = 5 * (int)Math.Round(rand.Next(300, 400) / 5.0); // 5 단위로 끊어서 표현 -> 300, 305, 310, 315, .... 
             HuntExp = 5 * (int)Math.Round(rand.Next(100, 151) / 5.0); // 5 단위로 끊어서 표현
 
             StageEnemySet(stagelevel);
 
+            CommontemData();
+            RewardItemData();
+
+
+            foreach (ItemType commomitem in CommonItemlistDB)
+            {
+
+                RewardItemDB.Add(commomitem);
+
+            }
+
 
         }
-   
 
     }
-
-   
 }

@@ -15,7 +15,6 @@ namespace TextRPG_Team12
                 new Miscellaneous("트롤의 재생 돌", "트롤의 심장 근처에서 발견되는 작고 거친 돌. 트롤의 빠른 재생 능력의 원천으로 여겨진다.", 100)
 
 
-
             };
 
         }
@@ -43,6 +42,20 @@ namespace TextRPG_Team12
             HuntExp =  5 * (int)Math.Round(rand.Next(50, 101) / 5.0); // 5씩 나눠 떨어지도록 설정 50, 55, 60, 65 ... 
 
             StageEnemySet(stagelevel);
+
+            CommontemData();
+            RewardItemData();
+
+
+            foreach (ItemType commomitem in CommonItemlistDB)
+            {
+
+                RewardItemDB.Add(commomitem);
+
+            }
+
+
+            // 아이템 정렬 하기 
 
 
         }

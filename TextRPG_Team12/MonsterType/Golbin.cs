@@ -5,7 +5,7 @@
 
       
 
-        void RewardItemData()
+        public void RewardItemData()
         {
 
             RewardItemDB = new List<ItemType>
@@ -45,6 +45,17 @@
 
             StageEnemySet(stagelevel);
 
+
+            CommontemData();
+            RewardItemData();
+
+
+            foreach (ItemType commomitem in CommonItemlistDB)
+            {
+
+                RewardItemDB.Add(commomitem);
+
+            }
 
         }
 
