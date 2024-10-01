@@ -94,8 +94,55 @@ namespace TextRPG_Team12
         {
             IsCompleted = false;
             Console.WriteLine($"퀘스트 '{Name}'를 다시 진행할 수 있습니다.");
+
+        }
+
+        // 퀘스트 3 (반복) 아이템 구매하기 퀘스트
+        public class ItemPurchaseQuest : Quest
+        {
+            public int ItemPurchaseTargetCount { get; private set; }
+            private int itemPurchaseCurrentCount;
+
+            public ItemPurchaseQuest(int itemPurchaseTargetCount) : base("(반복)아이템 구매 퀘스트")
+            {
+                ItemPurchaseTargetCount = itemPurchaseTargetCount;
+                itemPurchaseCurrentCount = 0;
+            }
+
+            // 아이템 구매 시 호출
+            public void ItemPurchased()
+            {
+                if (IsCompleted)
+                {
+                    Console.WriteLine($"퀘스트 '{Name}'은(는) 이미 완료되었습니다.");
+                    return;
+                }
+
+                itemPurchaseCurrentCount++;
+                Console.WriteLine($"아이템 구매 수 : {itemPurchaseCurrentCount}/{ItemPurchaseTargetCount}");
+
+                CheckProgress();
+            }
+
+            public override void CheckProgress()
+            {
+                if (itemPurchaseCurrentCount >= ItemPurchaseTargetCount)
+                {
+                    IsCompleted = true;
+                    Console.WriteLine($"퀘스트 '{Name}' 완료 !");
+                }
+            }
+
+            public void ResetQuest()
+            {
+                itemPurchaseCurrentCount = 0;
+                IsCompleted = false;
+                Console.WriteLine($"퀘스트 '{Name}'를 다시 진행할 수 있습니다.");
+            }
         }
     }
+}
+
 
     
 
