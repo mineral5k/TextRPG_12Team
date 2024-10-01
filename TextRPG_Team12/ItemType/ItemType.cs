@@ -7,7 +7,7 @@ namespace TextRPG_Team12
     {
 
 
-        public int ItemCount;
+        public int ItemCount { get; set; }
 
         public string Name { get; set; }
         public string Info { get; set; }
