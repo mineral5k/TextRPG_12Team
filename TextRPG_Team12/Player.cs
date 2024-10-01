@@ -137,7 +137,6 @@ namespace TextRPG_Team12
             }
 
 
-
             Console.WriteLine();
             Console.WriteLine(!showIdx ? "1. 장착관리" : "");
             Console.WriteLine($"0. 나가기");
@@ -189,7 +188,6 @@ namespace TextRPG_Team12
            if (TargetNum < 0)
                 return;
            
-
             Equipment EquipItem = Inventory[TargetNum] as Equipment;
 
             if (IsEquipped(EquipItem))
@@ -364,18 +362,34 @@ namespace TextRPG_Team12
                     Gold += targetItem.Price;
                     Inventory.Remove(targetItem);
 
+                    Console.WriteLine("아이템을 판매했습니다.");
+
                 }
+
+                else
+                    Console.WriteLine("판매할 수 없는 아이템입니다.");
+            }
+
+            else
+            {
+                ItemType targetItem = Inventory[TargetNum];
+
+                Console.WriteLine("원하시는 판매 개수를 입력해주세요");
+                int SellCount = Num.Sel(targetItem.HasNum);
+
+
+                Inventory[TargetNum].HasNum -= SellCount;
+
+                if (Inventory[TargetNum].HasNum == 0)
+                    Inventory.Remove(targetItem);
+                              
+
+                Gold += targetItem.Price * SellCount;
 
                 Console.WriteLine("아이템을 판매했습니다.");
             }
-
-            else 
-                Console.WriteLine("판매할 수 없는 아이템입니다.");
-
+           
             Thread.Sleep(1000);
-
-   
-
 
         }
 
