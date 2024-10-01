@@ -11,7 +11,7 @@ namespace TextRPG_Team12
 
         public static readonly int[] LevelUpExp = { 0, 100, 350, 650, 1000};
 
-        public List<Equipment> Inventory = new List<Equipment>();
+        public List<ItemType> Inventory = new List<ItemType>();
         private static List<Equipment> EquipList = new List<Equipment>();
 
         public List<Quest> Quests { get; private set; }
@@ -40,7 +40,10 @@ namespace TextRPG_Team12
         public int MaxMana { get; set; }
 
         public bool Counter {  get; set; }
+
+        public bool EvadeBuff { get; set; }
    
+        
 
 
 
@@ -51,12 +54,28 @@ namespace TextRPG_Team12
             Level = 1;
             Gold = 1500;
             Health = 100 +job.JobHealth;
+            MaxHealth =Health;
             MaxMana = 50 + job.JobMana;
             Mana = 50 + job.JobMana;
             AttackPower = 10 +job.JobAttackPower;
             AmorDefense = 5 + job.JobAmorDeffense;
             Quests = new List<Quest>();
             Counter = false;
+            EvadeBuff = false;
+            Evasion = 10;
+            Critical = 10;
+
+        }
+
+        public override void TakeDamage(int damage)
+        {
+            int deDamage = damage - AmorDefense / 3; 
+            if (deDamage < 0) deDamage = 0;
+            Console.WriteLine($"{Name}이(가) {deDamage}의 데미지를 받았습니다.");
+
+            Health -= deDamage;
+            if (IsDead) Console.WriteLine($"{Name}이(가) 죽었습니다.");
+            else Console.WriteLine($"남은 체력: {Health}");
 
         }
 
@@ -80,28 +99,50 @@ namespace TextRPG_Team12
         public int ShowInventory(bool showIdx)
         {
 
+
             Console.Clear();
             Console.WriteLine();
             Console.WriteLine("[아이템 목록]");
 
             Console.WriteLine();
-            
-            for (int i = 0; i < Inventory.Count;  i++)
+
+
+            ItemArray(ref Inventory);
+
+            int EquipCount = Inventory.Count(item => item is Equipment);
+            int MiscellCount = EquipCount;
+
+            for (int i = 0; i < EquipCount;  i++)
             {
-                Equipment targetInventory = Inventory[i];
+                Equipment targetInventory = Inventory[i] as Equipment;
 
                 string displayIdx = showIdx ? $"{i + 1} " : "";
                 string displayEquipped = IsEquipped(targetInventory) ? "[E]" : "";
                 Console.WriteLine($"- {displayIdx}{displayEquipped} {targetInventory.EquipmentStatText()}");
 
-          
+
             }
+
+
+            if (!showIdx)
+            {
+
+                for (int i = MiscellCount; i < Inventory.Count; i++)
+                {
+                    string displayIdx = showIdx ? $"{i + 1} " : "";
+                    Console.WriteLine($"- {displayIdx} {Inventory[i].ItemInfoText()}");
+
+                }
+
+            }
+
+
 
             Console.WriteLine();
             Console.WriteLine(!showIdx ? "1. 장착관리" : "");
             Console.WriteLine($"0. 나가기");
 
-            return Inventory.Count;
+            return !showIdx ? Inventory.Count : EquipCount;
         }
 
 
@@ -149,7 +190,7 @@ namespace TextRPG_Team12
                 return;
            
 
-            Equipment EquipItem = Inventory[TargetNum];
+            Equipment EquipItem = Inventory[TargetNum] as Equipment;
 
             if (IsEquipped(EquipItem))
             {
@@ -349,17 +390,25 @@ namespace TextRPG_Team12
 
                     if (selectedQuest.IsCompleted)
                     {
-                        Console.WriteLine($"퀘스트 '{selectedQuest.Name}'는 이미 완료되었습니다.");
+
+                        Console.WriteLine("보상을 받으시겠습니까? (1. 예 / 2. 아니오)");
+                        int rewardChoice = Num.Sel(2);
+
+                        if (rewardChoice == 1)
+                        {
+                            // 퀘스트 완료 시 보상 지급 및 초기화
+                            selectedQuest.CompleteQuest(player);
+                            Console.WriteLine($"퀘스트 '{selectedQuest.Name}'가 초기화되었습니다.");
+                        }
                     }
                     else
                     {
                         selectedQuest.CheckProgress(); // 진행 상황 확인
 
-                        // 퀘스트가 완료되었는지 확인
                         if (selectedQuest.IsCompleted)
                         {
                             // 퀘스트 완료 시 보상 지급
-                            selectedQuest.CompleteQuest(player); // 플레이어에게 보상 지급
+                            selectedQuest.CompleteQuest(player);
                             Console.WriteLine($"퀘스트 '{selectedQuest.Name}'를 완료하였습니다!");
                         }
                         else
@@ -379,6 +428,8 @@ namespace TextRPG_Team12
 
             Num.Sel(0);
         }
+
+
 
 
 

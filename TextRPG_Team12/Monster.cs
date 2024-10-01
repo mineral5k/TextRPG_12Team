@@ -7,11 +7,36 @@ namespace TextRPG_Team12
     {
         public Random rand = new Random();
 
+        public List<ItemType> CommonItemlistDB;
+        public List<ItemType> RewardItemDB;
+
+
+
         public int LootMoney;
         public int HuntExp;
         public int PoisonTurn = 0;
         public int PoisonDamage = 0;
         public int stun = 0;
+
+
+        public void CommontemData()
+        {
+
+            CommonItemlistDB = new List<ItemType>
+            {
+                //new Equipment("", "천으로 만들어져 가벼운 훈련복입니다.", 5, 0, 1000, EquipmentType.Armor),
+                //new potion("체력 포션", "");
+                //new
+
+                new Miscellaneous("마른 나뭇가지", "평범해 보이는 나뭇가지지만 마법 지팡이의 재료로 사용된다.", 25),
+                new Miscellaneous("빛나는 돌", "동굴에서 발견되는 희귀한 돌. 어둠 속에서 은은한 빛을 내 장신구 제작에 사용된다", 200),
+               
+                
+            };
+
+
+        }
+
 
         public void StageEnemySet(int Stagelevel)
         {
@@ -23,14 +48,34 @@ namespace TextRPG_Team12
             AttackPower += (1 * Level);
             LootMoney += (10 * Level);
             HuntExp += (15 * Level);
+            MaxHealth = Health;
 
 
         }
 
 
 
+        public void WinningPrize()
+        {
+           
+            int Selectnum = rand.Next(0, 2);
+            int IteDBmNum = rand.Next(0, RewardItemDB.Count);
+
+            for (int i = 0; i < Selectnum; i++)
+            {
+                int Itemnum = rand.Next(0, 3);
+
+                Console.WriteLine($"{RewardItemDB[IteDBmNum].Name} X {Itemnum}");
+
+            
+            }
+        
+        
+        }
+
 
     }
+
 
 
 }

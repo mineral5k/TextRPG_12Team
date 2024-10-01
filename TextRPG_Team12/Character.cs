@@ -5,6 +5,7 @@ using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace TextRPG_Team12
 {
     public class Character
@@ -17,19 +18,19 @@ namespace TextRPG_Team12
 
        public int Health { get; set; }
 
+       public int MaxHealth {  get; set; }
+
        public int AttackPower { get; set; }
        
        public bool IsDead => Health <= 0;
-       
-
+            
+       public int Evasion { get; set; }
      
-       public int Evasion { get; }
-     
-       public int Critical { get;  }
+       public int Critical { get; set; }
 
 
 
-        public void TakeDamage(int damage)
+        public virtual void  TakeDamage(int damage)
         {
             Console.WriteLine($"{Name}이(가) {damage}의 데미지를 받았습니다.");
 
@@ -64,6 +65,25 @@ namespace TextRPG_Team12
         }
 
 
+        public void ItemArray(ref List<ItemType> itemList)
+        { 
+        
+            var sortedItemList = itemList.OrderBy(ItemOrder).ToList();
+                itemList = sortedItemList;
+       
+        }
+
+        public int ItemOrder(ItemType itemorder)
+        {
+
+            return itemorder switch
+            {
+                //Equipment => 0,
+                //Potion => 1,
+                Miscellaneous => 2,
+                _ => 3
+            };
+        }
 
 
     }
