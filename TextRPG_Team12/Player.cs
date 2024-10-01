@@ -1,6 +1,8 @@
 ﻿
 
 using System.ComponentModel;
+using static TextRPG_Team12.StageClearQuest;
+using System.Numerics;
 
 namespace TextRPG_Team12
 {
@@ -214,7 +216,7 @@ namespace TextRPG_Team12
 
         }
 
-        public void BuyShop(int TargetNum)
+        public void BuyShop(int TargetNum, Player player)
         {
 
             if (TargetNum < 0)
@@ -236,9 +238,14 @@ namespace TextRPG_Team12
                 Gold -= targetItem.Price;
 
 
-
                 Console.WriteLine("구매를 완료했습니다.");
-              
+                // 아이템 구매 카운트 증가
+                if (player.Quests.Any(q => q is ItemPurchaseQuest))
+                {
+                    var purchaseQuest = player.Quests.FirstOrDefault(q => q is ItemPurchaseQuest) as ItemPurchaseQuest;
+                    purchaseQuest?.ItemPurchased(); // 구매 퀘스트의 카운트 증가
+                }
+
 
             }
             else if (targetItem.IsPurchased != true && Gold < targetItem.Price)
@@ -310,15 +317,16 @@ namespace TextRPG_Team12
 
         }
 
-        
+
         public static void QuestMenu(Player player)
         {
-
             if (player.Quests.Count == 0)
             {
-                Console.WriteLine("현재 진행 중인 퀘스트가 없습니다.");
+                Console.WriteLine("\n현재 진행 중인 퀘스트가 없습니다.");
+                return; 
             }
-            else
+
+            while (true) 
             {
                 Console.WriteLine("진행 중인 퀘스트 목록:");
                 for (int i = 0; i < player.Quests.Count; i++)
@@ -327,35 +335,44 @@ namespace TextRPG_Team12
                     Console.WriteLine($"{i + 1}. {quest.Name} (진행 상태: {(quest.IsCompleted ? "완료" : "진행 중")})");
                 }
 
-                Console.WriteLine("\n퀘스트를 완료하려면 번호를 입력하세요 (0으로 돌아가기):");
-                int choice = int.Parse(Console.ReadLine() ?? "0");
+                Console.WriteLine("\n퀘스트를 완료하려면 번호를 입력하세요 (0. 돌아가기):");
+                int choice = Num.Sel(player.Quests.Count);
 
                 if (choice > 0 && choice <= player.Quests.Count)
                 {
                     var selectedQuest = player.Quests[choice - 1];
+
                     if (selectedQuest.IsCompleted)
                     {
                         Console.WriteLine($"퀘스트 '{selectedQuest.Name}'는 이미 완료되었습니다.");
                     }
                     else
                     {
-                        selectedQuest.CheckProgress(); // 퀘스트 진행 상황 확인
-                        Console.WriteLine($"퀘스트 '{selectedQuest.Name}'를 완료하였습니다!");
+                        selectedQuest.CheckProgress();
+
+                        if (selectedQuest.IsCompleted)
+                        {
+                            Console.WriteLine($"퀘스트 '{selectedQuest.Name}'를 완료하였습니다!");
+                        }
+                        else
+                        {
+                            Console.WriteLine($"퀘스트 '{selectedQuest.Name}'는 아직 완료되지 않았습니다.");
+                        }
                     }
+                    break; 
                 }
                 else if (choice == 0)
                 {
                     Console.WriteLine("메인 메뉴로 돌아갑니다.");
-                }
-                else
-                {
-                    Console.WriteLine("유효하지 않은 선택입니다.");
+                    Program.village(player); // 마을로 돌아가기
+                    break; 
                 }
             }
 
-            Console.WriteLine("0. 돌아가기");
-            Num.Sel(0); // 사용자에게 돌아갈 수 있는 선택지 제공
+            Num.Sel(0); 
         }
+
+
     }
 
 }
