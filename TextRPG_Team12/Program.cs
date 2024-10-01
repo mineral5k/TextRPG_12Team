@@ -1,4 +1,4 @@
-﻿using static TextRPG_Team12.StageClearQuest;
+﻿using static TextRPG_Team12.Quest;
 
 namespace TextRPG_Team12
 {
@@ -69,9 +69,9 @@ namespace TextRPG_Team12
             new Equipment("훈련용 갑옷", "천으로 만들어져 가벼운 훈련복입니다.", 5, 0, 1000, EquipmentType.Armor),
             new Equipment("강철 갑옷", "강철로 제작된 튼튼한 갑옷입니다.", 9, 0, 2000, EquipmentType.Armor),
             new Equipment("멋쟁이 갑옷", "멋과 방어력 모두 챙긴 갑옷입니다.", 15, 0, 3500, EquipmentType.Armor),
-            new Equipment("낡은 장검", "오래된 평범하고 낡은 검입니다.", 0, 2, 600, EquipmentType.Weapon),
-            new Equipment("청동 손도끼", "고대 전사들이 사용하던 도끼입니다.", 0, 5, 1500, EquipmentType.Weapon),
-            new Equipment("장군의 창", "전설 속 장군이 사용했다는 창입니다.", 0, 7, 2500, EquipmentType.Weapon)
+            new Equipment("고블린의 목걸이", "고블린들이 애타게 찾고 있는 목걸이입니다. 작은 힘을 더해주는 마법이 깃들어 있습니다.", 0, 2, 600, EquipmentType.Weapon),
+            new Equipment("트롤의 반지", "트롤의 힘을 담은 반지로, 착용한 자에게 강력한 힘을 부여합니다.", 0, 5, 1500, EquipmentType.Weapon),
+            new Equipment("드래곤의 이빨", "드래곤의 이빨로 만들어진 무기로, 소지 시 드래곤의 기운이 전해집니다.", 0, 7, 2500, EquipmentType.Weapon),
             };
 
             
