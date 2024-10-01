@@ -11,7 +11,7 @@ namespace TextRPG_Team12
 
         public static readonly int[] LevelUpExp = { 0, 100, 350, 650, 1000};
 
-        public List<Equipment> Inventory = new List<Equipment>();
+        public List<ItemType> Inventory = new List<ItemType>();
         private static List<Equipment> EquipList = new List<Equipment>();
 
         public List<Quest> Quests { get; private set; }
@@ -105,16 +105,26 @@ namespace TextRPG_Team12
 
             Console.WriteLine();
             
-            for (int i = 0; i < Inventory.Count;  i++)
+
+            for (int i = 0; i < Inventory.Count(item => item is Equipment);  i++)
             {
-                Equipment targetInventory = Inventory[i];
+                Equipment targetInventory = Inventory[i] as Equipment;
 
                 string displayIdx = showIdx ? $"{i + 1} " : "";
                 string displayEquipped = IsEquipped(targetInventory) ? "[E]" : "";
                 Console.WriteLine($"- {displayIdx}{displayEquipped} {targetInventory.EquipmentStatText()}");
 
-          
+
             }
+
+            for (int j = Inventory.Count(item => item is Equipment), Inventory.Count; j++)
+            {
+                string displayIdx = showIdx ? $"{i + 1} " : "";
+                Console.WriteLine($"- {displayIdx}{displayEquipped} {targetInventory.EquipmentStatText()}");
+
+            }
+
+
 
             Console.WriteLine();
             Console.WriteLine(!showIdx ? "1. 장착관리" : "");
