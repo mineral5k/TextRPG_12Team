@@ -107,8 +107,8 @@ namespace TextRPG_Team12
             JobSkillDesc1 = "한 명의 적에게 공격력의 150%의 공격을 가합니다.";
             JobSkillName2 = "파워 슬래시";
             JobSkillDesc2 = "전체 적들에게 공격력의 80%의 공격을 가합니다.";
-            JobSkillName3 = "반격";
-            JobSkillDesc3 = "한 턴동안 적에게 공격 받으면 반격합니다.";
+            JobSkillName3 = "반사";
+            JobSkillDesc3 = "적의 공격을 1회 되돌려줍니다.";
 
         }
 
@@ -173,9 +173,9 @@ namespace TextRPG_Team12
 
         public override void JobSkill_3(Player player, Monster[] enemy)
         {
-            // 반사: 적의 공격을 1회 되돌린다.
-            // 데미지 무시 및 전달 혹은 데미지 피격과 전달
-            Console.WriteLine($"{JobSkillName3}! 적의 다음 공격을 되돌려줍니다.");              //플레이어 클래스 편집 필요 
+            
+            Console.WriteLine($"반격을 위한 자세를 잡았습니다.");              
+            player.Counter = true;
         }
 
     }
@@ -196,7 +196,7 @@ namespace TextRPG_Team12
             JobSkillName1 = "속사";
             JobSkillDesc1 = "한 명의 적에게 50%의 공격력으로 3번의 공격을 가합니다.";
             JobSkillName2 = "독화살";
-            JobSkillDesc2 = "한 명의 적에게 3턴 동안 지속되는 상처를 남깁니다. 상처는 공격력의 66%에 해당하는 데미지를 줍니다.";
+            JobSkillDesc2 = "한 명의 적에게 3턴 동안 지속되는 상처를 남깁니다. 상처는 공격력의 33%에 해당하는 데미지를 줍니다.";
             JobSkillName3 = "화살비";
             JobSkillDesc3 = "모든 적에게 화살을 퍼붓습니다. 화살의 데미지는 생존 중인 적의 수에 따라 달라집니다.";
         }
@@ -250,11 +250,30 @@ namespace TextRPG_Team12
         {
             // 독화살: 한 명의 적에게 3턴 동안 지속되는 상처를 남깁니다.
             // 공격 대상 선택 구현 ?
-            int damage = (int)(JobAttackPower * 0.33); // 공격력의 1/3
+            ShowSituationNumber(player, enemy);
 
-            //턴 개념이 필요합니다 .
-            poisonTurns = 3; // 3턴 동안 지속
-            Console.WriteLine($"{JobSkillName2}! 적이 3턴 동안 {damage}의 데미지를 받습니다!");          //캐릭터 클래스 수정 필요
+            bool repeat = false;
+            do
+            {
+                int sel = Num.Sel(enemy.Length);
+                repeat = false;
+                if (sel == 0)
+                {
+                    Console.WriteLine("잘못된 입력입니다.");
+                    repeat = true;
+                }
+                else if (enemy[sel - 1].IsDead)
+                {
+                    Console.WriteLine("이미 사망한 적입니다.");
+                    repeat = true;
+                }
+                else
+                {
+                    Console.WriteLine($"{enemy[sel-1].Name}이 중독되었습니다.");
+                    enemy[sel - 1].PoisonTurn += 3;
+                    enemy[sel -1].PoisonDamage = (int)Math.Round(player.AttackPower * 0.66);
+                }
+            } while (repeat);
         }
 
         public override void JobSkill_3(Player player, Monster[] enemy)
@@ -301,7 +320,7 @@ namespace TextRPG_Team12
             JobSkillName1 = "기습";
             JobSkillDesc1 = "80%의 공격력으로 적에게 두번의 기습적인 공격을 가합니다.";
             JobSkillName2 = "은신";
-            JobSkillDesc2 = "이번 턴 적들의 공격을 100%로 회피합니다.";
+            JobSkillDesc2 = "적의 다음 공격을 100%로 회피합니다.";
             JobSkillName3 = "흡혈";
             JobSkillDesc3 = "적에게 공격력의 110%의 피해를 주고 데미지의 50%에 해당하는 체력을 흡수합니다.";
         }
@@ -352,7 +371,8 @@ namespace TextRPG_Team12
         {
             // 은신: 적의 다음 공격을 100% 회피
             // 회피율 변수가 적용되면 구현 부탁드립니다 .
-            Console.WriteLine($"{JobSkillName2}! 다음 적의 공격을 회피합니다!");            //플레이어 클래스 조정 필요 
+            Console.WriteLine($"회피 자세를 취하여 한 턴동안 공격을 회피합니다");            //플레이어 클래스 조정 필요 
+            player.EvadeBuff = true;
            
         }
 
@@ -473,22 +493,17 @@ namespace TextRPG_Team12
         {
             // 기절 마법: 1명의 적에게 데미지 계수 1.3, 기절 확률 33%
             // 33%확률로 기절시키는 코드가 추가되어야합니다.
-           
-           // if (isStunned)
-           // {
-           //     Console.WriteLine("적이 기절했습니다!");
-           // }
 
-                                                                                 //캐릭터 클래스 변경 필요 
-            
-        }
+            // if (isStunned)
+            // {
+            //     Console.WriteLine("적이 기절했습니다!");
+            // }
 
-        public override void JobSkill_3(Player player, Monster[] enemy)
-        {
-            // 즉사 마법: 체력이 33% 이하인 적을 즉사시킨다.
-
+            //캐릭터 클래스 변경 필요 
+            int temp = player.AttackPower;
+            player.AttackPower = (int)Math.Round(player.AttackPower * 1.3);
             ShowSituationNumber(player, enemy);
-            
+
             bool repeat = false;
             do
             {
@@ -498,6 +513,46 @@ namespace TextRPG_Team12
                 {
                     Console.WriteLine("잘못된 입력입니다.");
                     repeat = true;
+                }
+                else if (enemy[sel - 1].IsDead)
+                {
+                    Console.WriteLine("이미 사망한 적입니다.");
+                    repeat = true;
+                }
+                else
+                {
+                    player.Attack(enemy[sel - 1]);
+                    if(!enemy[sel - 1].IsDead)
+                    {
+                        if(new Random().Next(1,101)<=33)
+                        {
+                            Console.WriteLine($"기절 마법 성공 {enemy[sel-1].Name}이 기절했습니다.");
+                            enemy[sel - 1].stun = 1;
+                        }
+                    }
+                }
+            } while (repeat);
+
+            player.AttackPower = temp;
+
+        }
+
+        public override void JobSkill_3(Player player, Monster[] enemy)
+        {
+            // 즉사 마법: 체력이 33% 이하인 적을 즉사시킨다.
+
+            ShowSituationNumber(player, enemy);
+
+            Console.WriteLine("0.취소");
+            
+            bool repeat = false;
+            do
+            {
+                int sel = Num.Sel(enemy.Length);
+                repeat = false;
+                if (sel == 0)
+                {
+                    player.stage.BattlePlayerTurn(player, enemy);
                 }
                 else if (enemy[sel - 1].IsDead)
                 {

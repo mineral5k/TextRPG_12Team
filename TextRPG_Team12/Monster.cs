@@ -52,6 +52,7 @@ namespace TextRPG_Team12
             AttackPower += (1 * Level);
             LootMoney += (10 * Level);
             HuntExp += (15 * Level);
+            MaxHealth = Health;
 
 
         }

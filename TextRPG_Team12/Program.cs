@@ -1,19 +1,29 @@
-﻿namespace TextRPG_Team12
+﻿using static TextRPG_Team12.StageClearQuest;
+
+namespace TextRPG_Team12
 {
     internal class Program
     {
         public static List<Equipment> EquipmentDb;
+        public static string name;
 
         static void Main(string[] args)
         {
+            Console.OutputEncoding = System.Text.Encoding.UTF8;
+
             Player player = null;
 
-            Console.WriteLine("사용하실 닉네임을 입력하세요.");
-            string name = Console.ReadLine();
-
-            Console.WriteLine("\n원하시는 직업을 선택하세요.");
-            Console.WriteLine("1. 전사 2. 궁수 3. 도적 4. 마법사");
-
+            IScene currentScene = new IntroScene();
+            while (true)
+            {
+                Console.Clear();
+                currentScene.OnShow();
+                currentScene = currentScene.GetNextScene();
+                if (currentScene == null)
+                {
+                    break;
+                }
+            }
 
             bool repeat = false;
             // 번호 받아서 직업으로 배정  
@@ -71,16 +81,17 @@
 
         public static void MainScene(Player player)
         {
+            MonsterKillQuest monsterKillQuest = new MonsterKillQuest(5);  // 목표 몬스터 처치 수 5
+            player.AddQuest(monsterKillQuest);
 
-         
+            StageClearQuest stageClearQuest = new StageClearQuest();  // 던전 클리어 목표
+            player.AddQuest(stageClearQuest);
+
+            ItemPurchaseQuest itemPurchaseQuest = new ItemPurchaseQuest(3);
+            player.AddQuest(itemPurchaseQuest);
+
             while (true)
             {
-                MonsterKillQuest monsterKillQuest = new MonsterKillQuest(5);  // 목표 몬스터 처치 수 5
-                player.AddQuest(monsterKillQuest);
-
-                StageClearQuest stageClearQuest = new StageClearQuest();  // 던전 클리어 목표
-                player.AddQuest(stageClearQuest);
-
                 village(player);
                 Stage stage = new Stage();
                 //플레이어 입력을 받음
