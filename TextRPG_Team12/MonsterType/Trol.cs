@@ -12,7 +12,7 @@ namespace TextRPG_Team12
                 //new Equipment("트롤 가죽 갑옷", "트롤의 두꺼운 가죽으로 만든 갑옷. 거칠지만 놀라운 방어력을 자랑한다.", 5, 0, 1000, EquipmentType.Armor),
                 //new Equipment("트롤 분쇄기", "거대한 나무 기둥에 쇠사슬로 바위를 매달아 만든 트롤의 무기.", 5, 0, 1000, EquipmentType.Weapon),
          
-                new Miscellaneous("트롤의 재생 돌", "트롤의 심장 근처에서 발견되는 작고 거친 돌. 트롤의 빠른 재생 능력의 원천으로 여겨진다.", 1, 100)
+                new Miscellaneous("트롤의 재생 돌", "트롤의 심장 근처에서 발견되는 작고 거친 돌. 트롤의 빠른 재생 능력의 원천으로 여겨진다.", 100)
 
 
 

@@ -3,8 +3,7 @@
     public class Goblin : Monster
     {
 
-        public List<ItemType> RewardItemDB;
-
+      
 
         void RewardItemData()
         {
@@ -15,7 +14,7 @@
                 //new Equipment("고블린 가죽 조끼", "장인이 만든 가벼운 가죽 조끼. 움직임이 자유롭고 은밀한 행동에 유리하다", 5, 0, 1000, EquipmentType.Armor),
          
 
-                new Miscellaneous("고블린의 주머니", "고블린 족장이 허리에 차고 다니는 작은 가죽 주머니. ", 1, 150)
+                new Miscellaneous("고블린의 주머니", "고블린 족장이 허리에 차고 다니는 작은 가죽 주머니. ", 150)
 
 
 
