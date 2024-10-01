@@ -122,14 +122,14 @@ namespace TextRPG_Team12
             Console.WriteLine($"{gold}만큼의 골드를 확득했습니다.");
 
             player.GetExp(exp);
-<<<<<<< HEAD
+
             // StageCleared 퀘스트 완료 불러오기
-=======
+
             player.Gold += gold;
 
 
 
->>>>>>> dev
+
             Console.WriteLine("마을로 돌아갑니다.");
             Console.WriteLine("0. 확인.");
             Num.Sel(0);

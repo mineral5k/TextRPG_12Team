@@ -11,11 +11,11 @@ namespace TextRPG_Team12
 
         public List<Equipment> Inventory = new List<Equipment>();
         private static List<Equipment> EquipList = new List<Equipment>();
-<<<<<<< HEAD
+
         public List<Quest> Quests { get; private set; }
-=======
+
         public List<Equipment> ShopList = new List<Equipment>();
->>>>>>> dev
+
 
         public Job job ;
 
@@ -175,13 +175,14 @@ namespace TextRPG_Team12
             return EquipList.Contains(item);
         }
 
-<<<<<<< HEAD
+
         public void AddQuest(Quest quest)
         {
-            
+
             Quests.Add(quest);
             Console.WriteLine($"퀘스트 '{quest.Name}'가 추가되었습니다.");
-=======
+        }
+
         public int ShowShop(bool showIdx)
         {
 
@@ -306,7 +307,7 @@ namespace TextRPG_Team12
 
    
 
->>>>>>> dev
+
         }
 
         
