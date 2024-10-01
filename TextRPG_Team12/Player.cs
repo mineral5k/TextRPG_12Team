@@ -40,7 +40,10 @@ namespace TextRPG_Team12
         public int MaxMana { get; set; }
 
         public bool Counter {  get; set; }
+
+        public bool EvadeBuff { get; set; }
    
+        
 
 
 
@@ -51,12 +54,28 @@ namespace TextRPG_Team12
             Level = 1;
             Gold = 1500;
             Health = 100 +job.JobHealth;
+            MaxHealth =Health;
             MaxMana = 50 + job.JobMana;
             Mana = 50 + job.JobMana;
             AttackPower = 10 +job.JobAttackPower;
             AmorDefense = 5 + job.JobAmorDeffense;
             Quests = new List<Quest>();
             Counter = false;
+            EvadeBuff = false;
+            Evasion = 10;
+            Critical = 10;
+
+        }
+
+        public override void TakeDamage(int damage)
+        {
+            int deDamage = damage - AmorDefense / 3; 
+            if (deDamage < 0) deDamage = 0;
+            Console.WriteLine($"{Name}이(가) {deDamage}의 데미지를 받았습니다.");
+
+            Health -= deDamage;
+            if (IsDead) Console.WriteLine($"{Name}이(가) 죽었습니다.");
+            else Console.WriteLine($"남은 체력: {Health}");
 
         }
 

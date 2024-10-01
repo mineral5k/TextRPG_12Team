@@ -139,7 +139,11 @@ namespace TextRPG_Team12
 
         void BattleEnemyTurn(Player player, Monster[] enemy)            //적의 턴
         {
-            for (int i = 0; i < enemy.Length; i++)
+            if (player.EvadeBuff)
+            {
+                player.Evasion += 100;
+            }
+            for (int i = 0;i < enemy.Length;i++)                        
             {
                 if (!enemy[i].IsDead)                                   //죽지 않은 적들이 플레이어 공격
                 {
@@ -168,10 +172,15 @@ namespace TextRPG_Team12
                 }
             }
             player.Counter = false;
+            if (player.EvadeBuff)
+            {
+                player.EvadeBuff = false;
+                player.Evasion -= 100;
+            }
         }
 
 
-        void BattlePlayerTurn(Player player, Monster[] enemy)
+        public void BattlePlayerTurn (Player player, Monster[] enemy)
         {
             ShowSituation(player, enemy);
             Console.WriteLine("1. 공격한다");
