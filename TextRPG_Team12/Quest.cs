@@ -6,11 +6,15 @@ namespace TextRPG_Team12
     {
         public string Name { get; set; }
         public bool IsCompleted { get; protected set; }
+        public int CompletionCount { get; protected set; } 
+        public int Reward { get; protected set; } 
 
         public Quest(string name)
         {
             Name = name;
             IsCompleted = false;
+            CompletionCount = 0; 
+            Reward = 150;
         }
 
         public abstract void CheckProgress();
