@@ -110,6 +110,7 @@ namespace TextRPG_Team12
             }
 
             // 아이템 구매 시 호출
+            // 플레이어 buyshop이랑 병합 
             public void ItemPurchased()
             {
                 if (IsCompleted)
@@ -139,12 +140,12 @@ namespace TextRPG_Team12
                 IsCompleted = false;
                 Console.WriteLine($"퀘스트 '{Name}'를 다시 진행할 수 있습니다.");
             }
+
+
         }
     }
 }
 
 
     
-
-}
 
