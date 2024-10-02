@@ -12,68 +12,27 @@ namespace TextRPG_Team12
         static void Main(string[] args)
         {
             Console.OutputEncoding = System.Text.Encoding.UTF8;
+            IScene currentScene = new IntroScene();
             SaveLoad saveload = new SaveLoad();
 
-            Player player = null;
+            Player player = new Player("def", new Worrior());
 
-            IScene currentScene = new IntroScene();
-            
-                Console.Clear();
-                currentScene.OnShow();
-
-
-            string name = currentScene.Name;
-
-            bool repeat = false;
-            // 번호 받아서 직업으로 배정  
-            do
-            {
-                repeat = false;
-
-                int choice = Num.Sel(4);
-                switch (choice)
-                {
-
-                    case 0:
-                        Console.WriteLine("잘못된 입력입니다");
-                        repeat = true;
-                        break;
-                    case 1:
-                        player = new Player(name, new Worrior());
-                        break;
-                    case 2:
-                        player = new Player(name, new Archer());
-                        break;
-                    case 3:
-                        player = new Player(name, new Thief());
-                        break;
-                    case 4:
-                        player = new Player(name, new Mage());
-                        break;
-                }
-            }
-            while (repeat);
+            saveload.LoadData(ref player, ref player.job, currentScene);
             currentScene = currentScene.GetNextScene();
 
-            EquipmentData();
-            player.ShopList = EquipmentDb;
-            MonsterKillQuest monsterKillQuest = new MonsterKillQuest(5);  // 목표 몬스터 처치 수 5
-            player.AddQuest(monsterKillQuest);
-
-            StageClearQuest stageClearQuest = new StageClearQuest();  // 던전 클리어 목표
-            player.AddQuest(stageClearQuest);
-
-            ItemPurchaseQuest itemPurchaseQuest = new ItemPurchaseQuest(3);
-            player.AddQuest(itemPurchaseQuest);
-            Stage stage = new Stage();
+            
+           
+            
 
             
 
 
-            monsterKillQuest.stage = stage;
+           
             Console.Clear();
-            saveload.LoadData(ref player,ref player.job);
-            player.ShopList = EquipmentDb;
+
+
+            
+            
 
 
 
@@ -95,7 +54,7 @@ namespace TextRPG_Team12
                         Shop(player); // 상점 기능 호출
                         break;
                     case 4:
-                        stage.Dungeon(player);
+                        player.stage.Dungeon(player);
                         break;
                     case 5:
                         ShowQuest(player);

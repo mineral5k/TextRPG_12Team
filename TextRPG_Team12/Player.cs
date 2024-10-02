@@ -74,7 +74,14 @@ namespace TextRPG_Team12
             Console.WriteLine($"{Name}이(가) {deDamage}의 데미지를 받았습니다.");
 
             Health -= deDamage;
-            if (IsDead) Console.WriteLine($"{Name}이(가) 죽었습니다.");
+            if (IsDead)
+            {
+                Console.WriteLine($"{Name}이(가) 죽었습니다.");
+                Console.WriteLine($"게임 오버!");
+                Thread.Sleep(2000);
+                Environment.Exit(0);
+
+            }
             else Console.WriteLine($"남은 체력: {Health}");
 
         }
