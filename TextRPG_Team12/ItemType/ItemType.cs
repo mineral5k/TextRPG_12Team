@@ -3,15 +3,15 @@ using System.Xml.Linq;
 
 namespace TextRPG_Team12
 {
-    public abstract class ItemType
+    public  class ItemType
     {
 
 
         public int HasNum { get; set; }
 
-        public string Name { get; set; }
-        public string Info { get; set; }
-        public int Price { get; set; }
+        public string Name;
+        public string Info;
+        public int Price;
 
      
 

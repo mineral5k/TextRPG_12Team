@@ -12,7 +12,7 @@ namespace TextRPG_Team12
         public static readonly int[] LevelUpExp = { 0, 100, 350, 650, 1000};
 
         public List<ItemType> Inventory = new List<ItemType>();
-        private static List<Equipment> EquipList = new List<Equipment>();
+        public List<Equipment> EquipList = new List<Equipment>();
 
         public List<Quest> Quests { get; private set; }
 
@@ -53,12 +53,12 @@ namespace TextRPG_Team12
             job = inputJob;  
             Level = 1;
             Gold = 1500;
-            Health = 100 +job.JobHealth;
+            Health = 100 ;
             MaxHealth =Health;
-            MaxMana = 50 + job.JobMana;
-            Mana = 50 + job.JobMana;
-            AttackPower = 10 +job.JobAttackPower;
-            AmorDefense = 5 + job.JobAmorDeffense;
+            MaxMana = 50 ;
+            Mana = 50 ;
+            AttackPower = 10 ;
+            AmorDefense = 5;
             Quests = new List<Quest>();
             Counter = false;
             EvadeBuff = false;
@@ -111,9 +111,9 @@ namespace TextRPG_Team12
 
 
 
-            ItemArray(ref Inventory);
+           // ItemArray(ref Inventory);
 
-            int EquipCount = Inventory.Count(item => item is Equipment);
+            int EquipCount = Inventory.Count( );
             int MiscellCount = EquipCount;
 
             for (int i = 0; i < EquipCount;  i++)

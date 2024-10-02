@@ -72,11 +72,14 @@ namespace TextRPG_Team12
 
             monsterKillQuest.stage = stage;
             Console.Clear();
+            saveload.LoadData(ref player,ref player.job);
+            player.ShopList = EquipmentDb;
 
 
 
             while (true)
             {
+                saveload.SaveData(player, player.job);
                 Console.Clear();
                 currentScene.OnShow();
                int sel = Num.Sel(7);

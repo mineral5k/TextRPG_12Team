@@ -19,6 +19,17 @@ namespace TextRPG_Team12
 
             string jobData = JsonConvert.SerializeObject(job);
             File.WriteAllText(path + "\\JobData.json", jobData);
+
+            string shopList = JsonConvert.SerializeObject(player.ShopList);
+            File.WriteAllText(path + "\\ShopListData.json", shopList);
+
+            string equipList = JsonConvert.SerializeObject(player.EquipList);
+            File.WriteAllText(path + "\\EquipListData.json", equipList);
+
+            string inventoryList = JsonConvert.SerializeObject(player.Inventory);
+            File.WriteAllText(path + "\\InventoryListData.json", inventoryList);
+
+
         }
 
         public void LoadData(ref Player player, ref Job job)
@@ -36,7 +47,19 @@ namespace TextRPG_Team12
 
                 string playerLoadData = File.ReadAllText(path + "\\PlayerData.json");
                 player = JsonConvert.DeserializeObject<Player>(playerLoadData);
-                
+
+                string shopListLoadData = File.ReadAllText(path + "\\ShopListData.json");
+                player.ShopList = JsonConvert.DeserializeObject<List<Equipment>>(shopListLoadData);
+
+                string equipListLoadData = File.ReadAllText(path + "\\EquipListData.json");
+                player.EquipList = JsonConvert.DeserializeObject<List<Equipment>>(equipListLoadData);
+
+                string inventoryListLoadData = File.ReadAllText(path + "\\InventoryListData.json");
+                player.Inventory = JsonConvert.DeserializeObject<List<ItemType>>(inventoryListLoadData);
+
+
+
+
             }
         }
 
