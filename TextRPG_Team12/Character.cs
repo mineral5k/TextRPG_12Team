@@ -79,7 +79,7 @@ namespace TextRPG_Team12
             return itemorder switch
             {
                 Equipment => 0,
-                //Potion => 1,
+                Potion => 1,
                 Miscellaneous => 2,
                 _ => 3
             };

@@ -146,10 +146,6 @@ namespace TextRPG_Team12
             }
 
 
-
-
-
-
             Console.WriteLine("마을로 돌아갑니다.");
             Console.WriteLine("0. 확인.");
             Num.Sel(0);
