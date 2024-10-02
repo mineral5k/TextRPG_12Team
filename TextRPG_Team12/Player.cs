@@ -121,7 +121,7 @@ namespace TextRPG_Team12
                 Equipment targetInventory = Inventory[i] as Equipment;
 
                 string displayIdx = showIdx ? $"{i + 1} " : "";
-                string displayEquipped = IsEquipped(targetInventory) ? "[E]" : "";
+                string displayEquipped = IsEquipped(targetInventory) ? "\u001b[48;2;255;255;255m\u001b[38;2;0;0;0m[E]\u001b[0m" : "";
                 Console.WriteLine($"- {displayIdx}{displayEquipped} {targetInventory.EquipmentStatText()}");
 
 
@@ -144,6 +144,7 @@ namespace TextRPG_Team12
 
             Console.WriteLine();
             Console.WriteLine(showIdx ?  "" : "1. 장착관리");
+            //Console.WriteLine("장착하실 아이템의 번호를 입력하세요.");
             Console.WriteLine($"0. 나가기");
 
             return OnlyEquip ? EquipCount :Inventory.Count;
@@ -246,26 +247,26 @@ namespace TextRPG_Team12
 
             Console.Clear();
             Console.WriteLine();
-            Console.WriteLine("[보유 골드]");
-            Console.WriteLine($"{Gold}");
+            Console.WriteLine("\u001b[48;2;30;30;30m\u001b[38;2;255;255;255m[ 보유 골드 ]\u001b[0m");
+            Console.WriteLine($"\u001b[38;2;255;255;210m{Gold}G\u001b");
             Console.WriteLine();
-            Console.WriteLine("[아이템 목록]");
-
+            Console.WriteLine("\u001b[48;2;30;30;30m\u001b[38;2;255;255;255m[ 아이템 목록 ]\u001b[0m");
+            Console.WriteLine();
 
             for (int i = 0; i < ShopList.Count; i++)
             {
                 Equipment targetInventory = ShopList[i];
 
                 string displayIdx = showIdx ? $"{i + 1} " : "";
-                string displayEquipped = IsEquipped(targetInventory) ? "[E]" : "";
-                Console.WriteLine($"- {displayIdx}{displayEquipped} {targetInventory.EquipmentStatText()} { (targetInventory.IsPurchased ? "구매완료" : $"{targetInventory.Price} G" )}");
+                string displayEquipped = IsEquipped(targetInventory) ? "\u001b[48;2;255;255;255m\u001b[38;2;0;0;0m[E]\u001b[0m" : "";
+                Console.WriteLine($"{displayIdx}{displayEquipped}{targetInventory.EquipmentStatText()} { (targetInventory.IsPurchased ? "\u001b[48;2;255;255;255m\u001b[38;2;0;0;0m구매완료\u001b[0m" : $"\u001b[38;2;255;255;210m{targetInventory.Price} G\u001b[0m" )}");
 
 
             }
 
             Console.WriteLine();
             Console.WriteLine(!showIdx ? "1. 아이템구매\n2. 아이템판매" : "");
-            Console.WriteLine($"0. 나가기");
+            Console.WriteLine($"\u001b[38;2;255;150;150m0. 나가기\u001b[0m");
 
             return ShopList.Count;
 
