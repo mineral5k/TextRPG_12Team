@@ -114,7 +114,7 @@ namespace TextRPG_Team12
             new Equipment("훈련용 갑옷", "천으로 만들어져 가벼운 훈련복입니다.", 5, 0, 1000, EquipmentType.Armor),
             new Equipment("강철 갑옷", "강철로 제작된 튼튼한 갑옷입니다.", 9, 0, 2000, EquipmentType.Armor),
             new Equipment("멋쟁이 갑옷", "멋과 방어력 모두 챙긴 갑옷입니다.", 15, 0, 3500, EquipmentType.Armor),
-            new Equipment("고블린의 목걸이", "고블린들이 애타게 찾고 있는 목걸이입니다. 작은 힘을 더해주는 마법이 깃들어 있습니다.", 0, 2, 600, EquipmentType.Weapon),
+            new Equipment("고블린의 목걸이", "고블린들이 애타게 찾고 있는 목걸이입니다. 작은 힘이 깃들어 있습니다.", 0, 2, 600, EquipmentType.Weapon),
             new Equipment("트롤의 반지", "트롤의 힘을 담은 반지로, 착용한 자에게 강력한 힘을 부여합니다.", 0, 5, 1500, EquipmentType.Weapon),
             new Equipment("드래곤의 이빨", "드래곤의 이빨로 만들어진 무기로, 소지 시 드래곤의 기운이 전해집니다.", 0, 7, 2500, EquipmentType.Weapon),
             };
@@ -297,13 +297,13 @@ namespace TextRPG_Team12
             {
                 if (player.Gold<700)
                 {
-                    Console.WriteLine("보유 Gold가 부족합니다. 마을로 돌아갑니다.");
+                    Console.WriteLine("\u001b[38;2;255;88;88m보유 Gold가 부족합니다. 마을로 돌아갑니다.\u001b[0m");
                     Console.WriteLine("0. 돌아간다");
                     Num.Sel(1);
                 }
                 else
                 {
-                    Console.WriteLine("체력과 마나가 모두 회복되었습니다.");
+                    Console.WriteLine("\u001b[38;2;93;215;166m체력과 마나가 모두 회복되었습니다.\u001b[0m");
                     player.Health = player.MaxHealth;
                     player.Mana = player.MaxMana;
                     player.Gold -= 700;
@@ -320,7 +320,7 @@ namespace TextRPG_Team12
             Console.Clear();
             Console.WriteLine("선택한 직업으로 직업을 변경합니다.");
 
-            Console.WriteLine("1. 전사 2. 궁수 3.도적 4.마법사");
+            Console.WriteLine("\x1b[38;2;255;88;88m1. \u001b[0m전사  \u001b[38;2;93;215;166m2. \u001b[0m궁수  \u001b[38;2;133;223;255m3. \u001b[0m도적  \u001b[38;2;167;88;255m4. \u001b[0m마법사");
             Console.WriteLine("0. 돌아간다.");
 
             int sel = Num.Sel(4);
@@ -387,7 +387,7 @@ static public class Num
 
                 catch (System.FormatException)                 // 숫자이외의 입력을 받았을 시 오류 메세지를 전송하고 다시 입력을 받음
                 {
-                    Console.WriteLine("잘못된 입력입니다.");
+                    Console.WriteLine("\x1b[38;2;255;150;150m잘못된 입력입니다.\u001b[0m");
                     continue;
                 }
 
@@ -398,7 +398,7 @@ static public class Num
 
                 else
                 {
-                    Console.WriteLine("잘못된 입력입니다.");        // 선택지 범위에 맞지 않은 숫자 입력을 받았을 시 오류 메세지 전송하고 다시 입력 받음
+                    Console.WriteLine("\x1b[38;2;255;150;150m잘못된 입력입니다.\u001b[0m");        // 선택지 범위에 맞지 않은 숫자 입력을 받았을 시 오류 메세지 전송하고 다시 입력 받음
                 }
 
             }
@@ -407,7 +407,6 @@ static public class Num
 
         }
 }
-
 
 
 
