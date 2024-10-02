@@ -55,6 +55,7 @@ namespace TextRPG_Team12
 
             }
             Battle(player, enemy);
+            clearedFloor = Math.Max(clearedFloor, floor);
         }
 
         public void Battle(Player player, Monster[] enemy)
@@ -101,7 +102,7 @@ namespace TextRPG_Team12
             }
 
             Victory(player, enemy);                                         // 플레이어가 죽은 경우
-                                                                            // 플레이어 클래스에서 게임 오버로 프로그램이 종료하기 때문에 이 클래스에서 따로 메서드를 만들어 두진 않는다.
+                                                                            // 플레이어 클래스에서 게임 오버로 프로그램이 종료하기 때문에 이 클래스에서 따로 메서드를 만들어 두진 않는다. 
             killedMonster +=enemy.Length ;
         }
 
@@ -202,14 +203,14 @@ namespace TextRPG_Team12
             Console.WriteLine("1. 공격한다");
             Console.WriteLine("2. 스킬 사용");
             Console.WriteLine("3. 아이템 사용");
-            Console.WriteLine("0. 도망간다");
+            
 
             int sel = Num.Sel(3);
 
             switch (sel)
             {
                 case 0:
-                    Run();
+                    BattlePlayerTurn(player, enemy);
                     break;
                 case 1:
                     AttackSellect(player, enemy);
@@ -225,13 +226,7 @@ namespace TextRPG_Team12
 
         }
 
-        void Run()
-        {
-            Console.Clear();
-            Console.WriteLine("전투에서 도망쳤다!");
-            Console.WriteLine("마을로 돌아갑니다");
-
-        }
+       
 
         void AttackSellect(Player player, Monster[] enemy)                                             //공격할 적을 선택하는 메서드
         {

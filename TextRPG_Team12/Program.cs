@@ -5,6 +5,7 @@ namespace TextRPG_Team12
 {
     internal class Program
     {
+        
         public static List<Equipment> EquipmentDb;
         public static string name;
 
@@ -12,6 +13,7 @@ namespace TextRPG_Team12
         {
             UImanager.ChangeConsoleColor(ConsoleColor.Green);
             Console.OutputEncoding = System.Text.Encoding.UTF8;
+            SaveLoad saveload = new SaveLoad();
 
             Player player = null;
 
@@ -65,8 +67,14 @@ namespace TextRPG_Team12
             ItemPurchaseQuest itemPurchaseQuest = new ItemPurchaseQuest(3);
             player.AddQuest(itemPurchaseQuest);
             Stage stage = new Stage();
+
+            
+
+
             monsterKillQuest.stage = stage;
             Console.Clear();
+
+
 
             while (true)
             {
