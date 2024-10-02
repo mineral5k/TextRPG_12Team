@@ -46,7 +46,7 @@ public class Equipment : ItemType
 
     public string EquipmentStatText()
     {
-        return $"{Name}   | {EquipmentTypeText} | {Info} | ";
+        return $"\u001b[48;2;30;30;30m\u001b[38;2;255;255;255m{Name}\u001b[0m  | \u001b[38;2;93;215;166m{EquipmentTypeText}\u001b[0m | {Info} |  ";
     }
 
 }
