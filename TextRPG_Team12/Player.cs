@@ -420,22 +420,16 @@ namespace TextRPG_Team12
 
         public static void QuestMenu(Player player)
         {
-            if (player.Quests.Count == 0)
+
+            Console.WriteLine("진행 중인 퀘스트 목록:");
+            for (int i = 0; i < player.Quests.Count; i++)
             {
-                Console.WriteLine("\n현재 진행 중인 퀘스트가 없습니다.");
-                return;
+                var quest = player.Quests[i];
+                Console.WriteLine($"{i + 1}. {quest.Name} (진행 상태: {(quest.IsCompleted ? "완료" : "진행 중")})");
             }
 
-           
-                Console.WriteLine("진행 중인 퀘스트 목록:");
-                for (int i = 0; i < player.Quests.Count; i++)
-                {
-                    var quest = player.Quests[i];
-                    Console.WriteLine($"{i + 1}. {quest.Name} (진행 상태: {(quest.IsCompleted ? "완료" : "진행 중")})");
-                }
-
-                Console.WriteLine("\n퀘스트를 완료하려면 번호를 입력하세요 (0. 돌아가기):");
-                int choice = Num.Sel(player.Quests.Count);
+            Console.WriteLine("\n퀘스트를 완료하려면 번호를 입력하세요 (0. 돌아가기):");
+            int choice = Num.Sel(player.Quests.Count);
 
             if (choice > 0 && choice <= player.Quests.Count)
             {
@@ -443,42 +437,33 @@ namespace TextRPG_Team12
 
                 if (selectedQuest.IsCompleted)
                 {
-
                     Console.WriteLine("보상을 받으시겠습니까? (1. 예 / 2. 아니오)");
                     int rewardChoice = Num.Sel(2);
 
                     if (rewardChoice == 1)
                     {
-                        // 퀘스트 완료 시 보상 지급 및 초기화
+                        // 보상 주고 초기화
                         selectedQuest.CompleteQuest(player);
                         Console.WriteLine($"퀘스트 '{selectedQuest.Name}'가 초기화되었습니다.");
+                    }
+                    else
+                    {
+                        // 보상 안받기 
+                        Console.WriteLine($"퀘스트 '{selectedQuest.Name}'는 완료 상태입니다. 보상을 받지 않았습니다.");
                     }
                 }
                 else
                 {
-                    selectedQuest.CheckProgress(); // 진행 상황 확인
-
-                    if (selectedQuest.IsCompleted)
-                    {
-                        // 퀘스트 완료 시 보상 지급
-                        selectedQuest.CompleteQuest(player);
-                        Console.WriteLine($"퀘스트 '{selectedQuest.Name}'를 완료하였습니다!");
-                    }
-                    else
-                    {
-                        Console.WriteLine($"퀘스트 '{selectedQuest.Name}'는 아직 완료되지 않았습니다.");
-                    }
+                    Console.WriteLine($"퀘스트 '{selectedQuest.Name}'는 아직 완료되지 않았습니다.");
                 }
             }
             else if (choice == 0)
             {
                 return;
             }
-
             Console.WriteLine("0. 돌아간다.");
-            Num.Sel(0);
-         }          
-     }
+        }
+    }
 }
 
 
