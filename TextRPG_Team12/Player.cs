@@ -340,7 +340,7 @@ namespace TextRPG_Team12
             int EquipCount = Inventory.Count(item => item is Equipment) - 1;
 
 
-            if (EquipCount <= TargetNum)
+            if (EquipCount <= TargetNum && 0 < EquipCount)
             {
 
                 Equipment targetItem = Inventory[TargetNum] as Equipment;
@@ -357,11 +357,11 @@ namespace TextRPG_Team12
                             WeaponStat -= targetItem.Attack;
                         }
                         else
-                            AmorDefense -= targetItem.Defense;
+                            AmorStat -= targetItem.Defense;
 
                     }
 
-                    // 수정 필요
+  
 
                     int ShopListNum = ShopList.IndexOf(targetItem);                    
                     ShopList[ShopListNum].IsPurchased = false;

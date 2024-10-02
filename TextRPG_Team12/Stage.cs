@@ -146,10 +146,6 @@ namespace TextRPG_Team12
             }
 
 
-
-
-
-
             Console.WriteLine("마을로 돌아갑니다.");
             Console.WriteLine("0. 확인.");
             Num.Sel(0);
@@ -268,8 +264,32 @@ namespace TextRPG_Team12
         void UseItem(Player player, Monster[] enemy)                                               //아이템 사용 메서드
         {                                                                                          //자세한 내용 추후 구현 필요
             ShowSituation(player, enemy);
-            Console.WriteLine($"1. 체력 포션 : 체력을 50 회복합니다. 소지 개수:");
-            Console.WriteLine($"2. 마나 포션 : 마나를 30 회복합니다. 소지 개수:");
+
+
+
+
+            ItemType HpPotion = new Potion("체력 포션", "체력을 50 회복한다", 1, 50);
+            ItemType ManaPotion = new Potion("마나 포션", "마나를 30 회복한다", 2, 30);
+
+            bool HasHpPotion = player.isItemHave(HpPotion);
+            bool HasManaPotion = player.isItemHave(ManaPotion);
+
+            int HpPotionNum;
+            int ManaPotionNum;
+
+            if (HasHpPotion)
+            HpPotionNum = player.Inventory[player.Inventory.IndexOf(HpPotion)].HasNum;
+            else
+            HpPotionNum = 0;
+
+            if(HasManaPotion)
+            ManaPotionNum = player.Inventory[player.Inventory.IndexOf(ManaPotion)].HasNum;
+            else
+                ManaPotionNum = 0;
+
+
+            Console.WriteLine($"1. 체력 포션 : 체력을 50 회복합니다. 소지 개수: {HpPotionNum}");
+            Console.WriteLine($"2. 마나 포션 : 마나를 30 회복합니다. 소지 개수: {ManaPotionNum}");
             Console.WriteLine("0. 취소 ");
 
             int sel = Num.Sel(2);
@@ -280,7 +300,7 @@ namespace TextRPG_Team12
                     BattlePlayerTurn(player, enemy);
                     break;
                 case 1:
-                    if(false)
+                    if(!HasHpPotion)
                     {
                         Console.WriteLine("소지 개수가 부족합니다.");
                         Console.WriteLine("0. 확인");
@@ -302,7 +322,7 @@ namespace TextRPG_Team12
 
                     break;
                 case 2:
-                    if (false)
+                    if (!HasManaPotion)
                     {
                         Console.WriteLine("소지 개수가 부족합니다.");
                         Console.WriteLine("0. 확인");
@@ -318,6 +338,8 @@ namespace TextRPG_Team12
                         {
                             player.Mana = player.MaxMana;
                         }
+
+
                         Console.WriteLine($"현재 MP : {player.Mana}");
                         Console.WriteLine("0. 다음으로");
                     }

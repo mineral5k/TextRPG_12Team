@@ -24,7 +24,7 @@ namespace TextRPG_Team12
 
             CommonItemlistDB = new List<ItemType>
             {
-                new Equipment("땀에 찌든 훈련복 ", "천으로 만들어져 가벼운 훈련복입니다.", 5, 0, 1000, EquipmentType.Armor),
+                new Equipment("땀에 젖은 훈련복 ", "천으로 만들어져 가벼운 훈련복입니다.", 5, 0, 1000, EquipmentType.Armor),
                 new Potion("체력 포션", "체력을 50 회복한다", 1, 50),
                 new Potion("마나 포션", "마나를 30 회복한다", 2, 30),
                 new Miscellaneous("마른 나뭇가지", "평범해 보이는 나뭇가지지만 마법 지팡이의 재료로 사용된다.", 25),
@@ -58,34 +58,56 @@ namespace TextRPG_Team12
         {
            
             int Selectnum = rand.Next(0, 2);
-            int IteDBmNum = rand.Next(0, RewardItemDB.Count);
-
-            ItemType TargetItem = RewardItemDB[IteDBmNum];
+     
 
             for (int i = 0; i < Selectnum; i++)
             {
-                int Itemnum = rand.Next(1, 3);
 
-                Console.WriteLine($"{TargetItem.Name} X {Itemnum}");
+                int IteDBmNum = rand.Next(0, RewardItemDB.Count);
+                ItemType TargetItem = RewardItemDB[IteDBmNum];
 
-                if (player.isItemHave(TargetItem))
+                if (TargetItem is Equipment)
                 {
 
-                    int inventoryItemnum = player.Inventory.IndexOf(TargetItem);
+                    Console.WriteLine($"{TargetItem.Name}");
 
-                    if (player.Inventory[inventoryItemnum].HasNum <= 99)
-                        player.Inventory[inventoryItemnum].HasNum += Itemnum;
+                    if (!player.isItemHave(TargetItem))
+                    {
+
+                        TargetItem.HasNum = 1;
+                        player.Inventory.Add(TargetItem);
+
+                    }
+
+                }
+
+                else 
+                {
+                    int Itemnum = rand.Next(1, 3);
+
+
+                    if (player.isItemHave(TargetItem))
+                    {
+
+                        int inventoryItemnum = player.Inventory.IndexOf(TargetItem);
+
+                        if ((player.Inventory[inventoryItemnum].HasNum += Itemnum) <= 99)
+                            player.Inventory[inventoryItemnum].HasNum += Itemnum;
+                        else
+                            player.Inventory[inventoryItemnum].HasNum = 99;
+
+                    }
                     else
-                        player.Inventory[inventoryItemnum].HasNum = 99;
+                    {
+                        TargetItem.HasNum = Itemnum;
+                        player.Inventory.Add(TargetItem);
 
+
+                    }
+
+                    Console.WriteLine($"{TargetItem.Name} X {Itemnum}");
                 }
-                else
-                {
-                    TargetItem.HasNum = Itemnum;
-                    player.Inventory.Add(TargetItem);
-
-
-                }
+               
 
                 
 
