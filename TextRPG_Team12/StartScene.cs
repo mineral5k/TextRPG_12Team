@@ -21,7 +21,7 @@ namespace TextRPG_Team12
             Console.WriteLine("        │  5. 퀘스트 확인   │");
             Console.WriteLine("        │  6. 휴식하기      │");
             Console.WriteLine("        │  7. 직업 변경     │");
-            Console.WriteLine("        │\u001b[38;2;255;150;150m  0. 나가기\u001b[0m        │");
+            Console.WriteLine("        │\u001b[38;2;255;150;150m  0. 게임 종료\u001b[0m     │");
             Console.WriteLine("        │                   │");
             Console.WriteLine("        └───────────────────┘");
             Console.WriteLine();

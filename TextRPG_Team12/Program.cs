@@ -10,7 +10,6 @@ namespace TextRPG_Team12
 
         static void Main(string[] args)
         {
-            UImanager.ChangeConsoleColor(ConsoleColor.Green);
             Console.OutputEncoding = System.Text.Encoding.UTF8;
 
             Player player = null;
@@ -282,10 +281,10 @@ namespace TextRPG_Team12
         public static void Inn (Player player)
         {
             Console.Clear();
-            Console.WriteLine("700G 를 지불하여 체력과 마나를 모두 회복합니다.");
-            Console.WriteLine($"현재 소지 골드 : [{player.Gold}]");
-            Console.WriteLine($"1. 휴식한다.");
-            Console.WriteLine($"0. 돌아간다.");
+            Console.WriteLine("\u001b[48;2;30;30;30m\u001b[38;2;255;255;255m700G 를 지불하여 체력과 마나를 모두 회복합니다.\u001b[0m");
+            Console.WriteLine($"현재 소지 골드 :\u001b[38;2;255;255;210m [{player.Gold}]\u001b[0m");
+            Console.WriteLine($"\n1. 휴식한다.");
+            Console.WriteLine($"\u001b[38;2;255;150;150m0. 돌아간다\u001b[0m");
 
             int sel = Num.Sel(1);
 
@@ -299,7 +298,7 @@ namespace TextRPG_Team12
                 if (player.Gold<700)
                 {
                     Console.WriteLine("\u001b[38;2;255;88;88m보유 Gold가 부족합니다. 마을로 돌아갑니다.\u001b[0m");
-                    Console.WriteLine("0. 돌아간다");
+                    Console.WriteLine("\u001b[38;2;255;150;150m 0. 돌아간다\u001b[0m");
                     Num.Sel(1);
                 }
                 else
@@ -308,7 +307,7 @@ namespace TextRPG_Team12
                     player.Health = player.MaxHealth;
                     player.Mana = player.MaxMana;
                     player.Gold -= 700;
-                    Console.WriteLine("0. 확인");
+                    Console.WriteLine("\u001b[38;2;133;223;255m0. 확인\u001b[0m");
                     Num.Sel(0);
                 }
             }
@@ -319,10 +318,10 @@ namespace TextRPG_Team12
         public static void Change(Player player)
         {
             Console.Clear();
-            Console.WriteLine("선택한 직업으로 직업을 변경합니다.");
+            Console.WriteLine("\u001b[48;2;30;30;30m\u001b[38;2;255;255;255m선택한 직업으로 직업을 변경합니다.\u001b[0m");
 
             Console.WriteLine("\x1b[38;2;255;88;88m1. \u001b[0m전사  \u001b[38;2;93;215;166m2. \u001b[0m궁수  \u001b[38;2;133;223;255m3. \u001b[0m도적  \u001b[38;2;167;88;255m4. \u001b[0m마법사");
-            Console.WriteLine("0. 돌아간다.");
+            Console.WriteLine("\u001b[38;2;255;150;150m0. 돌아간다\u001b[0m");
 
             int sel = Num.Sel(4);
             {
