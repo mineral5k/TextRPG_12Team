@@ -25,8 +25,6 @@ namespace TextRPG_Team12
         // 퀘스트 완료 메서드
         public virtual void CompleteQuest(Player player)
         {
-          
-            IsCompleted = true;
             IncreaseCompletionCount(); 
             int reward = CalculateReward();  
             player.Gold += reward;  
@@ -56,8 +54,7 @@ namespace TextRPG_Team12
         // 몬스터 처치 퀘스트
         public class MonsterKillQuest : Quest
         {
-            private int monsterKillTargetCount;
-            private int monsterKillCurrentCount;
+            private int monsterKillTargetCount; // 목표 처치 수 
             public Stage stage;
 
             public MonsterKillQuest(int targetCount) : base("(반복)몬스터 처치하기")
@@ -67,8 +64,8 @@ namespace TextRPG_Team12
             }
 
         
-
-            public override void CheckProgress()
+            // 진행도 체크 
+            public override void CheckProgress() 
             {
                 if (monsterKillTargetCount <= stage.killedMonster)
                 {
