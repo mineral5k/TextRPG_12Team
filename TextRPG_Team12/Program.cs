@@ -218,7 +218,7 @@ namespace TextRPG_Team12
             {
 
          
-               int item = Num.Sel(player.ShowInventory(true, false)) - 1;
+               int item = Num.Sel(player.ShowInventory(true, true)) - 1;
                 player.EquipItem(item);
 
 
@@ -250,7 +250,7 @@ namespace TextRPG_Team12
             }
             else if (buySell == 2)
             {
-                int InventoryList = Num.Sel(player.ShowInventory(true, true)) - 1;
+                int InventoryList = Num.Sel(player.ShowInventory(true, false)) - 1;
                 player.SellShop(InventoryList);
 
             }

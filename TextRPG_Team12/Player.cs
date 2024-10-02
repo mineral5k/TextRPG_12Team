@@ -361,7 +361,6 @@ namespace TextRPG_Team12
 
                     }
 
-  
 
                     int ShopListNum = ShopList.IndexOf(targetItem);                    
                     ShopList[ShopListNum].IsPurchased = false;
