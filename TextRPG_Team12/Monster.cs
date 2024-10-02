@@ -19,7 +19,7 @@ namespace TextRPG_Team12
         public int stun = 0;
 
 
-        public void CommontemData()
+        public void CommonItemData()
         {
 
             CommonItemlistDB = new List<ItemType>

@@ -46,7 +46,7 @@
             StageEnemySet(stagelevel);
 
 
-            CommontemData();
+            CommonItemData();
             RewardItemData();
 
 

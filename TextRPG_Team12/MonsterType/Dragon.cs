@@ -47,7 +47,7 @@ namespace TextRPG_Team12
 
             StageEnemySet(stagelevel);
 
-            CommontemData();
+            CommonItemData();
             RewardItemData();
 
 
