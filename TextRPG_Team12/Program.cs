@@ -10,6 +10,7 @@ namespace TextRPG_Team12
 
         static void Main(string[] args)
         {
+            UImanager.ChangeConsoleColor(ConsoleColor.Green);
             Console.OutputEncoding = System.Text.Encoding.UTF8;
 
             Player player = null;
