@@ -270,8 +270,8 @@ namespace TextRPG_Team12
 
      
 
-            Console.WriteLine($"1. 체력 포션 : 체력을 50 회복합니다. 소지 개수: {HasHpPotion.HasNum}");
-            Console.WriteLine($"2. 마나 포션 : 마나를 30 회복합니다. 소지 개수: {HasManaPotion.HasNum}");
+            Console.WriteLine($"1. 체력 포션 : 체력을 50 회복합니다. 소지 개수:  {(HasHpPotion != null ? HasHpPotion.HasNum : 0)}");
+            Console.WriteLine($"2. 마나 포션 : 마나를 30 회복합니다. 소지 개수: {(HasManaPotion != null ? HasManaPotion.HasNum : 0)}");
             Console.WriteLine("0. 취소 ");
 
             int sel = Num.Sel(2);
