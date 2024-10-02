@@ -25,8 +25,13 @@ namespace TextRPG_Team12
 
             string equipList = JsonConvert.SerializeObject(player.EquipList);
             File.WriteAllText(path + "\\EquipListData.json", equipList);
+            List<Equipment> saveInv = new List<Equipment>(); 
+            for (int i = 0; i < player.Inventory.Count(); i++)
+            {
+                saveInv.Add(player.Inventory[i] as Equipment);
+            }
 
-            string inventoryList = JsonConvert.SerializeObject(player.Inventory);
+            string inventoryList = JsonConvert.SerializeObject(saveInv);
             File.WriteAllText(path + "\\InventoryListData.json", inventoryList);
 
 
@@ -36,7 +41,7 @@ namespace TextRPG_Team12
         {
             if (!File.Exists(path + "\\PlayerData.json"))
             {
-                return;
+                
             }
 
             else
@@ -54,8 +59,14 @@ namespace TextRPG_Team12
                 string equipListLoadData = File.ReadAllText(path + "\\EquipListData.json");
                 player.EquipList = JsonConvert.DeserializeObject<List<Equipment>>(equipListLoadData);
 
+                List<Equipment> saveInv = new List<Equipment>();
                 string inventoryListLoadData = File.ReadAllText(path + "\\InventoryListData.json");
-                player.Inventory = JsonConvert.DeserializeObject<List<ItemType>>(inventoryListLoadData);
+                saveInv = JsonConvert.DeserializeObject<List<Equipment>>(inventoryListLoadData);
+                player.Inventory = new List<ItemType>();
+                for (int i = 0; i < saveInv.Count(); i++)
+                {
+                    player.Inventory.Add(saveInv[i]);
+                }
 
 
 

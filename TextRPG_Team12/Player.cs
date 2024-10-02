@@ -121,7 +121,7 @@ namespace TextRPG_Team12
                 Equipment targetInventory = Inventory[i] as Equipment;
 
                 string displayIdx = showIdx ? $"{i + 1} " : "";
-                string displayEquipped = IsEquipped(targetInventory) ? "\u001b[48;2;255;255;255m\u001b[38;2;0;0;0m[E]\u001b[0m" : "";
+                string displayEquipped = targetInventory.IsEquipped ? "\u001b[48;2;255;255;255m\u001b[38;2;0;0;0m[E]\u001b[0m" : "";
                 Console.WriteLine($"- {displayIdx}{displayEquipped} {targetInventory.EquipmentStatText()}");
 
 
@@ -196,9 +196,9 @@ namespace TextRPG_Team12
            
             Equipment EquipItem = Inventory[TargetNum] as Equipment;
 
-            if (IsEquipped(EquipItem))
+            if (EquipItem.IsEquipped)
             {
-                EquipList.Remove(EquipItem);
+                EquipItem.IsEquipped = false;
                 if (EquipItem.Type == EquipmentType.Weapon)
                 {
                     WeaponStat -= EquipItem.Attack;
@@ -210,7 +210,7 @@ namespace TextRPG_Team12
             }
             else
             {
-                EquipList.Add(EquipItem);
+                EquipItem.IsEquipped = true;
                 if (EquipItem.Type == EquipmentType.Weapon)
                 {
                     WeaponStat += EquipItem.Attack;
