@@ -5,12 +5,14 @@ namespace TextRPG_Team12
 {
     internal class Program
     {
+        
         public static List<Equipment> EquipmentDb;
         public static string name;
 
         static void Main(string[] args)
         {
             Console.OutputEncoding = System.Text.Encoding.UTF8;
+            SaveLoad saveload = new SaveLoad();
 
             Player player = null;
 
@@ -64,8 +66,14 @@ namespace TextRPG_Team12
             ItemPurchaseQuest itemPurchaseQuest = new ItemPurchaseQuest(3);
             player.AddQuest(itemPurchaseQuest);
             Stage stage = new Stage();
+
+            
+
+
             monsterKillQuest.stage = stage;
             Console.Clear();
+
+
 
             while (true)
             {
@@ -217,7 +225,7 @@ namespace TextRPG_Team12
             {
 
          
-               int item = Num.Sel(player.ShowInventory(true, false)) - 1;
+               int item = Num.Sel(player.ShowInventory(true, true)) - 1;
                 player.EquipItem(item);
 
 
@@ -249,7 +257,7 @@ namespace TextRPG_Team12
             }
             else if (buySell == 2)
             {
-                int InventoryList = Num.Sel(player.ShowInventory(true, true)) - 1;
+                int InventoryList = Num.Sel(player.ShowInventory(true, false)) - 1;
                 player.SellShop(InventoryList);
 
             }

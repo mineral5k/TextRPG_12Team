@@ -126,6 +126,7 @@ namespace TextRPG_Team12
             {
                 Console.WriteLine("마나가 부족합니다!");
                 Console.WriteLine("0. 확인");
+                Num.Sel(0);
                 player.stage.UseSkill(player, enemy);
             }
             else
@@ -171,6 +172,7 @@ namespace TextRPG_Team12
             {
                 Console.WriteLine("마나가 부족합니다!");
                 Console.WriteLine("0. 확인");
+                Num.Sel(0);
                 player.stage.UseSkill(player, enemy);
             }
             else
@@ -198,6 +200,7 @@ namespace TextRPG_Team12
             {
                 Console.WriteLine("마나가 부족합니다!");
                 Console.WriteLine("0. 확인");
+                Num.Sel(0);
                 player.stage.UseSkill(player, enemy);
             }
             else
@@ -245,6 +248,7 @@ namespace TextRPG_Team12
             {
                 Console.WriteLine("마나가 부족합니다!");
                 Console.WriteLine("0. 확인");
+                Num.Sel(0);
                 player.stage.UseSkill(player, enemy);
             }
             else
@@ -294,6 +298,7 @@ namespace TextRPG_Team12
             {
                 Console.WriteLine("마나가 부족합니다!");
                 Console.WriteLine("0. 확인");
+                Num.Sel(0);
                 player.stage.UseSkill(player, enemy);
             }
             else
@@ -335,6 +340,7 @@ namespace TextRPG_Team12
             {
                 Console.WriteLine("마나가 부족합니다!");
                 Console.WriteLine("0. 확인");
+                Num.Sel(0);
                 player.stage.UseSkill(player, enemy);
             }
             else
@@ -396,6 +402,7 @@ namespace TextRPG_Team12
             {
                 Console.WriteLine("마나가 부족합니다!");
                 Console.WriteLine("0. 확인");
+                Num.Sel(0);
                 player.stage.UseSkill(player, enemy);
             }
             else
@@ -445,6 +452,7 @@ namespace TextRPG_Team12
             {
                 Console.WriteLine("마나가 부족합니다!");
                 Console.WriteLine("0. 확인");
+                Num.Sel(0);
                 player.stage.UseSkill(player, enemy);
             }
             else
@@ -464,6 +472,7 @@ namespace TextRPG_Team12
             {
                 Console.WriteLine("마나가 부족합니다!");
                 Console.WriteLine("0. 확인");
+                Num.Sel(0);
                 player.stage.UseSkill(player, enemy);
             }
             else
@@ -534,6 +543,7 @@ namespace TextRPG_Team12
             {
                 Console.WriteLine("마나가 부족합니다!");
                 Console.WriteLine("0. 확인");
+                Num.Sel(0);
                 player.stage.UseSkill(player, enemy);
             }
             else
@@ -571,12 +581,12 @@ namespace TextRPG_Team12
                         for (int i = 0; i < Math.Min(3, numberOfEnemies);)            // i : 현재 몇번째 공격인지 나타냄 
                         {
                             player.AttackPower = (int)Math.Round(player.AttackPower * (1 - 0.2 * i));   //공격 횟수가 많으면 위력 감소
-                            if (enemy[sel - 1].IsDead)                               //대상이 죽은 상태면 공격 횟수를 늘리지 않고 다음 대상으로 넘어감
+                            if (enemy[(sel - 1)% numberOfEnemies].IsDead)                               //대상이 죽은 상태면 공격 횟수를 늘리지 않고 다음 대상으로 넘어감
                             {
                                 sel++;
                                 continue;
                             }
-                            player.Attack(enemy[sel - 1]);
+                            player.Attack(enemy[(sel - 1)% numberOfEnemies]);
                             player.AttackPower = temp;
                             i++;                                                    //공격 했다면 공격한 횟수를 늘려줌
                             sel++;
@@ -601,6 +611,7 @@ namespace TextRPG_Team12
             {
                 Console.WriteLine("마나가 부족합니다!");
                 Console.WriteLine("0. 확인");
+                Num.Sel(0);
                 player.stage.UseSkill(player, enemy);
             }
             else
@@ -651,6 +662,7 @@ namespace TextRPG_Team12
             {
                 Console.WriteLine("마나가 부족합니다!");
                 Console.WriteLine("0. 확인");
+                Num.Sel(0);
                 player.stage.UseSkill(player, enemy);
             }
             else

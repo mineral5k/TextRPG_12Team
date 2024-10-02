@@ -2,7 +2,7 @@
 
 namespace TextRPG_Team12
 {
-    public abstract class Quest
+    public  class Quest
     {
         public string Name { get; set; }
         public bool IsCompleted { get; protected set; }
@@ -17,7 +17,10 @@ namespace TextRPG_Team12
             CompletionCount = 0; 
         }
 
-        public abstract void CheckProgress();
+        public virtual void CheckProgress()
+        {
+
+        }
 
         // 퀘스트 완료 메서드
         public virtual void CompleteQuest(Player player)
@@ -45,7 +48,10 @@ namespace TextRPG_Team12
         }
 
         // 각 퀘스트마다 진행 상황을 초기화하는 메서드 (상속 클래스에서 구현)
-        public abstract void ResetProgress();
+        public virtual void ResetProgress()
+        {
+
+        }
 
         // 몬스터 처치 퀘스트
         public class MonsterKillQuest : Quest
@@ -64,7 +70,7 @@ namespace TextRPG_Team12
 
             public override void CheckProgress()
             {
-                if (monsterKillCurrentCount >= stage.killedMonster)
+                if (monsterKillTargetCount <= stage.killedMonster)
                 {
                     IsCompleted = true;
                 }
