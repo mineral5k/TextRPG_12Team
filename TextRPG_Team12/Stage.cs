@@ -267,7 +267,6 @@ namespace TextRPG_Team12
 
 
 
-
             ItemType HpPotion = new Potion("체력 포션", "체력을 50 회복한다", 1, 50);
             ItemType ManaPotion = new Potion("마나 포션", "마나를 30 회복한다", 2, 30);
 
@@ -316,6 +315,13 @@ namespace TextRPG_Team12
                         {
                             player.Health = player.MaxHealth;
                         }
+
+                        player.Inventory[player.Inventory.IndexOf(HpPotion)].HasNum -= 1;
+
+                        if (player.Inventory[player.Inventory.IndexOf(HpPotion)].HasNum <= 0)
+                            player.Inventory.Remove(HpPotion);
+
+
                         Console.WriteLine($"현재 체력 : {player.Health}");
                         Console.WriteLine("0. 다음으로");
                     }
@@ -338,6 +344,11 @@ namespace TextRPG_Team12
                         {
                             player.Mana = player.MaxMana;
                         }
+
+                        player.Inventory[player.Inventory.IndexOf(ManaPotion)].HasNum -= 1;
+
+                        if (player.Inventory[player.Inventory.IndexOf(ManaPotion)].HasNum <= 0)
+                            player.Inventory.Remove(ManaPotion);
 
 
                         Console.WriteLine($"현재 MP : {player.Mana}");

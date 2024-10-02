@@ -339,7 +339,7 @@ namespace TextRPG_Team12
             int EquipCount = Inventory.Count(item => item is Equipment) - 1;
 
 
-            if (EquipCount <= TargetNum && 0 < EquipCount)
+            if (0 < EquipCount && EquipCount <= TargetNum )
             {
 
                 Equipment targetItem = Inventory[TargetNum] as Equipment;
