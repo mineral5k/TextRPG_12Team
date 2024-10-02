@@ -227,10 +227,23 @@ namespace TextRPG_Team12
             return EquipList.Contains(item);
         }
 
-        public bool isItemHave(ItemType item)
+        public ItemType isItemHave(string itemname)
         {
 
-            return Inventory.Contains(item);
+            ItemType targetItem = null;
+
+            foreach (ItemType Item in Inventory)
+            {
+
+                if (Item.Name == itemname)
+                {
+
+                    targetItem = Item;
+                    break;
+                }
+            }
+
+            return targetItem;
         
         }
 
@@ -283,7 +296,7 @@ namespace TextRPG_Team12
             Equipment targetItem = ShopList[TargetNum];
 
 
-            if (targetItem.IsPurchased != true && Gold > targetItem.Price)
+            if (targetItem.IsPurchased != true && Gold >= targetItem.Price)
             {
 
                 ShopList[TargetNum].IsPurchased = true;
@@ -337,10 +350,7 @@ namespace TextRPG_Team12
                 return;
 
 
-            int EquipCount = Inventory.Count(item => item is Equipment) - 1;
-
-
-            if (0 < EquipCount && EquipCount <= TargetNum )
+            if (Inventory[TargetNum] is Equipment)
             {
 
                 Equipment targetItem = Inventory[TargetNum] as Equipment;
@@ -380,7 +390,9 @@ namespace TextRPG_Team12
             {
                 ItemType targetItem = Inventory[TargetNum];
 
-                Console.WriteLine("원하시는 판매 개수를 입력해주세요");
+
+                Console.WriteLine($"해당하는 아이템의 개당 가격은 {targetItem.Price} G 입니다.");
+                Console.WriteLine($"원하시는 판매 개수를 입력해주세요. 0 ~ {targetItem.HasNum}");
                 int SellCount = Num.Sel(targetItem.HasNum);
 
 
@@ -388,8 +400,7 @@ namespace TextRPG_Team12
 
                 if (Inventory[TargetNum].HasNum == 0)
                     Inventory.Remove(targetItem);
-                              
-
+                            
                 Gold += targetItem.Price * SellCount;
 
                 Console.WriteLine("아이템을 판매했습니다.");
