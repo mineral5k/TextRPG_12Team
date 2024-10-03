@@ -123,9 +123,9 @@ namespace TextRPG_Team12
 
 
 
-           // ItemArray(ref Inventory);
+            ItemArray(ref Inventory);
 
-            int EquipCount = Inventory.Count( );
+            int EquipCount = Inventory.Count(item => item is Equipment);
             int MiscellCount = EquipCount;
 
             for (int i = 0; i < EquipCount;  i++)
@@ -210,6 +210,8 @@ namespace TextRPG_Team12
             if (EquipItem.IsEquipped)
             {
                 EquipItem.IsEquipped = false;
+  
+
                 if (EquipItem.Type == EquipmentType.Weapon)
                 {
                     WeaponStat -= EquipItem.Attack;
@@ -222,6 +224,7 @@ namespace TextRPG_Team12
             else
             {
                 EquipItem.IsEquipped = true;
+ 
                 if (EquipItem.Type == EquipmentType.Weapon)
                 {
                     WeaponStat += EquipItem.Attack;
@@ -230,6 +233,7 @@ namespace TextRPG_Team12
                     AmorStat += EquipItem.Defense;
             }
 
+            Inventory[TargetNum] = EquipItem;
         }
 
 
@@ -238,8 +242,8 @@ namespace TextRPG_Team12
 
             if (Inventory.Contains(item))
             {
-                Equipment TargetItem = Inventory[Inventory.IndexOf(item)] as Equipment;
-                return TargetItem.IsEquipped;
+                Equipment targetItem = Inventory[Inventory.IndexOf(item)] as Equipment;
+                return targetItem.IsEquipped;
             }
 
             return false;
@@ -250,14 +254,16 @@ namespace TextRPG_Team12
 
             ItemType targetItem = null;
 
-            foreach (ItemType Item in Inventory)
+            if (Inventory.Count > 0)
             {
-
-                if (Item.Name == itemname)
+                foreach (ItemType Item in Inventory)
                 {
 
-                    targetItem = Item;
-                    break;
+                    if (Item.Name == itemname)
+                    {
+                        targetItem = Item;
+                        break;
+                    }
                 }
             }
 
@@ -265,6 +271,7 @@ namespace TextRPG_Team12
         
         }
 
+ 
 
         public void AddQuest(Quest quest)
         {
@@ -378,36 +385,42 @@ namespace TextRPG_Team12
                 Equipment targetItem = Inventory[TargetNum] as Equipment;
 
 
-                if (targetItem.IsPurchased == true)
+                if (targetItem.IsEquipped)
+                    Console.WriteLine("아이템을 판매할 수 없습니다. 장착을 해제한 후 다시 시도하세요.");
+
+
+                else if (targetItem.IsPurchased == true)
                 {
 
-                    if (IsEquipped(targetItem))
+                    foreach (Equipment ShopItem in ShopList)
                     {
-                        EquipList.Remove(targetItem);
-                        if (targetItem.Type == EquipmentType.Weapon)
+
+                        if (ShopItem.Name == targetItem.Name)
                         {
-                            WeaponStat -= targetItem.Attack;
+
+                            ShopItem.IsPurchased = false;
+                            break;
                         }
-                        else
-                            AmorStat -= targetItem.Defense;
 
                     }
 
+                    Gold += targetItem.Price;
+                    Inventory.Remove(targetItem);
+                    Console.WriteLine("아이템을 판매했습니다.");
 
-                    int ShopListNum = ShopList.IndexOf(targetItem);                    
-                    ShopList[ShopListNum].IsPurchased = false;
-               
+                }
+                else
+                {
 
                     Gold += targetItem.Price;
                     Inventory.Remove(targetItem);
-
                     Console.WriteLine("아이템을 판매했습니다.");
 
                 }
 
-                else
-                    Console.WriteLine("판매할 수 없는 아이템입니다.");
+
             }
+
             else
             {
                 ItemType targetItem = Inventory[TargetNum];
