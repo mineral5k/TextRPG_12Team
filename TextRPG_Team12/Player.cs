@@ -235,7 +235,14 @@ namespace TextRPG_Team12
 
         public bool IsEquipped(Equipment item)
         {
-            return EquipList.Contains(item);
+
+            if (Inventory.Contains(item))
+            {
+                Equipment TargetItem = Inventory[Inventory.IndexOf(item)] as Equipment;
+                return TargetItem.IsEquipped;
+            }
+
+            return false;
         }
 
         public ItemType isItemHave(string itemname)
