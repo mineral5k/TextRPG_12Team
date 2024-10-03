@@ -79,6 +79,8 @@ namespace TextRPG_Team12
                 UImanager.BlinkText($"{Name}이(가) 죽었습니다.", 2, 200, ConsoleColor.DarkRed, ConsoleColor.Red);
                 Console.ForegroundColor = ConsoleColor.DarkRed;
                 Console.WriteLine($"게임 오버!");
+                Console.ResetColor();
+                Thread.Sleep(1000);
                 UImanager.EndingAnimation();
                 Thread.Sleep(2000);
                 Environment.Exit(0);
@@ -178,7 +180,6 @@ namespace TextRPG_Team12
                 {
 
                         UImanager.BlinkText2("축하합니다. 레벨업 하였습니다.", 4, 100, ConsoleColor.Blue, ConsoleColor.Yellow, ConsoleColor.Magenta, ConsoleColor.Green);
-                        //Console.WriteLine($"축하합니다. 레벨업 하였습니다.");
 
                         Level += 1;
                         Exp -= LevelUpExp[Level];

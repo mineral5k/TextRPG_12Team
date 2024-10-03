@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace TextRPG_Team12
 {
-    internal class Potion : ItemType
+    public class Potion : ItemType
     {
         public string Name { get; set; }
         public string Info { get; set; }

@@ -32,11 +32,10 @@ namespace TextRPG_Team12
 
         public virtual void  TakeDamage(int damage)
         {
-            //Console.WriteLine($"{Name}이(가) {damage}의 데미지를 받았습니다.");
             UImanager.BlinkText($"{Name}이(가) {damage}의 데미지를 받았습니다.", 1, 200, ConsoleColor.DarkRed, ConsoleColor.White);
 
             Health -= damage;
-            if (IsDead) //Console.WriteLine($"{Name}이(가) 죽었습니다."); 
+            if (IsDead)
                 UImanager.BlinkText($"{Name}이(가) 죽었습니다.", 1, 200, ConsoleColor.DarkRed, ConsoleColor.Red);
             else
                 Console.WriteLine();
@@ -54,13 +53,11 @@ namespace TextRPG_Team12
 
             if (new Random().Next(1, 101) <= Evasion)
             {
-                //Console.WriteLine("공격이 빗나갔습니다.");
                 UImanager.BlinkText("공격이 빗나갔습니다.", 1, 200, ConsoleColor.Red, ConsoleColor.White);
 
             }
             else if (new Random().Next(1, 101) <= Critical)
             {
-                //Console.Write("크리티컬! ");
                 UImanager.BlinkText("크리티컬!", 1, 200, ConsoleColor.Cyan, ConsoleColor.White);
                 character.TakeDamage((int)Math.Round(damage * 1.5));
 

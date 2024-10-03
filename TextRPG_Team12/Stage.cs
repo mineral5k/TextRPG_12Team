@@ -134,7 +134,7 @@ namespace TextRPG_Team12
             }
 
 
-            Console.WriteLine($"{gold}만큼의 골드를 확득했습니다.");
+            Console.WriteLine($"{gold}만큼의 골드를 획득했습니다.");
             player.Gold += gold;
 
             player.GetExp(exp);
