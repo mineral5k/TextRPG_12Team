@@ -245,8 +245,10 @@ namespace TextRPG_Team12
         void AttackSellect(Player player, Monster[] enemy)                                             //공격할 적을 선택하는 메서드
         {
             ShowSituationNumber(player, enemy);
-            Console.WriteLine("\n0. 취소");
 
+            Console.Write("\u001b[38;2;255;150;150m");
+            Console.WriteLine("\n 0. 취소");
+            Console.Write("\u001b[0m");
 
             bool repeat = false;
             do
