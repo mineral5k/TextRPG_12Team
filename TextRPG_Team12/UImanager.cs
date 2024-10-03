@@ -139,7 +139,7 @@ namespace TextRPG_Team12
                 int artHeight = artLines.Length;
 
                 // 중앙에 출력할 위치 계산
-                int startX = (consoleWidth - artWidth) / 2 - 10;
+                int startX = (consoleWidth - artWidth) / 2 - 10;         //  공백 때문에 안맞는 위치 직접 수정
                 int startY = (consoleHeight - artHeight) / 2;
 
                 // 커서를 중앙으로 이동하고 출력
@@ -148,7 +148,7 @@ namespace TextRPG_Team12
 
                 foreach (string line in artLines)
                 {
-                    Console.SetCursorPosition(startX, Console.CursorTop); // 가로 중앙 맞춤
+                    Console.SetCursorPosition(startX, Console.CursorTop); 
                     Console.WriteLine(line);
                 }
 
@@ -176,10 +176,10 @@ namespace TextRPG_Team12
                 string[] finalTextLines = finalText.Split('\n');
                 int finalTextWidth = finalTextLines[0].Length;
                 int finalTextHeight = finalTextLines.Length;
-                int finalStartX = (consoleWidth - finalTextWidth) / 2 - 18;
+                int finalStartX = (consoleWidth - finalTextWidth) / 2 - 18;        //  공백 때문에 안맞는 위치 직접 수정
                 int finalStartY = (consoleHeight - finalTextHeight) / 2;
 
-                // 텍스트 출력
+                // GameOver 출력
                 Console.SetCursorPosition(finalStartX, finalStartY);
                 foreach (string line in finalTextLines)
                 {

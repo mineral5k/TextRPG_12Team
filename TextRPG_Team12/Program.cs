@@ -234,7 +234,7 @@ namespace TextRPG_Team12
         {
             Console.Clear();
             Console.WriteLine();
-            //Console.WriteLine("퀘스트 목록");
+
           
             Player.QuestMenu(player);
         }
@@ -244,8 +244,8 @@ namespace TextRPG_Team12
         public static void ExitGame(Player player)
         {
             Console.WriteLine("게임을 종료합니다.");
+            UImanager.EndingAnimation();
             Thread.Sleep(2000);
-            UImanager.EndingAnimation();                                         // 시연 영상 촬영 후 삭제
             Environment.Exit(0);
         }
 
