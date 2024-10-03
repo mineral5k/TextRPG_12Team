@@ -128,7 +128,7 @@ namespace TextRPG_Team12
             int EquipCount = Inventory.Count(item => item is Equipment);
             int MiscellCount = EquipCount;
 
-            for (int i = 0; i < EquipCount;  i++)
+            for (int i = 0; i < EquipCount; i++)
             {
                 Equipment targetInventory = Inventory[i] as Equipment;
 
@@ -149,7 +149,6 @@ namespace TextRPG_Team12
                     Console.WriteLine($"- {displayIdx} {Inventory[i].ItemInfoText()}");
 
                 }
-
 
             }
 
@@ -254,18 +253,18 @@ namespace TextRPG_Team12
 
             ItemType targetItem = null;
 
-            if (Inventory.Count > 0)
-            {
+           
                 foreach (ItemType Item in Inventory)
                 {
 
-                    if (Item.Name == itemname)
+                    if (Item != null && Item.Name == itemname)
                     {
                         targetItem = Item;
                         break;
                     }
+
                 }
-            }
+          
 
             return targetItem;
         
