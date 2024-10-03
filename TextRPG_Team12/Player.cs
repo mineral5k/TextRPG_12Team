@@ -76,7 +76,8 @@ namespace TextRPG_Team12
             Health -= deDamage;
             if (IsDead)
             {
-                Console.WriteLine($"{Name}이(가) 죽었습니다.");
+                UImanager.BlinkText($"{Name}이(가) 죽었습니다.", 2, 200, ConsoleColor.DarkRed, ConsoleColor.Red);
+                Console.ForegroundColor = ConsoleColor.DarkRed;
                 Console.WriteLine($"게임 오버!");
                 Thread.Sleep(2000);
                 Environment.Exit(0);
@@ -437,7 +438,7 @@ namespace TextRPG_Team12
 
             Console.WriteLine();
             Console.WriteLine("\n퀘스트를 완료하려면 번호를 입력하세요");
-            Console.Write("\u001b[38; 2; 255; 150; 150m");
+            Console.Write("\u001b[38;2;255;150;150m");
             Console.WriteLine("0. 돌아가기 \u001b[0m");
             int choice = Num.Sel(player.Quests.Count);
 

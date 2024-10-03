@@ -114,7 +114,8 @@ namespace TextRPG_Team12
         void Victory(Player player, Monster[] enemy)
         {
             Console.Clear();
-            Console.WriteLine("전투에서 승리했습니다.");
+            //Console.WriteLine("전투에서 승리했습니다.");
+            UImanager.BlinkText("전투에서 승리했습니다.", 2, 300, ConsoleColor.White, ConsoleColor.DarkCyan);
             Console.WriteLine();
 
 
@@ -204,6 +205,7 @@ namespace TextRPG_Team12
         public void BattlePlayerTurn (Player player, Monster[] enemy)
         {
             ShowSituation(player, enemy);
+            Console.WriteLine();
             Console.WriteLine("1. 공격한다");
             Console.WriteLine("2. 스킬 사용");
             Console.WriteLine("3. 아이템 사용");
@@ -309,7 +311,7 @@ namespace TextRPG_Team12
                             player.Inventory.Remove(HasHpPotion);
 
 
-                        Console.WriteLine($"현재 체력 : {player.Health}");
+                        Console.WriteLine($"\n현재 체력 : {player.Health}");
                         Console.WriteLine("0. 다음으로");
                     }
 
