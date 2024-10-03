@@ -435,7 +435,10 @@ namespace TextRPG_Team12
                 Console.WriteLine($"{i + 1}. {quest.Name} (진행 상태: {(quest.IsCompleted ? "완료" : "진행 중")})");
             }
 
-            Console.WriteLine("\n퀘스트를 완료하려면 번호를 입력하세요 (0. 돌아가기):");
+            Console.WriteLine();
+            Console.WriteLine("\n퀘스트를 완료하려면 번호를 입력하세요");
+            Console.Write("\u001b[38; 2; 255; 150; 150m");
+            Console.WriteLine("0. 돌아가기 \u001b[0m");
             int choice = Num.Sel(player.Quests.Count);
 
             if (choice > 0 && choice <= player.Quests.Count)
@@ -444,7 +447,8 @@ namespace TextRPG_Team12
 
                 if (selectedQuest.IsCompleted)
                 {
-                    Console.WriteLine("보상을 받으시겠습니까? (1. 예 / 2. 아니오)");
+                    Console.WriteLine("보상을 받으시겠습니까?");
+                    Console.WriteLine("1. 예 / 2. 아니오");
                     int rewardChoice = Num.Sel(2);
 
                     if (rewardChoice == 1)

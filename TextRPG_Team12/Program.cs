@@ -287,7 +287,7 @@ namespace TextRPG_Team12
                 {
                     Console.WriteLine("");
                     //Console.WriteLine("체력과 마나가 모두 회복되었습니다.");
-                    UImanager.BlinkText2("체력과 마나가 모두 회복되었습니다.", 5, 100, ConsoleColor.Blue, ConsoleColor.Yellow, ConsoleColor.Magenta, ConsoleColor.Green);
+                    UImanager.BlinkText2("체력과 마나가 모두 회복되었습니다.", 3, 100, ConsoleColor.Blue, ConsoleColor.DarkCyan, ConsoleColor.Cyan, ConsoleColor.DarkBlue);
                     Console.Write("\u001b[0m");
                     player.Health = player.MaxHealth;
                     player.Mana = player.MaxMana;

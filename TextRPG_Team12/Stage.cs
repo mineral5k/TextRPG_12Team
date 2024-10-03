@@ -16,10 +16,14 @@ namespace TextRPG_Team12
         public void Dungeon(Player player)
         {
             Console.Clear();                                                            //클리어 한 스테이지의 다음 스테이지 까지 도전 가능
-            Console.WriteLine("");
-            Console.WriteLine("도전할 스테이지를 선택하세요");
+            Console.WriteLine();
+            Console.Write("\u001b[48;2;30;30;30m\u001b[38;2;255;255;255m");
+            Console.WriteLine("도전할 스테이지를 선택하세요\u001b[0m");
+            Console.WriteLine();
             Console.WriteLine($"현재 도전 가능 스테이지 :1 ~ {clearedFloor + 1}");
-            Console.WriteLine("0. 나가기");
+            Console.WriteLine();
+            Console.Write("\u001b[38;2;255;150;150m");
+            Console.WriteLine("0. 나가기\u001b[0m");
 
 
             int sel = Num.Sel(clearedFloor + 1);

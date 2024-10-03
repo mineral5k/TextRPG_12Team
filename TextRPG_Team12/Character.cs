@@ -32,11 +32,15 @@ namespace TextRPG_Team12
 
         public virtual void  TakeDamage(int damage)
         {
-            Console.WriteLine($"{Name}이(가) {damage}의 데미지를 받았습니다.");
+            //Console.WriteLine($"{Name}이(가) {damage}의 데미지를 받았습니다.");
+            UImanager.BlinkText($"{Name}이(가) {damage}의 데미지를 받았습니다.", 1, 200, ConsoleColor.DarkRed, ConsoleColor.White);
 
             Health -= damage;
-            if (IsDead) Console.WriteLine($"{Name}이(가) 죽었습니다.");
-            else Console.WriteLine($"남은 체력: {Health}");
+            if (IsDead) //Console.WriteLine($"{Name}이(가) 죽었습니다."); 
+                UImanager.BlinkText($"{Name}이(가) 죽었습니다.", 1, 200, ConsoleColor.DarkRed, ConsoleColor.Red);
+            else
+                Console.WriteLine();
+                Console.WriteLine($"남은 체력: {Health}");
 
         }
 
@@ -45,15 +49,19 @@ namespace TextRPG_Team12
             int r = (AttackPower % 10 == 0) ? (AttackPower / 10) : (AttackPower / 10 + 1);
             int damage = new Random().Next(AttackPower - r, AttackPower + r + 1);
 
-            Console.WriteLine($"{Name}의 공격!");
+            Console.Write("\u001b[48;2;30;30;30m\u001b[38;2;255;255;255m");
+            Console.WriteLine($"{Name}의 공격!\u001b[0m");
 
             if (new Random().Next(1, 101) <= Evasion)
             {
-                Console.WriteLine("공격이 빗나갔습니다.");
+                //Console.WriteLine("공격이 빗나갔습니다.");
+                UImanager.BlinkText("공격이 빗나갔습니다.", 1, 200, ConsoleColor.Red, ConsoleColor.White);
+
             }
             else if (new Random().Next(1, 101) <= Critical)
             {
-                Console.Write("크리티컬! ");
+                //Console.Write("크리티컬! ");
+                UImanager.BlinkText("크리티컬!", 1, 200, ConsoleColor.Cyan, ConsoleColor.White);
                 character.TakeDamage((int)Math.Round(damage * 1.5));
 
             }
