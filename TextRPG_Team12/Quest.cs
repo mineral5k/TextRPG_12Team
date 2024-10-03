@@ -57,7 +57,7 @@ namespace TextRPG_Team12
             private int monsterKillTargetCount; // 목표 처치 수 
             public Stage stage;
 
-            public MonsterKillQuest(int targetCount) : base("(반복)몬스터 처치하기")
+            public MonsterKillQuest(int targetCount) : base("(반복)몬스터 5마리 처치하기")
             {
                 monsterKillTargetCount = targetCount;
                 
@@ -123,7 +123,7 @@ namespace TextRPG_Team12
             private int itemPurchaseTargetCount;
             private int itemPurchaseCurrentCount;
 
-            public ItemPurchaseQuest(int targetCount) : base("(반복)아이템 구매")
+            public ItemPurchaseQuest(int targetCount) : base("(반복)아이템 3개 구매")
             {
                 itemPurchaseTargetCount = targetCount;
                 itemPurchaseCurrentCount = 0;

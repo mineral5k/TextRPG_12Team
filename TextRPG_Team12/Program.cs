@@ -245,7 +245,7 @@ namespace TextRPG_Team12
         {
             Console.WriteLine("게임을 종료합니다.");
             Thread.Sleep(2000);
-            UImanager.EndingAnimation();
+            UImanager.EndingAnimation();                                         // 시연 영상 촬영 후 삭제
             Environment.Exit(0);
         }
 
