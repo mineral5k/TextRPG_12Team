@@ -99,12 +99,49 @@ namespace TextRPG_Team12
 
             else
             {
+
+
+                /*
+                
+                원래 직업 불러오는 코드 
                 string jobLoadData = File.ReadAllText(path + "\\JobData.json");
                 job = JsonConvert.DeserializeObject<Job>(jobLoadData);
                 player.job = job;
 
+
+                */
+
                 string playerLoadData = File.ReadAllText(path + "\\PlayerData.json");
                 player = JsonConvert.DeserializeObject<Player>(playerLoadData);
+
+
+
+                // 수정
+                {
+                    player.job = null;
+
+                    string jobLoadData = File.ReadAllText(path + "\\JobData.json");
+                    job = JsonConvert.DeserializeObject<Job>(jobLoadData);
+
+
+                    switch (job.JobName)
+                    {
+                        case "도적":
+                            player.job = new Thief();
+                            break;
+                        case "전사":
+                            player.job = new Worrior();
+                            break;
+                        case "궁수":
+                            player.job = new Archer();
+                            break;
+                        case "마법사":
+                            player.job = new Mage();
+                        break;
+                    }
+                
+                }
+
 
                 string shopListLoadData = File.ReadAllText(path + "\\ShopListData.json");
                 player.ShopList = JsonConvert.DeserializeObject<List<Equipment>>(shopListLoadData);
