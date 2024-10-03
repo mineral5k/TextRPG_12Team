@@ -71,7 +71,9 @@ namespace TextRPG_Team12
         {
             int deDamage = damage - AmorDefense / 3; 
             if (deDamage < 0) deDamage = 0;
-            Console.WriteLine($"{Name}이(가) {deDamage}의 데미지를 받았습니다.");
+            
+            UImanager.BlinkText($"{Name}이(가) {deDamage}의 데미지를 받았습니다.", 2, 200, ConsoleColor.DarkGray, ConsoleColor.White);
+
 
             Health -= deDamage;
             if (IsDead)

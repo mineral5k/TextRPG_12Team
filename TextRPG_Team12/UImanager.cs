@@ -74,6 +74,8 @@ namespace TextRPG_Team12
 
             ReturnColor();
         }
+
+
         public static void EndingAnimation()
         {
             // 1
