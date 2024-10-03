@@ -180,6 +180,7 @@ namespace TextRPG_Team12
                 {
 
                         UImanager.BlinkText2("축하합니다. 레벨업 하였습니다.", 4, 100, ConsoleColor.Blue, ConsoleColor.Yellow, ConsoleColor.Magenta, ConsoleColor.Green);
+                        Console.WriteLine();
 
                         Level += 1;
                         Exp -= LevelUpExp[Level];
