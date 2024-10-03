@@ -15,7 +15,7 @@ namespace TextRPG_Team12
             IScene currentScene = new IntroScene();
             SaveLoad saveload = new SaveLoad();
 
-            Player player = new Player("def", new Worrior());
+            Player player = new Player("def", null);
 
             saveload.LoadData(ref player, ref player.job, currentScene);
             currentScene = currentScene.GetNextScene();
