@@ -114,7 +114,6 @@ namespace TextRPG_Team12
         void Victory(Player player, Monster[] enemy)
         {
             Console.Clear();
-            //Console.WriteLine("전투에서 승리했습니다.");
             UImanager.BlinkText("전투에서 승리했습니다.", 2, 300, ConsoleColor.White, ConsoleColor.DarkCyan);
             Console.WriteLine();
 
