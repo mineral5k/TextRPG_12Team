@@ -155,7 +155,7 @@ namespace TextRPG_Team12
 
 
             Console.WriteLine();
-            Console.WriteLine(showIdx ?  "" : "1. 장착관리");
+            Console.WriteLine(showIdx ?  "" : "1. 장착 / 해제 관리");
             Console.WriteLine();
             Console.WriteLine($"0. 나가기");
 
