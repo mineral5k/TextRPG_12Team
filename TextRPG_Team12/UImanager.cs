@@ -17,6 +17,62 @@ namespace TextRPG_Team12
         {
             Console.ResetColor();
         }
+
+
+        // 2개의 색상으로 텍스트 깜빡이는 연출
+        public static void BlinkText(string text, int blinkCount, int interval, ConsoleColor color1, ConsoleColor color2)
+        {
+            // 현재 커서 위치를 저장
+            int cursorLeft = Console.CursorLeft;
+            int cursorTop = Console.CursorTop;
+
+            for (int i = 0; i < blinkCount; i++)
+            {
+                ChangeConsoleColor(color1);
+                Console.SetCursorPosition(cursorLeft, cursorTop);
+                Console.Write(text);
+                Thread.Sleep(interval);
+
+                ChangeConsoleColor(color2);
+                Console.SetCursorPosition(cursorLeft, cursorTop);
+                Console.Write(text);
+                Thread.Sleep(interval);
+            }
+
+            ReturnColor();
+        }
+
+        // 4개의 색상으로 텍스트 깜빡이는 연출
+        public static void BlinkText2(string text, int blinkCount, int interval, ConsoleColor color1, ConsoleColor color2, ConsoleColor color3, ConsoleColor color4)
+        {
+            // 현재 커서 위치를 저장
+            int cursorLeft = Console.CursorLeft;
+            int cursorTop = Console.CursorTop;
+
+            for (int i = 0; i < blinkCount; i++)
+            {
+                ChangeConsoleColor(color1);
+                Console.SetCursorPosition(cursorLeft, cursorTop);
+                Console.Write(text);
+                Thread.Sleep(interval);
+
+                ChangeConsoleColor(color2);
+                Console.SetCursorPosition(cursorLeft, cursorTop);
+                Console.Write(text);
+                Thread.Sleep(interval);
+
+                ChangeConsoleColor(color3);
+                Console.SetCursorPosition(cursorLeft, cursorTop);
+                Console.Write(text);
+                Thread.Sleep(interval);
+
+                ChangeConsoleColor(color4);
+                Console.SetCursorPosition(cursorLeft, cursorTop);
+                Console.Write(text);
+                Thread.Sleep(interval);
+            }
+
+            ReturnColor();
+        }
     }
 }
-// 튜터님께 질문하고 답변받은 부분인데, 사용하지 않으면 이후에 삭제하겠습니다!

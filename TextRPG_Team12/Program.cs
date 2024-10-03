@@ -234,7 +234,7 @@ namespace TextRPG_Team12
         {
             Console.Clear();
             Console.WriteLine();
-            Console.WriteLine("퀘스트 목록");
+            //Console.WriteLine("퀘스트 목록");
           
             Player.QuestMenu(player);
         }
@@ -276,6 +276,7 @@ namespace TextRPG_Team12
                 {
                     Console.Write("\u001b[38;2;255;88;88m");
                     Console.WriteLine("보유 Gold가 부족합니다. 마을로 돌아갑니다.");
+
                     Console.Write("\u001b[0m");
                     Console.Write("\u001b[38;2;255;150;150m");
                     Console.WriteLine(" 0. 돌아간다");
@@ -284,12 +285,14 @@ namespace TextRPG_Team12
                 }
                 else
                 {
-                    Console.Write("\u001b[38;2;93;215;166m");
-                    Console.WriteLine("체력과 마나가 모두 회복되었습니다.");
+                    Console.WriteLine("");
+                    //Console.WriteLine("체력과 마나가 모두 회복되었습니다.");
+                    UImanager.BlinkText2("체력과 마나가 모두 회복되었습니다.", 5, 100, ConsoleColor.Blue, ConsoleColor.Yellow, ConsoleColor.Magenta, ConsoleColor.Green);
                     Console.Write("\u001b[0m");
                     player.Health = player.MaxHealth;
                     player.Mana = player.MaxMana;
                     player.Gold -= 700;
+                    Console.WriteLine();
                     Console.WriteLine("0. 확인");
                     Num.Sel(0);
                 }

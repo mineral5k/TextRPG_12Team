@@ -231,7 +231,7 @@ namespace TextRPG_Team12
         void AttackSellect(Player player, Monster[] enemy)                                             //공격할 적을 선택하는 메서드
         {
             ShowSituationNumber(player, enemy);
-            Console.WriteLine("0. 취소");
+            Console.WriteLine("\n0. 취소");
 
 
             bool repeat = false;
@@ -245,7 +245,7 @@ namespace TextRPG_Team12
                 }
                 else if (enemy[sel - 1].IsDead)
                 {
-                    Console.WriteLine("이미 사망한 적입니다.");
+                    Console.WriteLine("\n이미 사망한 적입니다.");
                     repeat = true;
                 }
                 else
@@ -420,7 +420,7 @@ namespace TextRPG_Team12
 
             Console.WriteLine();
             Console.WriteLine("[내 상태]");
-            Console.WriteLine($"LV.{player.Level}   {player.Name}  직업 : {player.job.JobName}");
+            Console.WriteLine($"\nLV.{player.Level}   {player.Name}  직업 : {player.job.JobName}");
             Console.WriteLine($"HP : {player.Health}      MP : {player.Mana}");
             Console.WriteLine();
 

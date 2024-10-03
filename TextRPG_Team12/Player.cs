@@ -100,7 +100,8 @@ namespace TextRPG_Team12
             Console.WriteLine($"\t• 체력: {Health}");
             Console.WriteLine($"\t• GOLD: {Gold}");
             Console.WriteLine();
-            Console.WriteLine($"\t\u001b[38;2;255;150;150m0. 나가기\u001b[0m");
+            Console.Write("\t\u001b[38;2;255;150;150m");
+            Console.WriteLine($"0. 나가기\u001b[0m");
 
 
         }
@@ -174,8 +175,8 @@ namespace TextRPG_Team12
                 while (LevelUpExp[Level] < Exp)
                 {
 
-                    
-                        Console.WriteLine($"축하합니다. 레벨업 하였습니다.");
+                        UImanager.BlinkText2("축하합니다. 레벨업 하였습니다.", 4, 100, ConsoleColor.Blue, ConsoleColor.Yellow, ConsoleColor.Magenta, ConsoleColor.Green);
+                        //Console.WriteLine($"축하합니다. 레벨업 하였습니다.");
 
                         Level += 1;
                         Exp -= LevelUpExp[Level];
@@ -333,16 +334,15 @@ namespace TextRPG_Team12
             {
 
 
-                Console.WriteLine("Gold가 부족합니다.");
-                
+                UImanager.BlinkText("Gold가 부족합니다.", 3, 100, ConsoleColor.Yellow, ConsoleColor.Red);
 
 
             }
             else if (targetItem.IsPurchased)
             {
 
-                Console.WriteLine("이미 구매한 아이템입니다.");
-           
+                UImanager.BlinkText("이미 구매한 아이템입니다.", 3, 100, ConsoleColor.Blue, ConsoleColor.White);
+
 
             }
 
@@ -425,8 +425,10 @@ namespace TextRPG_Team12
 
         public static void QuestMenu(Player player)
         {
-
-            Console.WriteLine("진행 중인 퀘스트 목록:");
+            Console.Clear();
+            Console.Write("\u001b[48;2;30;30;30m\u001b[38;2;255;255;255m");
+            Console.WriteLine("진행 중인 퀘스트 목록: \u001b[0m");
+            Console.WriteLine();
             for (int i = 0; i < player.Quests.Count; i++)
             {
                 var quest = player.Quests[i];
