@@ -48,6 +48,7 @@ namespace TextRPG_Team12
             int r = (AttackPower % 10 == 0) ? (AttackPower / 10) : (AttackPower / 10 + 1);
             int damage = new Random().Next(AttackPower - r, AttackPower + r + 1);
 
+            Console.Clear();
             Console.Write("\u001b[48;2;30;30;30m\u001b[38;2;255;255;255m");
             Console.WriteLine($"{Name}의 공격!\u001b[0m");
 
