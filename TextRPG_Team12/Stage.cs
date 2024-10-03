@@ -179,7 +179,7 @@ namespace TextRPG_Team12
                 {
                     if (enemy[i].stun > 0)
                     {
-                        Console.WriteLine($"{enemy[i].Name}은 기절하여 움직일 수 없다!");
+                        UImanager.BlinkText($"{enemy[i].Name}은 기절하여 움직일 수 없다!", 3, 100, ConsoleColor.DarkYellow, ConsoleColor.Yellow); 
                         enemy[i].stun--;
                     }
                     else
@@ -420,8 +420,7 @@ namespace TextRPG_Team12
         void ShowSituationNumber(Player player, Monster[] enemy)                                            //적과 나의 상태를 표시해주는 메서드 
         {                                                                                                   //추가로 적을 지정할 수 있는 숫자 표시도 해줌
             Console.Clear();
-            Console.Write("\u001b[48;2;30;30;30m\u001b[38;2;255;255;255m");
-            Console.WriteLine("전투 !! ");
+            Console.WriteLine("\u001b[48;2;30;30;30m\u001b[38;2;255;255;255m전투 !! ");
             Console.ResetColor();
             Console.WriteLine();
             for (int i = 0; i < enemy.Length; i++)
