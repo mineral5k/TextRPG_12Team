@@ -244,7 +244,6 @@ namespace TextRPG_Team12
         public static void ExitGame(Player player)
         {
             Console.WriteLine("게임을 종료합니다.");
-            UImanager.EndingAnimation();
             Thread.Sleep(2000);
             Environment.Exit(0);
         }
