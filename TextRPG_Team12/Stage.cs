@@ -133,8 +133,12 @@ namespace TextRPG_Team12
 
             }
 
-
+            Console.WriteLine();
+            Console.Write("\u001b[38;2;255;255;210m");
             Console.WriteLine($"{gold}만큼의 골드를 획득했습니다.");
+            Console.Write("\u001b[0m");
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine();
             player.Gold += gold;
 
             player.GetExp(exp);
@@ -146,11 +150,16 @@ namespace TextRPG_Team12
                 if (quest is StageClearQuest stageClearQuest && !stageClearQuest.IsCompleted)
                 {
                     stageClearQuest.StageCleared(); // 스테이지 클리어 퀘스트 완료 처리
+                    Console.ResetColor();
+                    Console.WriteLine();
+                    Console.Write("\u001b[48;2;30;30;30m\u001b[38;2;255;255;255m");
                     Console.WriteLine($"퀘스트 '{stageClearQuest.Name}'이(가) 완료되었습니다!");
+                    Console.ResetColor();
                 }
             }
 
-
+            Console.ResetColor();
+            Console.WriteLine();
             Console.WriteLine("마을로 돌아갑니다.");
             Console.WriteLine("0. 확인.");
             Num.Sel(0);
@@ -236,8 +245,10 @@ namespace TextRPG_Team12
         void AttackSellect(Player player, Monster[] enemy)                                             //공격할 적을 선택하는 메서드
         {
             ShowSituationNumber(player, enemy);
-            Console.WriteLine("\n0. 취소");
 
+            Console.Write("\u001b[38;2;255;150;150m");
+            Console.WriteLine("\n 0. 취소");
+            Console.Write("\u001b[0m");
 
             bool repeat = false;
             do
