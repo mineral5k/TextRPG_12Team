@@ -108,7 +108,7 @@ namespace TextRPG_Team12
             while (true)
             {
                 village(player);
-                Stage stage = new Stage();
+                Stage stage = new Stage(0,0);
                 //플레이어 입력을 받음
                 int choice = Num.Sel(5);
 

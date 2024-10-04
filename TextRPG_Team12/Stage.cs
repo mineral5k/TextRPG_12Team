@@ -10,8 +10,14 @@ namespace TextRPG_Team12
 {
     public class Stage
     {
-        int clearedFloor = 0;
+        public int clearedFloor = 0;
         public int killedMonster = 0;
+
+        public Stage(int clearedFloor, int killedMonster)
+        {
+            this.clearedFloor = clearedFloor;
+            this.killedMonster = killedMonster;
+        }
 
         public void Dungeon(Player player)
         {

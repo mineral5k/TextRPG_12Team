@@ -18,7 +18,7 @@ namespace TextRPG_Team12
 
         public List<Equipment> ShopList = new List<Equipment>();
 
-        public Stage stage =new Stage();
+        public Stage stage =new Stage(0,0);
 
 
         public Job job ;
