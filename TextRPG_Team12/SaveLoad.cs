@@ -30,14 +30,43 @@ namespace TextRPG_Team12
 
             string equipList = JsonConvert.SerializeObject(player.EquipList);
             File.WriteAllText(path + "\\EquipListData.json", equipList);
-            List<Equipment> saveInv = new List<Equipment>(); 
-            for (int i = 0; i < player.Inventory.Count(); i++)
+
+
+            int EquipCount = player.Inventory.Count(item => item is Equipment);
+            int PotionCount = player.Inventory.Count(item => item is Potion) + EquipCount;
+            int MiscellCount = player.Inventory.Count(item => item is Miscellaneous) + PotionCount;
+         
+
+            List<Equipment> saveInvEquip = new List<Equipment>();             
+            for (int i = 0; i < EquipCount; i++)
             {
-                saveInv.Add(player.Inventory[i] as Equipment);
+                saveInvEquip.Add(player.Inventory[i] as Equipment);
             }
 
-            string inventoryList = JsonConvert.SerializeObject(saveInv);
-            File.WriteAllText(path + "\\InventoryListData.json", inventoryList);
+
+            string inventoryEquipList = JsonConvert.SerializeObject(saveInvEquip);
+            File.WriteAllText(path + "\\InventoryEquipListData.json", inventoryEquipList);
+
+
+            List<Potion> saveInvPotion = new List<Potion>();
+            for (int i = EquipCount; i < PotionCount; i++)
+            {
+                saveInvPotion.Add(player.Inventory[i] as Potion);
+            }
+
+            string inventroyPotion = JsonConvert.SerializeObject(saveInvPotion);
+            File.WriteAllText(path + "\\InventoryPotionListData.json", inventroyPotion);
+
+
+            List<Miscellaneous> saveInvEct = new List<Miscellaneous>();
+            for (int i = PotionCount; i < MiscellCount; i++) 
+            {
+                saveInvEct.Add(player.Inventory[i] as Miscellaneous);
+            }
+
+            string inventroyEct = JsonConvert.SerializeObject(saveInvEct);
+            File.WriteAllText(path + "\\InventoryEctListData.json", inventroyEct);
+
 
 
             string stageData = JsonConvert.SerializeObject(player.stage);
@@ -46,7 +75,8 @@ namespace TextRPG_Team12
 
         }
 
-        public void LoadData(ref Player player, ref Job job,IScene currentScene)
+     
+    public void LoadData(ref Player player, ref Job job,IScene currentScene)
         {
             if (!File.Exists(path + "\\PlayerData.json"))
             {
@@ -156,15 +186,32 @@ namespace TextRPG_Team12
                 string equipListLoadData = File.ReadAllText(path + "\\EquipListData.json");
                 player.EquipList = JsonConvert.DeserializeObject<List<Equipment>>(equipListLoadData);
 
-                List<Equipment> saveInv = new List<Equipment>();
-                string inventoryListLoadData = File.ReadAllText(path + "\\InventoryListData.json");
-                saveInv = JsonConvert.DeserializeObject<List<Equipment>>(inventoryListLoadData);
+                List<Equipment> saveInvEquip = new List<Equipment>();
+                string inventoryEquipListLoadData = File.ReadAllText(path + "\\InventoryEquipListData.json");
+                saveInvEquip = JsonConvert.DeserializeObject<List<Equipment>>(inventoryEquipListLoadData);
                 player.Inventory = new List<ItemType>();
-                for (int i = 0; i < saveInv.Count(); i++)
+                for (int i = 0; i < saveInvEquip.Count(); i++)
                 {
-                    player.Inventory.Add(saveInv[i]);
+                    player.Inventory.Add(saveInvEquip[i]);
                 }
 
+                List<Potion> saveInvPotion = new List<Potion>();
+                string inventroyPotionLoadData = File.ReadAllText(path + "\\InventoryPotionListData.json");
+                saveInvPotion = JsonConvert.DeserializeObject<List<Potion>>(inventroyPotionLoadData);
+                for (int i = 0; i < saveInvPotion.Count(); i++)
+                {
+                    player.Inventory.Add(saveInvPotion[i]);
+                }
+
+                List<Miscellaneous> saveInvEct = new List<Miscellaneous>();
+                string inventroyEctLoadData = File.ReadAllText(path + "\\InventoryEctListData.json");
+                saveInvEct = JsonConvert.DeserializeObject<List<Miscellaneous>>(inventroyEctLoadData);
+                for (int i = 0; i < saveInvEct.Count(); i++)
+                {
+                    player.Inventory.Add(saveInvEct[i]);
+                }
+                  
+            
 
                 string stageLoadData = File.ReadAllText(path + "\\StageData.json");
                 player.stage = JsonConvert.DeserializeObject<Stage>(stageLoadData);
@@ -175,8 +222,7 @@ namespace TextRPG_Team12
             }
         }
 
-
-
+  
 
         static void EquipmentData()
         {
