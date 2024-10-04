@@ -357,8 +357,8 @@ namespace TextRPG_Team12
                 {
                     player.Mana = player.MaxMana;
                 }
-                player.AttackPower = 10 + player.job.JobAttackPower;
-                player.AmorDefense = 5 + player.job.JobAmorDeffense;
+                player.AttackPower = 10 + player.job.JobAttackPower + player.Level-1;
+                player.AmorDefense = 5 + player.job.JobAmorDeffense + player.Level-1;
             }
         }
 

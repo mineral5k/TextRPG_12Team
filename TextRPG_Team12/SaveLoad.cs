@@ -81,6 +81,13 @@ namespace TextRPG_Team12
                             break;
                     }
                 } while (repeat);
+                player.MaxHealth = 100 + player.job.JobHealth;
+                player.MaxMana = 50 + player.job.JobMana;
+                player.Health = 100 + player.job.JobHealth;
+                player.Mana = 50 + player.job.JobMana;
+
+                player.AttackPower = 10 + player.job.JobAttackPower ;
+                player.AmorDefense = 5 + player.job.JobAmorDeffense ;
 
                 EquipmentData();
                 player.ShopList = EquipmentDb;

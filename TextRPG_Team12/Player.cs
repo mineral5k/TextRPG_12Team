@@ -69,7 +69,7 @@ namespace TextRPG_Team12
 
         public override void TakeDamage(int damage)
         {
-            int deDamage = damage - AmorDefense / 3; 
+            int deDamage = damage - (AmorDefense+AmorStat) / 3; 
             if (deDamage < 0) deDamage = 0;
             
             UImanager.BlinkText($"{Name}이(가) {deDamage}의 데미지를 받았습니다.", 2, 200, ConsoleColor.DarkGray, ConsoleColor.White);
@@ -90,6 +90,33 @@ namespace TextRPG_Team12
             }
             else Console.WriteLine($"남은 체력: {Health}");
 
+        }
+
+        public override void Attack(Character character)
+        {
+            int AttackPower1 = AttackPower + WeaponStat;
+            int r = (AttackPower1 % 10 == 0) ? (AttackPower1 / 10) : (AttackPower1 / 10 + 1);
+            int damage = new Random().Next(AttackPower1 - r, AttackPower1 + r + 1);
+
+            Console.Write("\u001b[48;2;30;30;30m\u001b[38;2;255;255;255m");
+            Console.WriteLine($"{Name}의 공격!\u001b[0m");
+
+            if (new Random().Next(1, 101) <= Evasion)
+            {
+                UImanager.BlinkText("공격이 빗나갔습니다.", 1, 200, ConsoleColor.Red, ConsoleColor.White);
+
+            }
+            else if (new Random().Next(1, 101) <= Critical)
+            {
+                UImanager.BlinkText("크리티컬!", 1, 200, ConsoleColor.Cyan, ConsoleColor.White);
+                character.TakeDamage((int)Math.Round(damage * 1.5));
+
+            }
+            else
+            {
+                character.TakeDamage(damage);
+
+            }
         }
 
         public void ShowStatus()
