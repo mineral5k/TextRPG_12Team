@@ -43,7 +43,7 @@ namespace TextRPG_Team12
 
         }
 
-        public void Attack(Character character)
+        public virtual void Attack(Character character)
         {
             int r = (AttackPower % 10 == 0) ? (AttackPower / 10) : (AttackPower / 10 + 1);
             int damage = new Random().Next(AttackPower - r, AttackPower + r + 1);

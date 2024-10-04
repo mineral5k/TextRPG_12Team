@@ -387,7 +387,7 @@ static public class Num
                 try                                 //숫자 이외의 입력을 받았을 시의 예외처리
                 {
                     a = int.Parse(Console.ReadLine());
-                }
+                 }
 
                 catch (System.FormatException)                 // 숫자이외의 입력을 받았을 시 오류 메세지를 전송하고 다시 입력을 받음
                 {
