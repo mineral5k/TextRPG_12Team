@@ -14,26 +14,10 @@ namespace TextRPG_Team12
             Console.OutputEncoding = System.Text.Encoding.UTF8;
             IScene currentScene = new IntroScene();
             SaveLoad saveload = new SaveLoad();
-
             Player player = new Player("def", null);
-
             saveload.LoadData(ref player, ref player.job, currentScene);
-            currentScene = currentScene.GetNextScene();
-
-            
-           
-            
-
-            
-
-
-           
+            currentScene = currentScene.GetNextScene();          
             Console.Clear();
-
-
-            
-            
-
 
 
             while (true)
@@ -68,11 +52,8 @@ namespace TextRPG_Team12
                     case 0:
                         ExitGame(player); // 게임 종료 기능 호출
                         break;
-
                 }
             }
-
-
         }
 
 
@@ -87,76 +68,8 @@ namespace TextRPG_Team12
             new Equipment("고블린의 목걸이", "고블린들이 애타게 찾고 있는 목걸이입니다. 작은 힘이 깃들어 있습니다.", 0, 2, 600, EquipmentType.Weapon),
             new Equipment("트롤의 반지", "트롤의 힘을 담은 반지로, 착용한 자에게 강력한 힘을 부여합니다.", 0, 5, 1500, EquipmentType.Weapon),
             new Equipment("드래곤의 이빨", "드래곤의 이빨로 만들어진 무기로, 소지 시 드래곤의 기운이 전해집니다.", 0, 7, 2500, EquipmentType.Weapon),
-            };
-
-            
+            };           
         }
-
-
-
-        public static void MainScene(Player player)
-        {
-            MonsterKillQuest monsterKillQuest = new MonsterKillQuest(5);  // 목표 몬스터 처치 수 5
-            player.AddQuest(monsterKillQuest);
-
-            StageClearQuest stageClearQuest = new StageClearQuest();  // 던전 클리어 목표
-            player.AddQuest(stageClearQuest);
-
-            ItemPurchaseQuest itemPurchaseQuest = new ItemPurchaseQuest(3);
-            player.AddQuest(itemPurchaseQuest);
-
-            while (true)
-            {
-                village(player);
-                Stage stage = new Stage(0,0);
-                //플레이어 입력을 받음
-                int choice = Num.Sel(5);
-
-                // 입력 값을 정수로 변환
-
-                switch (choice)
-                {
-                    case 1:
-                        ShowStatus(player); // 상태 보기 기능 호출
-                        break;
-                    case 2:
-                        Inventory(player); // 인벤토리 기능 호출
-                        break;
-                    case 3:
-                        Shop(player); // 상점 기능 호출
-                        break;
-                    case 4:
-                        stage.Dungeon(player);
-                        break;
-                    case 5:
-                        ShowQuest(player);
-                        break;
-                    case 0:
-                        ExitGame(player); // 게임 종료 기능 호출
-                        break;
-
-                }
-
-            }
-       
-        }
-
-
-        public static void village(Player player)
-        {
-
-            Console.Clear();
-            Console.WriteLine("스파르타 마을에 오신 것을 환영합니다.");
-            Console.WriteLine("\n1. 상태보기");
-            Console.WriteLine("2. 인벤토리");
-            Console.WriteLine("3. 상점");
-            Console.WriteLine("4. 던전 입장");
-            Console.WriteLine("5. 퀘스트");
-            Console.WriteLine("0. 나가기");
-
-
-        }
-
 
         // 상태보기
         public static void ShowStatus(Player player)
@@ -167,22 +80,16 @@ namespace TextRPG_Team12
 
             player.ShowStatus();
             Num.Sel(0);
-
-
         }
 
 
         // 인벤토리
         public static void Inventory(Player player)
-        {
-
-        
+        {    
             Console.Clear();
             // 인벤토리 내용을 출력하고 관리하는 코드
             Console.WriteLine("인벤토리를 출력합니다...");
             player.ShowInventory(false, false);
-
-
             if (Num.Sel(1) == 1)
             {
 
@@ -192,9 +99,6 @@ namespace TextRPG_Team12
 
 
             }
-            
-
-
         }
 
 
@@ -223,10 +127,6 @@ namespace TextRPG_Team12
                 player.SellShop(InventoryList);
 
             }
-
-
-            
-
         }
 
         // 퀘스트
@@ -361,56 +261,39 @@ namespace TextRPG_Team12
                 player.AmorDefense = 5 + player.job.JobAmorDeffense + player.Level-1;
             }
         }
-
     }
-
-
-
-
 }
 
     
-
-  
-          
-
 static public class Num
 {
         static public int Sel(int x)                    // 0~x 까지의 선택지를 선택하는 메서드
         {
             int a = 0;
-
             Console.Write(">> ");
-
             while (true)
             {
                 try                                 //숫자 이외의 입력을 받았을 시의 예외처리
                 {
                     a = int.Parse(Console.ReadLine());
                  }
-
                 catch (System.FormatException)                 // 숫자이외의 입력을 받았을 시 오류 메세지를 전송하고 다시 입력을 받음
                 {
                     Console.Write("\u001b[38;2;255;150;150m");
                     Console.WriteLine("잘못된 입력입니다.\u001b[0m");
                     continue;
                 }
-
                 if ((0 <= a) && (a <= x))              //입력받은 숫자가 선택지에 올바른지 검사
                 {
                     break;                        //올바를 시 종료
                 }
-
                 else
                 {
                     Console.Write("\u001b[38;2;255;150;150m");
                     Console.WriteLine("잘못된 입력입니다.\u001b[0m");        // 선택지 범위에 맞지 않은 숫자 입력을 받았을 시 오류 메세지 전송하고 다시 입력 받음
                 }
-
             }
-
             return a;                                //입력받은 값 반환
-
         }
 }
 
