@@ -5,71 +5,40 @@ namespace TextRPG_Team12
 {
     internal class Program
     {
+        
         public static List<Equipment> EquipmentDb;
         public static string name;
 
         static void Main(string[] args)
         {
-            UImanager.ChangeConsoleColor(ConsoleColor.Green);
             Console.OutputEncoding = System.Text.Encoding.UTF8;
-
-            Player player = null;
-
             IScene currentScene = new IntroScene();
-            
-                Console.Clear();
-                currentScene.OnShow();
+            SaveLoad saveload = new SaveLoad();
 
+            Player player = new Player("def", null);
 
-            string name = currentScene.Name;
-
-            bool repeat = false;
-            // 번호 받아서 직업으로 배정  
-            do
-            {
-                repeat = false;
-
-                int choice = Num.Sel(4);
-                switch (choice)
-                {
-
-                    case 0:
-                        Console.WriteLine("잘못된 입력입니다");
-                        repeat = true;
-                        break;
-                    case 1:
-                        player = new Player(name, new Worrior());
-                        break;
-                    case 2:
-                        player = new Player(name, new Archer());
-                        break;
-                    case 3:
-                        player = new Player(name, new Thief());
-                        break;
-                    case 4:
-                        player = new Player(name, new Mage());
-                        break;
-                }
-            }
-            while (repeat);
+            saveload.LoadData(ref player, ref player.job, currentScene);
             currentScene = currentScene.GetNextScene();
 
-            EquipmentData();
-            player.ShopList = EquipmentDb;
-            MonsterKillQuest monsterKillQuest = new MonsterKillQuest(5);  // 목표 몬스터 처치 수 5
-            player.AddQuest(monsterKillQuest);
+            
+           
+            
 
-            StageClearQuest stageClearQuest = new StageClearQuest();  // 던전 클리어 목표
-            player.AddQuest(stageClearQuest);
+            
 
-            ItemPurchaseQuest itemPurchaseQuest = new ItemPurchaseQuest(3);
-            player.AddQuest(itemPurchaseQuest);
-            Stage stage = new Stage();
-            monsterKillQuest.stage = stage;
+
+           
             Console.Clear();
+
+
+            
+            
+
+
 
             while (true)
             {
+                saveload.SaveData(player, player.job);
                 Console.Clear();
                 currentScene.OnShow();
                int sel = Num.Sel(7);
@@ -85,7 +54,7 @@ namespace TextRPG_Team12
                         Shop(player); // 상점 기능 호출
                         break;
                     case 4:
-                        stage.Dungeon(player);
+                        player.stage.Dungeon(player);
                         break;
                     case 5:
                         ShowQuest(player);
@@ -139,7 +108,7 @@ namespace TextRPG_Team12
             while (true)
             {
                 village(player);
-                Stage stage = new Stage();
+                Stage stage = new Stage(0,0);
                 //플레이어 입력을 받음
                 int choice = Num.Sel(5);
 
@@ -218,7 +187,7 @@ namespace TextRPG_Team12
             {
 
          
-               int item = Num.Sel(player.ShowInventory(true, false)) - 1;
+               int item = Num.Sel(player.ShowInventory(true, true)) - 1;
                 player.EquipItem(item);
 
 
@@ -250,7 +219,7 @@ namespace TextRPG_Team12
             }
             else if (buySell == 2)
             {
-                int InventoryList = Num.Sel(player.ShowInventory(true, true)) - 1;
+                int InventoryList = Num.Sel(player.ShowInventory(true, false)) - 1;
                 player.SellShop(InventoryList);
 
             }
@@ -265,7 +234,7 @@ namespace TextRPG_Team12
         {
             Console.Clear();
             Console.WriteLine();
-            Console.WriteLine("퀘스트 목록");
+
           
             Player.QuestMenu(player);
         }
@@ -282,10 +251,17 @@ namespace TextRPG_Team12
         public static void Inn (Player player)
         {
             Console.Clear();
+            Console.Write("\u001b[48;2;30;30;30m\u001b[38;2;255;255;255m");
             Console.WriteLine("700G 를 지불하여 체력과 마나를 모두 회복합니다.");
-            Console.WriteLine($"현재 소지 골드 : [{player.Gold}]");
-            Console.WriteLine($"1. 휴식한다.");
-            Console.WriteLine($"0. 돌아간다.");
+            Console.Write("\u001b[0m");
+            Console.Write("현재 소지 골드 :");
+            Console.Write("\u001b[38;2;255;255;210m ");
+            Console.Write($"[{player.Gold}]");
+            Console.WriteLine("\u001b[0m");
+            Console.WriteLine($"\n1. 휴식한다.");
+            Console.Write($"\u001b[38;2;255;150;150m");
+            Console.WriteLine("0. 돌아간다");
+            Console.Write("\u001b[0m");
 
             int sel = Num.Sel(1);
 
@@ -298,16 +274,24 @@ namespace TextRPG_Team12
             {
                 if (player.Gold<700)
                 {
-                    Console.WriteLine("\u001b[38;2;255;88;88m보유 Gold가 부족합니다. 마을로 돌아갑니다.\u001b[0m");
-                    Console.WriteLine("0. 돌아간다");
+                    Console.Write("\u001b[38;2;255;88;88m");
+                    Console.WriteLine("보유 Gold가 부족합니다. 마을로 돌아갑니다.");
+
+                    Console.Write("\u001b[0m");
+                    Console.Write("\u001b[38;2;255;150;150m");
+                    Console.WriteLine(" 0. 돌아간다");
+                    Console.Write("\u001b[0m");
                     Num.Sel(1);
                 }
                 else
                 {
-                    Console.WriteLine("\u001b[38;2;93;215;166m체력과 마나가 모두 회복되었습니다.\u001b[0m");
+                    Console.WriteLine("");
+                    UImanager.BlinkText2("체력과 마나가 모두 회복되었습니다.", 3, 100, ConsoleColor.Blue, ConsoleColor.DarkCyan, ConsoleColor.Cyan, ConsoleColor.DarkBlue);
+                    Console.Write("\u001b[0m");
                     player.Health = player.MaxHealth;
                     player.Mana = player.MaxMana;
                     player.Gold -= 700;
+                    Console.WriteLine();
                     Console.WriteLine("0. 확인");
                     Num.Sel(0);
                 }
@@ -319,10 +303,29 @@ namespace TextRPG_Team12
         public static void Change(Player player)
         {
             Console.Clear();
+            Console.Write("\u001b[48;2;30;30;30m\u001b[38;2;255;255;255m");
             Console.WriteLine("선택한 직업으로 직업을 변경합니다.");
-
-            Console.WriteLine("\x1b[38;2;255;88;88m1. \u001b[0m전사  \u001b[38;2;93;215;166m2. \u001b[0m궁수  \u001b[38;2;133;223;255m3. \u001b[0m도적  \u001b[38;2;167;88;255m4. \u001b[0m마법사");
-            Console.WriteLine("0. 돌아간다.");
+            Console.Write("\u001b[0m");
+            Console.ForegroundColor = ConsoleColor.DarkRed;
+            Console.Write("1. ");
+            Console.ResetColor();
+            Console.Write("전사  ");
+            Console.ForegroundColor = ConsoleColor.DarkGreen;
+            Console.Write("2. ");
+            Console.ResetColor();
+            Console.Write("궁수  ");
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.Write("3. ");
+            Console.ResetColor();
+            Console.Write("도적  ");
+            Console.ForegroundColor = ConsoleColor.DarkMagenta;
+            Console.Write("4. ");
+            Console.ResetColor();
+            Console.WriteLine("마법사");
+            Console.Write("\u001b[38;2;255;150;150m");
+            Console.WriteLine();
+            Console.WriteLine("0. 돌아간다");
+            Console.Write("\u001b[0m");
 
             int sel = Num.Sel(4);
             {
@@ -354,8 +357,8 @@ namespace TextRPG_Team12
                 {
                     player.Mana = player.MaxMana;
                 }
-                player.AttackPower = 10 + player.job.JobAttackPower;
-                player.AmorDefense = 5 + player.job.JobAmorDeffense;
+                player.AttackPower = 10 + player.job.JobAttackPower + player.Level-1;
+                player.AmorDefense = 5 + player.job.JobAmorDeffense + player.Level-1;
             }
         }
 
@@ -388,7 +391,8 @@ static public class Num
 
                 catch (System.FormatException)                 // 숫자이외의 입력을 받았을 시 오류 메세지를 전송하고 다시 입력을 받음
                 {
-                    Console.WriteLine("\x1b[38;2;255;150;150m잘못된 입력입니다.\u001b[0m");
+                    Console.Write("\u001b[38;2;255;150;150m");
+                    Console.WriteLine("잘못된 입력입니다.\u001b[0m");
                     continue;
                 }
 
@@ -399,7 +403,8 @@ static public class Num
 
                 else
                 {
-                    Console.WriteLine("\x1b[38;2;255;150;150m잘못된 입력입니다.\u001b[0m");        // 선택지 범위에 맞지 않은 숫자 입력을 받았을 시 오류 메세지 전송하고 다시 입력 받음
+                    Console.Write("\u001b[38;2;255;150;150m");
+                    Console.WriteLine("잘못된 입력입니다.\u001b[0m");        // 선택지 범위에 맞지 않은 숫자 입력을 받았을 시 오류 메세지 전송하고 다시 입력 받음
                 }
 
             }

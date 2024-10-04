@@ -10,16 +10,26 @@ namespace TextRPG_Team12
 {
     public class Stage
     {
-        int clearedFloor = 0;
+        public int clearedFloor = 0;
         public int killedMonster = 0;
+
+        public Stage(int clearedFloor, int killedMonster)
+        {
+            this.clearedFloor = clearedFloor;
+            this.killedMonster = killedMonster;
+        }
 
         public void Dungeon(Player player)
         {
             Console.Clear();                                                            //클리어 한 스테이지의 다음 스테이지 까지 도전 가능
-            Console.WriteLine("");
-            Console.WriteLine("도전할 스테이지를 선택하세요");
+            Console.WriteLine();
+            Console.Write("\u001b[48;2;30;30;30m\u001b[38;2;255;255;255m");
+            Console.WriteLine("도전할 스테이지를 선택하세요\u001b[0m");
+            Console.WriteLine();
             Console.WriteLine($"현재 도전 가능 스테이지 :1 ~ {clearedFloor + 1}");
-            Console.WriteLine("0. 나가기");
+            Console.WriteLine();
+            Console.Write("\u001b[38;2;255;150;150m");
+            Console.WriteLine("0. 나가기\u001b[0m");
 
 
             int sel = Num.Sel(clearedFloor + 1);
@@ -55,6 +65,7 @@ namespace TextRPG_Team12
 
             }
             Battle(player, enemy);
+            clearedFloor = Math.Max(clearedFloor, floor);
         }
 
         public void Battle(Player player, Monster[] enemy)
@@ -101,7 +112,7 @@ namespace TextRPG_Team12
             }
 
             Victory(player, enemy);                                         // 플레이어가 죽은 경우
-                                                                            // 플레이어 클래스에서 게임 오버로 프로그램이 종료하기 때문에 이 클래스에서 따로 메서드를 만들어 두진 않는다.
+                                                                            // 플레이어 클래스에서 게임 오버로 프로그램이 종료하기 때문에 이 클래스에서 따로 메서드를 만들어 두진 않는다. 
             killedMonster +=enemy.Length ;
         }
 
@@ -109,7 +120,7 @@ namespace TextRPG_Team12
         void Victory(Player player, Monster[] enemy)
         {
             Console.Clear();
-            Console.WriteLine("전투에서 승리했습니다.");
+            UImanager.BlinkText("전투에서 승리했습니다.", 2, 300, ConsoleColor.White, ConsoleColor.DarkCyan);
             Console.WriteLine();
 
 
@@ -128,8 +139,12 @@ namespace TextRPG_Team12
 
             }
 
-
-            Console.WriteLine($"{gold}만큼의 골드를 확득했습니다.");
+            Console.WriteLine();
+            Console.Write("\u001b[38;2;255;255;210m");
+            Console.WriteLine($"{gold}만큼의 골드를 획득했습니다.");
+            Console.Write("\u001b[0m");
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine();
             player.Gold += gold;
 
             player.GetExp(exp);
@@ -141,11 +156,16 @@ namespace TextRPG_Team12
                 if (quest is StageClearQuest stageClearQuest && !stageClearQuest.IsCompleted)
                 {
                     stageClearQuest.StageCleared(); // 스테이지 클리어 퀘스트 완료 처리
+                    Console.ResetColor();
+                    Console.WriteLine();
+                    Console.Write("\u001b[48;2;30;30;30m\u001b[38;2;255;255;255m");
                     Console.WriteLine($"퀘스트 '{stageClearQuest.Name}'이(가) 완료되었습니다!");
+                    Console.ResetColor();
                 }
             }
 
-
+            Console.ResetColor();
+            Console.WriteLine();
             Console.WriteLine("마을로 돌아갑니다.");
             Console.WriteLine("0. 확인.");
             Num.Sel(0);
@@ -165,7 +185,7 @@ namespace TextRPG_Team12
                 {
                     if (enemy[i].stun > 0)
                     {
-                        Console.WriteLine($"{enemy[i].Name}은 기절하여 움직일 수 없다!");
+                        UImanager.BlinkText($"{enemy[i].Name}은 기절하여 움직일 수 없다!", 3, 100, ConsoleColor.DarkYellow, ConsoleColor.Yellow); 
                         enemy[i].stun--;
                     }
                     else
@@ -199,17 +219,18 @@ namespace TextRPG_Team12
         public void BattlePlayerTurn (Player player, Monster[] enemy)
         {
             ShowSituation(player, enemy);
+            Console.WriteLine();
             Console.WriteLine("1. 공격한다");
             Console.WriteLine("2. 스킬 사용");
             Console.WriteLine("3. 아이템 사용");
-            Console.WriteLine("0. 도망간다");
+            
 
             int sel = Num.Sel(3);
 
             switch (sel)
             {
                 case 0:
-                    Run();
+                    BattlePlayerTurn(player, enemy);
                     break;
                 case 1:
                     AttackSellect(player, enemy);
@@ -225,19 +246,15 @@ namespace TextRPG_Team12
 
         }
 
-        void Run()
-        {
-            Console.Clear();
-            Console.WriteLine("전투에서 도망쳤다!");
-            Console.WriteLine("마을로 돌아갑니다");
-
-        }
+       
 
         void AttackSellect(Player player, Monster[] enemy)                                             //공격할 적을 선택하는 메서드
         {
             ShowSituationNumber(player, enemy);
-            Console.WriteLine("0. 취소");
 
+            Console.Write("\u001b[38;2;255;150;150m");
+            Console.WriteLine("\n 0. 취소");
+            Console.Write("\u001b[0m");
 
             bool repeat = false;
             do
@@ -250,7 +267,7 @@ namespace TextRPG_Team12
                 }
                 else if (enemy[sel - 1].IsDead)
                 {
-                    Console.WriteLine("이미 사망한 적입니다.");
+                    Console.WriteLine("\n이미 사망한 적입니다.");
                     repeat = true;
                 }
                 else
@@ -267,28 +284,16 @@ namespace TextRPG_Team12
 
 
 
-            ItemType HpPotion = new Potion("체력 포션", "체력을 50 회복한다", 1, 50);
-            ItemType ManaPotion = new Potion("마나 포션", "마나를 30 회복한다", 2, 30);
+     
+            ItemType HasHpPotion = player.isItemHave("체력 포션");
+            ItemType HasManaPotion = player.isItemHave("마나 포션");
 
-            bool HasHpPotion = player.isItemHave(HpPotion);
-            bool HasManaPotion = player.isItemHave(ManaPotion);
+        
 
-            int HpPotionNum;
-            int ManaPotionNum;
+     
 
-            if (HasHpPotion)
-            HpPotionNum = player.Inventory[player.Inventory.IndexOf(HpPotion)].HasNum;
-            else
-            HpPotionNum = 0;
-
-            if(HasManaPotion)
-            ManaPotionNum = player.Inventory[player.Inventory.IndexOf(ManaPotion)].HasNum;
-            else
-                ManaPotionNum = 0;
-
-
-            Console.WriteLine($"1. 체력 포션 : 체력을 50 회복합니다. 소지 개수: {HpPotionNum}");
-            Console.WriteLine($"2. 마나 포션 : 마나를 30 회복합니다. 소지 개수: {ManaPotionNum}");
+            Console.WriteLine($"1. 체력 포션 : 체력을 50 회복합니다. 소지 개수:  {(HasHpPotion != null ? HasHpPotion.HasNum : 0)}");
+            Console.WriteLine($"2. 마나 포션 : 마나를 30 회복합니다. 소지 개수: {(HasManaPotion != null ? HasManaPotion.HasNum : 0)}");
             Console.WriteLine("0. 취소 ");
 
             int sel = Num.Sel(2);
@@ -299,7 +304,7 @@ namespace TextRPG_Team12
                     BattlePlayerTurn(player, enemy);
                     break;
                 case 1:
-                    if(!HasHpPotion)
+                    if(HasHpPotion == null)
                     {
                         Console.WriteLine("소지 개수가 부족합니다.");
                         Console.WriteLine("0. 확인");
@@ -316,19 +321,19 @@ namespace TextRPG_Team12
                             player.Health = player.MaxHealth;
                         }
 
-                        player.Inventory[player.Inventory.IndexOf(HpPotion)].HasNum -= 1;
+                        player.Inventory[player.Inventory.IndexOf(HasHpPotion)].HasNum -= 1;
 
-                        if (player.Inventory[player.Inventory.IndexOf(HpPotion)].HasNum <= 0)
-                            player.Inventory.Remove(HpPotion);
+                        if (player.Inventory[player.Inventory.IndexOf(HasHpPotion)].HasNum <= 0)
+                            player.Inventory.Remove(HasHpPotion);
 
 
-                        Console.WriteLine($"현재 체력 : {player.Health}");
+                        Console.WriteLine($"\n현재 체력 : {player.Health}");
                         Console.WriteLine("0. 다음으로");
                     }
 
                     break;
                 case 2:
-                    if (!HasManaPotion)
+                    if (HasManaPotion == null)
                     {
                         Console.WriteLine("소지 개수가 부족합니다.");
                         Console.WriteLine("0. 확인");
@@ -345,10 +350,10 @@ namespace TextRPG_Team12
                             player.Mana = player.MaxMana;
                         }
 
-                        player.Inventory[player.Inventory.IndexOf(ManaPotion)].HasNum -= 1;
+                        player.Inventory[player.Inventory.IndexOf(HasManaPotion)].HasNum -= 1;
 
-                        if (player.Inventory[player.Inventory.IndexOf(ManaPotion)].HasNum <= 0)
-                            player.Inventory.Remove(ManaPotion);
+                        if (player.Inventory[player.Inventory.IndexOf(HasManaPotion)].HasNum <= 0)
+                            player.Inventory.Remove(HasManaPotion);
 
 
                         Console.WriteLine($"현재 MP : {player.Mana}");
@@ -392,7 +397,9 @@ namespace TextRPG_Team12
         void ShowSituation(Player player, Monster[] enemy)                                              //적과 나의 상태를 표시해주는 메서드 
         {
             Console.Clear();
+            Console.Write("\u001b[48;2;30;30;30m\u001b[38;2;255;255;255m");
             Console.WriteLine("전투 !! ");
+            Console.ResetColor();
             Console.WriteLine();
             for (int i = 0; i < enemy.Length; i++)
             {
@@ -419,7 +426,8 @@ namespace TextRPG_Team12
         void ShowSituationNumber(Player player, Monster[] enemy)                                            //적과 나의 상태를 표시해주는 메서드 
         {                                                                                                   //추가로 적을 지정할 수 있는 숫자 표시도 해줌
             Console.Clear();
-            Console.WriteLine("전투 !! ");
+            Console.WriteLine("\u001b[48;2;30;30;30m\u001b[38;2;255;255;255m전투 !! ");
+            Console.ResetColor();
             Console.WriteLine();
             for (int i = 0; i < enemy.Length; i++)
             {
@@ -437,7 +445,7 @@ namespace TextRPG_Team12
 
             Console.WriteLine();
             Console.WriteLine("[내 상태]");
-            Console.WriteLine($"LV.{player.Level}   {player.Name}  직업 : {player.job.JobName}");
+            Console.WriteLine($"\nLV.{player.Level}   {player.Name}  직업 : {player.job.JobName}");
             Console.WriteLine($"HP : {player.Health}      MP : {player.Mana}");
             Console.WriteLine();
 

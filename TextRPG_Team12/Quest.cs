@@ -2,7 +2,7 @@
 
 namespace TextRPG_Team12
 {
-    public abstract class Quest
+    public  class Quest
     {
         public string Name { get; set; }
         public bool IsCompleted { get; protected set; }
@@ -17,13 +17,14 @@ namespace TextRPG_Team12
             CompletionCount = 0; 
         }
 
-        public abstract void CheckProgress();
+        public virtual void CheckProgress()
+        {
+
+        }
 
         // 퀘스트 완료 메서드
         public virtual void CompleteQuest(Player player)
         {
-          
-            IsCompleted = true;
             IncreaseCompletionCount(); 
             int reward = CalculateReward();  
             player.Gold += reward;  
@@ -45,26 +46,28 @@ namespace TextRPG_Team12
         }
 
         // 각 퀘스트마다 진행 상황을 초기화하는 메서드 (상속 클래스에서 구현)
-        public abstract void ResetProgress();
+        public virtual void ResetProgress()
+        {
+
+        }
 
         // 몬스터 처치 퀘스트
         public class MonsterKillQuest : Quest
         {
-            private int monsterKillTargetCount;
-            private int monsterKillCurrentCount;
+            private int monsterKillTargetCount; // 목표 처치 수 
             public Stage stage;
 
-            public MonsterKillQuest(int targetCount) : base("(반복)몬스터 처치하기")
+            public MonsterKillQuest(int targetCount) : base("(반복) 몬스터 5마리 처치하기")
             {
                 monsterKillTargetCount = targetCount;
                 
             }
 
         
-
-            public override void CheckProgress()
+            // 진행도 체크 
+            public override void CheckProgress() 
             {
-                if (monsterKillCurrentCount >= stage.killedMonster)
+                if (monsterKillTargetCount <= stage.killedMonster)
                 {
                     IsCompleted = true;
                 }
@@ -87,7 +90,7 @@ namespace TextRPG_Team12
         // 스테이지 클리어 퀘스트
         public class StageClearQuest : Quest
         {
-            public StageClearQuest() : base("스테이지 클리어") { }
+            public StageClearQuest() : base("(반복) 스테이지 클리어") { }
 
             public void StageCleared()
             {
@@ -120,7 +123,7 @@ namespace TextRPG_Team12
             private int itemPurchaseTargetCount;
             private int itemPurchaseCurrentCount;
 
-            public ItemPurchaseQuest(int targetCount) : base("(반복)아이템 구매")
+            public ItemPurchaseQuest(int targetCount) : base("(반복) 아이템 3개 구매")
             {
                 itemPurchaseTargetCount = targetCount;
                 itemPurchaseCurrentCount = 0;

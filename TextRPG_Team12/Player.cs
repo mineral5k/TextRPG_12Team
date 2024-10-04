@@ -12,13 +12,13 @@ namespace TextRPG_Team12
         public static readonly int[] LevelUpExp = { 0, 100, 350, 650, 1000};
 
         public List<ItemType> Inventory = new List<ItemType>();
-        private static List<Equipment> EquipList = new List<Equipment>();
+        public List<Equipment> EquipList = new List<Equipment>();
 
         public List<Quest> Quests { get; private set; }
 
         public List<Equipment> ShopList = new List<Equipment>();
 
-        public Stage stage =new Stage();
+        public Stage stage =new Stage(0,0);
 
 
         public Job job ;
@@ -53,12 +53,12 @@ namespace TextRPG_Team12
             job = inputJob;  
             Level = 1;
             Gold = 1500;
-            Health = 100 +job.JobHealth;
+            Health = 100 ;
             MaxHealth =Health;
-            MaxMana = 50 + job.JobMana;
-            Mana = 50 + job.JobMana;
-            AttackPower = 10 +job.JobAttackPower;
-            AmorDefense = 5 + job.JobAmorDeffense;
+            MaxMana = 50 ;
+            Mana = 50 ;
+            AttackPower = 10 ;
+            AmorDefense = 5;
             Quests = new List<Quest>();
             Counter = false;
             EvadeBuff = false;
@@ -69,14 +69,54 @@ namespace TextRPG_Team12
 
         public override void TakeDamage(int damage)
         {
-            int deDamage = damage - AmorDefense / 3; 
+            int deDamage = damage - (AmorDefense+AmorStat) / 3; 
             if (deDamage < 0) deDamage = 0;
-            Console.WriteLine($"{Name}이(가) {deDamage}의 데미지를 받았습니다.");
+            
+            UImanager.BlinkText($"{Name}이(가) {deDamage}의 데미지를 받았습니다.", 2, 200, ConsoleColor.DarkGray, ConsoleColor.White);
+
 
             Health -= deDamage;
-            if (IsDead) Console.WriteLine($"{Name}이(가) 죽었습니다.");
+            if (IsDead)
+            {
+                UImanager.BlinkText($"{Name}이(가) 죽었습니다.", 2, 200, ConsoleColor.DarkRed, ConsoleColor.Red);
+                Console.ForegroundColor = ConsoleColor.DarkRed;
+                Console.WriteLine($"게임 오버!");
+                Console.ResetColor();
+                Thread.Sleep(1000);
+                UImanager.EndingAnimation();
+                Thread.Sleep(2000);
+                Environment.Exit(0);
+
+            }
             else Console.WriteLine($"남은 체력: {Health}");
 
+        }
+
+        public override void Attack(Character character)
+        {
+            int AttackPower1 = AttackPower + WeaponStat;
+            int r = (AttackPower1 % 10 == 0) ? (AttackPower1 / 10) : (AttackPower1 / 10 + 1);
+            int damage = new Random().Next(AttackPower1 - r, AttackPower1 + r + 1);
+
+            Console.Write("\u001b[48;2;30;30;30m\u001b[38;2;255;255;255m");
+            Console.WriteLine($"{Name}의 공격!\u001b[0m");
+
+            if (new Random().Next(1, 101) <= Evasion)
+            {
+                UImanager.BlinkText("공격이 빗나갔습니다.", 1, 200, ConsoleColor.Red, ConsoleColor.White);
+
+            }
+            else if (new Random().Next(1, 101) <= Critical)
+            {
+                UImanager.BlinkText("크리티컬!", 1, 200, ConsoleColor.Cyan, ConsoleColor.White);
+                character.TakeDamage((int)Math.Round(damage * 1.5));
+
+            }
+            else
+            {
+                character.TakeDamage(damage);
+
+            }
         }
 
         public void ShowStatus()
@@ -93,7 +133,8 @@ namespace TextRPG_Team12
             Console.WriteLine($"\t• 체력: {Health}");
             Console.WriteLine($"\t• GOLD: {Gold}");
             Console.WriteLine();
-            Console.WriteLine($"\t\u001b[38;2;255;150;150m0. 나가기\u001b[0m");
+            Console.Write("\t\u001b[38;2;255;150;150m");
+            Console.WriteLine($"0. 나가기\u001b[0m");
 
 
         }
@@ -116,12 +157,12 @@ namespace TextRPG_Team12
             int EquipCount = Inventory.Count(item => item is Equipment);
             int MiscellCount = EquipCount;
 
-            for (int i = 0; i < EquipCount;  i++)
+            for (int i = 0; i < EquipCount; i++)
             {
                 Equipment targetInventory = Inventory[i] as Equipment;
 
                 string displayIdx = showIdx ? $"{i + 1} " : "";
-                string displayEquipped = IsEquipped(targetInventory) ? "\u001b[48;2;255;255;255m\u001b[38;2;0;0;0m[E]\u001b[0m" : "";
+                string displayEquipped = targetInventory.IsEquipped ? "\u001b[48;2;255;255;255m\u001b[38;2;0;0;0m[E]\u001b[0m" : "";
                 Console.WriteLine($"- {displayIdx}{displayEquipped} {targetInventory.EquipmentStatText()}");
 
 
@@ -138,13 +179,12 @@ namespace TextRPG_Team12
 
                 }
 
-
             }
 
 
             Console.WriteLine();
-            Console.WriteLine(showIdx ?  "" : "1. 장착관리");
-            //Console.WriteLine("장착하실 아이템의 번호를 입력하세요.");
+            Console.WriteLine(showIdx ?  "" : "1. 장착 / 해제 관리");
+            Console.WriteLine();
             Console.WriteLine($"0. 나가기");
 
             return OnlyEquip ? EquipCount :Inventory.Count;
@@ -167,8 +207,8 @@ namespace TextRPG_Team12
                 while (LevelUpExp[Level] < Exp)
                 {
 
-                    
-                        Console.WriteLine($"축하합니다. 레벨업 하였습니다.");
+                        UImanager.BlinkText2("축하합니다. 레벨업 하였습니다.", 4, 100, ConsoleColor.Blue, ConsoleColor.Yellow, ConsoleColor.Magenta, ConsoleColor.Green);
+                        Console.WriteLine();
 
                         Level += 1;
                         Exp -= LevelUpExp[Level];
@@ -196,9 +236,11 @@ namespace TextRPG_Team12
            
             Equipment EquipItem = Inventory[TargetNum] as Equipment;
 
-            if (IsEquipped(EquipItem))
+            if (EquipItem.IsEquipped)
             {
-                EquipList.Remove(EquipItem);
+                EquipItem.IsEquipped = false;
+  
+
                 if (EquipItem.Type == EquipmentType.Weapon)
                 {
                     WeaponStat -= EquipItem.Attack;
@@ -210,7 +252,8 @@ namespace TextRPG_Team12
             }
             else
             {
-                EquipList.Add(EquipItem);
+                EquipItem.IsEquipped = true;
+ 
                 if (EquipItem.Type == EquipmentType.Weapon)
                 {
                     WeaponStat += EquipItem.Attack;
@@ -219,21 +262,45 @@ namespace TextRPG_Team12
                     AmorStat += EquipItem.Defense;
             }
 
+            Inventory[TargetNum] = EquipItem;
         }
 
 
         public bool IsEquipped(Equipment item)
         {
-            return EquipList.Contains(item);
+
+            if (Inventory.Contains(item))
+            {
+                Equipment targetItem = Inventory[Inventory.IndexOf(item)] as Equipment;
+                return targetItem.IsEquipped;
+            }
+
+            return false;
         }
 
-        public bool isItemHave(ItemType item)
+        public ItemType isItemHave(string itemname)
         {
 
-            return Inventory.Contains(item);
+            ItemType targetItem = null;
+
+           
+                foreach (ItemType Item in Inventory)
+                {
+
+                    if (Item != null && Item.Name == itemname)
+                    {
+                        targetItem = Item;
+                        break;
+                    }
+
+                }
+          
+
+            return targetItem;
         
         }
 
+ 
 
         public void AddQuest(Quest quest)
         {
@@ -247,10 +314,13 @@ namespace TextRPG_Team12
 
             Console.Clear();
             Console.WriteLine();
-            Console.WriteLine("\u001b[48;2;30;30;30m\u001b[38;2;255;255;255m[ 보유 골드 ]\u001b[0m");
-            Console.WriteLine($"\u001b[38;2;255;255;210m{Gold}G\u001b");
+            Console.Write("\u001b[48;2;30;30;30m\u001b[38;2;255;255;255m");
+            Console.WriteLine("[ 보유 골드 ]\u001b[0m");
+            Console.Write("\u001b[38;2;255;255;210m");
+            Console.WriteLine($"{Gold}G\u001b");
             Console.WriteLine();
-            Console.WriteLine("\u001b[48;2;30;30;30m\u001b[38;2;255;255;255m[ 아이템 목록 ]\u001b[0m");
+            Console.Write("\u001b[48;2;30;30;30m\u001b[38;2;255;255;255m");
+            Console.WriteLine("[ 아이템 목록 ]\u001b[0m");
             Console.WriteLine();
 
             for (int i = 0; i < ShopList.Count; i++)
@@ -266,7 +336,9 @@ namespace TextRPG_Team12
 
             Console.WriteLine();
             Console.WriteLine(!showIdx ? "1. 아이템구매\n2. 아이템판매" : "");
-            Console.WriteLine($"\u001b[38;2;255;150;150m0. 나가기\u001b[0m");
+            Console.Write("\u001b[38;2;255;150;150m");
+            Console.WriteLine();
+            Console.WriteLine($"0. 나가기\u001b[0m");
 
             return ShopList.Count;
 
@@ -283,7 +355,7 @@ namespace TextRPG_Team12
             Equipment targetItem = ShopList[TargetNum];
 
 
-            if (targetItem.IsPurchased != true && Gold > targetItem.Price)
+            if (targetItem.IsPurchased != true && Gold >= targetItem.Price)
             {
 
                 ShopList[TargetNum].IsPurchased = true;
@@ -308,16 +380,15 @@ namespace TextRPG_Team12
             {
 
 
-                Console.WriteLine("Gold가 부족합니다.");
-                
+                UImanager.BlinkText("Gold가 부족합니다.", 3, 100, ConsoleColor.Yellow, ConsoleColor.Red);
 
 
             }
             else if (targetItem.IsPurchased)
             {
 
-                Console.WriteLine("이미 구매한 아이템입니다.");
-           
+                UImanager.BlinkText("이미 구매한 아이템입니다.", 3, 100, ConsoleColor.Blue, ConsoleColor.White);
+
 
             }
 
@@ -337,51 +408,55 @@ namespace TextRPG_Team12
                 return;
 
 
-            int EquipCount = Inventory.Count(item => item is Equipment) - 1;
-
-
-            if (0 < EquipCount && EquipCount <= TargetNum )
+            if (Inventory[TargetNum] is Equipment)
             {
 
                 Equipment targetItem = Inventory[TargetNum] as Equipment;
 
 
-                if (targetItem.IsPurchased == true)
+                if (targetItem.IsEquipped)
+                    Console.WriteLine("아이템을 판매할 수 없습니다. 장착을 해제한 후 다시 시도하세요.");
+
+
+                else if (targetItem.IsPurchased == true)
                 {
 
-                    if (IsEquipped(targetItem))
+                    foreach (Equipment ShopItem in ShopList)
                     {
-                        EquipList.Remove(targetItem);
-                        if (targetItem.Type == EquipmentType.Weapon)
+
+                        if (ShopItem.Name == targetItem.Name)
                         {
-                            WeaponStat -= targetItem.Attack;
+
+                            ShopItem.IsPurchased = false;
+                            break;
                         }
-                        else
-                            AmorStat -= targetItem.Defense;
 
                     }
 
-  
+                    Gold += targetItem.Price;
+                    Inventory.Remove(targetItem);
+                    Console.WriteLine("아이템을 판매했습니다.");
 
-                    int ShopListNum = ShopList.IndexOf(targetItem);                    
-                    ShopList[ShopListNum].IsPurchased = false;
-               
+                }
+                else
+                {
 
                     Gold += targetItem.Price;
                     Inventory.Remove(targetItem);
-
                     Console.WriteLine("아이템을 판매했습니다.");
 
                 }
 
-                else
-                    Console.WriteLine("판매할 수 없는 아이템입니다.");
+
             }
+
             else
             {
                 ItemType targetItem = Inventory[TargetNum];
 
-                Console.WriteLine("원하시는 판매 개수를 입력해주세요");
+
+                Console.WriteLine($"해당하는 아이템의 개당 가격은 {targetItem.Price} G 입니다.");
+                Console.WriteLine($"원하시는 판매 개수를 입력해주세요. 0 ~ {targetItem.HasNum}");
                 int SellCount = Num.Sel(targetItem.HasNum);
 
 
@@ -389,8 +464,7 @@ namespace TextRPG_Team12
 
                 if (Inventory[TargetNum].HasNum == 0)
                     Inventory.Remove(targetItem);
-                              
-
+                            
                 Gold += targetItem.Price * SellCount;
 
                 Console.WriteLine("아이템을 판매했습니다.");
@@ -403,74 +477,54 @@ namespace TextRPG_Team12
 
         public static void QuestMenu(Player player)
         {
-            if (player.Quests.Count == 0)
+            Console.Clear();
+            Console.Write("\u001b[48;2;30;30;30m\u001b[38;2;255;255;255m");
+            Console.WriteLine("진행 중인 퀘스트 목록: \u001b[0m");
+            Console.WriteLine();
+            for (int i = 0; i < player.Quests.Count; i++)
             {
-                Console.WriteLine("\n현재 진행 중인 퀘스트가 없습니다.");
-                return;
+                var quest = player.Quests[i];
+                Console.WriteLine($"{i + 1}. {quest.Name} (진행 상태: {(quest.IsCompleted ? "완료" : "진행 중")})");
             }
 
-            while (true)
+            Console.WriteLine();
+            Console.WriteLine("\n퀘스트를 완료하려면 번호를 입력하세요");
+            Console.Write("\u001b[38;2;255;150;150m");
+            Console.WriteLine("0. 돌아가기 \u001b[0m");
+            int choice = Num.Sel(player.Quests.Count);
+
+            if (choice > 0 && choice <= player.Quests.Count)
             {
-                Console.WriteLine("진행 중인 퀘스트 목록:");
-                for (int i = 0; i < player.Quests.Count; i++)
+                var selectedQuest = player.Quests[choice - 1];
+
+                if (selectedQuest.IsCompleted)
                 {
-                    var quest = player.Quests[i];
-                    Console.WriteLine($"{i + 1}. {quest.Name} (진행 상태: {(quest.IsCompleted ? "완료" : "진행 중")})");
-                }
+                    Console.WriteLine("보상을 받으시겠습니까?");
+                    Console.WriteLine("1. 예 / 2. 아니오");
+                    int rewardChoice = Num.Sel(2);
 
-                Console.WriteLine("\n퀘스트를 완료하려면 번호를 입력하세요 (0. 돌아가기):");
-                int choice = Num.Sel(player.Quests.Count);
-
-                if (choice > 0 && choice <= player.Quests.Count)
-                {
-                    var selectedQuest = player.Quests[choice - 1];
-
-                    if (selectedQuest.IsCompleted)
+                    if (rewardChoice == 1)
                     {
-
-                        Console.WriteLine("보상을 받으시겠습니까? (1. 예 / 2. 아니오)");
-                        int rewardChoice = Num.Sel(2);
-
-                        if (rewardChoice == 1)
-                        {
-                            // 퀘스트 완료 시 보상 지급 및 초기화
-                            selectedQuest.CompleteQuest(player);
-                            Console.WriteLine($"퀘스트 '{selectedQuest.Name}'가 초기화되었습니다.");
-                        }
+                        // 보상 주고 초기화
+                        selectedQuest.CompleteQuest(player);
+                        Console.WriteLine($"퀘스트 '{selectedQuest.Name}'가 초기화되었습니다.");
                     }
                     else
                     {
-                        selectedQuest.CheckProgress(); // 진행 상황 확인
-
-                        if (selectedQuest.IsCompleted)
-                        {
-                            // 퀘스트 완료 시 보상 지급
-                            selectedQuest.CompleteQuest(player);
-                            Console.WriteLine($"퀘스트 '{selectedQuest.Name}'를 완료하였습니다!");
-                        }
-                        else
-                        {
-                            Console.WriteLine($"퀘스트 '{selectedQuest.Name}'는 아직 완료되지 않았습니다.");
-                        }
+                        // 보상 안받기 
+                        Console.WriteLine($"퀘스트 '{selectedQuest.Name}'는 완료 상태입니다. 보상을 받지 않았습니다.");
                     }
-                    break;
                 }
-                else if (choice == 0)
+                else
                 {
-                    
-                    break;
+                    Console.WriteLine($"퀘스트 '{selectedQuest.Name}'는 아직 완료되지 않았습니다.");
                 }
             }
-
-            Num.Sel(0);
+            else if (choice == 0)
+            {
+                return;
+            }
+            Console.WriteLine("\n0. 돌아간다.");
         }
-
-
-
-
-
-
-
     }
-
 }

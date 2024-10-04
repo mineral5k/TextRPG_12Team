@@ -19,7 +19,7 @@ namespace TextRPG_Team12
         public int stun = 0;
 
 
-        public void CommontemData()
+        public void CommonItemData()
         {
 
             CommonItemlistDB = new List<ItemType>
@@ -71,14 +71,10 @@ namespace TextRPG_Team12
 
                     Console.WriteLine($"{TargetItem.Name}");
 
-                    if (!player.isItemHave(TargetItem))
-                    {
+                    TargetItem.HasNum = 1;
+                    player.Inventory.Add(TargetItem);
 
-                        TargetItem.HasNum = 1;
-                        player.Inventory.Add(TargetItem);
-
-                    }
-
+                   
                 }
 
                 else 
@@ -86,10 +82,12 @@ namespace TextRPG_Team12
                     int Itemnum = rand.Next(1, 3);
 
 
-                    if (player.isItemHave(TargetItem))
+                    ItemType isItemCheck = player.isItemHave(TargetItem.Name);
+
+                    if(isItemCheck != null)
                     {
 
-                        int inventoryItemnum = player.Inventory.IndexOf(TargetItem);
+                        int inventoryItemnum = player.Inventory.IndexOf(isItemCheck);
 
                         if ((player.Inventory[inventoryItemnum].HasNum += Itemnum) <= 99)
                             player.Inventory[inventoryItemnum].HasNum += Itemnum;
@@ -101,7 +99,6 @@ namespace TextRPG_Team12
                     {
                         TargetItem.HasNum = Itemnum;
                         player.Inventory.Add(TargetItem);
-
 
                     }
 

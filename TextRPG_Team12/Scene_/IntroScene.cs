@@ -21,10 +21,29 @@ public class IntroScene : IScene
         Console.WriteLine();
         Console.WriteLine("────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────");
         Console.WriteLine();
-        Console.WriteLine("\x1b[48;2;30;30;30m\x1b[38;2;255;255;255m• 사용하실 이름을 입력하세요 \u001b[0m");
+        Console.Write("\u001b[48;2;30;30;30m\u001b[38;2;255;255;255m");
+        Console.WriteLine("• 사용하실 이름을 입력하세요 \u001b[0m");
         Name = Console.ReadLine();
-        Console.WriteLine("\n\x1b[48;2;30;30;30m\x1b[38;2;255;255;255m• 원하시는 직업을 선택하세요 \u001b[0m");
-        Console.WriteLine("\x1b[38;2;255;88;88m1. \u001b[0m전사  \u001b[38;2;93;215;166m2. \u001b[0m궁수  \u001b[38;2;133;223;255m3. \u001b[0m도적  \u001b[38;2;167;88;255m4. \u001b[0m마법사");
+        Console.Write("\n\u001b[48;2;30;30;30m\u001b[38;2;255;255;255m");
+        Console.WriteLine("• 원하시는 직업을 선택하세요 \u001b[0m");
+        Console.ForegroundColor = ConsoleColor.DarkRed;
+        Console.Write("1. ");
+        Console.ResetColor();
+        Console.Write("전사  ");
+        Console.ForegroundColor = ConsoleColor.DarkGreen;
+        Console.Write("2. ");
+        Console.ResetColor();
+        Console.Write("궁수  ");
+        Console.ForegroundColor = ConsoleColor.Cyan;
+        Console.Write("3. ");
+        Console.ResetColor();
+        Console.Write("도적  ");
+        Console.ForegroundColor= ConsoleColor.DarkMagenta;
+        Console.Write("4. ");
+        Console.ResetColor();
+        Console.WriteLine("마법사");
+
+
     }
 
     public IScene GetNextScene()
